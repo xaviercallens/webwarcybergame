@@ -1,0 +1,67 @@
+/**
+ * Neo-Hack: Gridlock — Design Tokens
+ */
+:root {
+  /* Core Palette */
+  --bg-color: #0A0E17;
+  --panel-bg: rgba(13, 21, 32, 0.95);
+  
+  /* Faction Colors */
+  --color-player: #00FF88;
+  --color-enemy: #FF4444;
+  --color-ally: #4488FF;
+  --color-neutral: #66AAAA;
+  
+  /* UI Colors */
+  --color-accent: #00FFDD;
+  --color-warning: #FFCC00;
+  --color-glow: rgba(0, 204, 214, 0.6);
+  --color-text-primary: #E0F0FF;
+  --color-text-muted: #667788;
+  
+  /* Typography */
+  --font-title: 'Orbitron', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-hud: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 3rem;
+  --text-4xl: 4rem;
+  
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  
+  /* Borders & Effects */
+  --border-radius-sm: 2px;
+  --border-radius-md: 4px;
+  --border-radius-lg: 8px;
+  
+  --shadow-neon: 0 0 10px var(--color-glow), inset 0 0 10px rgba(0, 204, 214, 0.2);
+  --shadow-text-neon: 0 0 8px currentColor;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-normal: 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-slow: 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Colorblind Mode Override */
+[data-colorblind="true"] {
+  --color-player: #3380FF;
+  --color-enemy: #FF8000;
+  --color-ally: #E6CC33;
+}

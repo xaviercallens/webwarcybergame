@@ -1,0 +1,264 @@
+[gd_scene load_steps=4 format=3 uid="uid://main_menu_scene"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/cyber_grid_background.png" id="2_background"]
+[ext_resource type="Theme" path="res://themes/cyberpunk_theme.tres" id="3_theme"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BackgroundOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.03, 0.08, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -200.0
+offset_right = 220.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="TitleContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TopBracket" type="Label" parent="VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.7, 0.8, 0.6)
+theme_override_font_sizes/font_size = 14
+text = "<<< INITIALIZING SYSTEM >>>"
+horizontal_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.9, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.8, 1, 0.4)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 52
+text = "CYBER//WAR"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.7, 0.8, 0.9)
+theme_override_font_sizes/font_size = 16
+text = "[ NETWORK DOMINATION PROTOCOL ]"
+horizontal_alignment = 1
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_theme")
+theme_override_font_sizes/font_size = 20
+text = ">> INITIALIZE BATTLE <<"
+
+[node name="HowToPlayButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_theme")
+theme_override_font_sizes/font_size = 20
+text = ">> TRAINING PROTOCOL <<"
+
+[node name="DemoButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_theme")
+theme_override_font_sizes/font_size = 20
+text = ">> WATCH DEMO <<"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_theme")
+theme_override_font_sizes/font_size = 20
+text = ">> SYSTEM CONFIG <<"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_theme")
+theme_override_font_sizes/font_size = 20
+text = ">> TERMINATE <<"
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -35.0
+offset_right = 200.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.6, 0.7, 0.5)
+theme_override_font_sizes/font_size = 11
+text = "sys.ver: 1.0.0 // status: ONLINE"
+
+[node name="TopLeftDecor" type="Label" parent="."]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 300.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0.6, 0.7, 0.4)
+theme_override_font_sizes/font_size = 12
+text = "[SYS] Network Interface Active"
+
+[node name="TopRightDecor" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 45.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0.6, 0.7, 0.4)
+theme_override_font_sizes/font_size = 12
+text = "CONN: SECURE"
+horizontal_alignment = 2
+
+[node name="SettingsPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -170.0
+offset_right = 200.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="HeaderRow" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8, 0.9, 1)
+text = "[*]"
+
+[node name="SettingsTitle" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 20
+text = " SYSTEM_CONFIG.ini"
+horizontal_alignment = 1
+
+[node name="Icon2" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8, 0.9, 1)
+text = "[*]"
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MasterVolume" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MasterVolume"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.9, 1, 0.9)
+text = "> Master"
+
+[node name="MasterSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+
+[node name="SFXVolume" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SFXVolume"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.9, 1, 0.9)
+text = "> SFX"
+
+[node name="SFXSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/SFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 80.0
+
+[node name="MusicVolume" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MusicVolume"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.9, 1, 0.9)
+text = "> Music"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/MusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 50.0
+
+[node name="HSeparator2" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_theme")
+text = "[ CLOSE ]"

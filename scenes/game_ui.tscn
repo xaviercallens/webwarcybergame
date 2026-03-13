@@ -1,0 +1,337 @@
+[gd_scene load_steps=4 format=3 uid="uid://game_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_script"]
+[ext_resource type="Theme" path="res://themes/cyberpunk_theme.tres" id="2_theme"]
+[ext_resource type="Script" path="res://scripts/minimap.gd" id="3_minimap"]
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Minimap" type="Control" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -210.0
+offset_right = 195.0
+offset_bottom = -15.0
+grow_vertical = 0
+script = ExtResource("3_minimap")
+
+[node name="MinimapLabel" type="Label" parent="Minimap"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0.9, 1, 0.9)
+theme_override_font_sizes/font_size = 10
+text = "NET_MAP"
+horizontal_alignment = 1
+
+[node name="HUDPanel" type="PanelContainer" parent="."]
+offset_right = 450.0
+offset_bottom = 90.0
+theme = ExtResource("2_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUDPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleRow" type="HBoxContainer" parent="HUDPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatusIcon" type="Label" parent="HUDPanel/MarginContainer/VBoxContainer/TitleRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+text = "[SYS]"
+
+[node name="ServerCountLabel" type="RichTextLabel" parent="HUDPanel/MarginContainer/VBoxContainer/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = " NETWORK STATUS: Player 0 | Enemy 0 | Ally 0 | Neutral 0"
+fit_content = true
+
+[node name="StatusLabel" type="Label" parent="HUDPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 0.8, 0.8)
+text = "// Control: 0% | Total: 0 servers"
+
+[node name="VictoryProgressBar" type="ProgressBar" parent="HUDPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 14)
+max_value = 75.0
+show_percentage = false
+
+[node name="ServerInfoPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -280.0
+offset_bottom = 320.0
+grow_horizontal = 0
+theme = ExtResource("2_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="ServerInfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ServerInfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderRow" type="HBoxContainer" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = "<>"
+
+[node name="TitleLabel" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = " NODE_INFO.dat"
+horizontal_alignment = 1
+
+[node name="CloseIcon" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = "<>"
+
+[node name="HSeparator" type="HSeparator" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ServerNameLabel" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "> Server Name"
+
+[node name="OwnerLabel" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = ":: PLAYER CONTROLLED"
+
+[node name="FirewallHeader" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 1, 0.7)
+text = "[FIREWALL INTEGRITY]"
+
+[node name="FirewallBar" type="ProgressBar" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("2_theme")
+value = 100.0
+show_percentage = false
+
+[node name="FirewallLabel" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "  Status: 100 / 100 units"
+
+[node name="PowerLabel" type="Label" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.3, 1)
+text = "  Output: 10.0 PWR"
+
+[node name="HSeparator2" type="HSeparator" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="ServerInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AttackButton" type="Button" parent="ServerInfoPanel/MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_theme")
+text = "[ INITIATE ATTACK ]"
+
+[node name="CancelButton" type="Button" parent="ServerInfoPanel/MarginContainer/VBoxContainer/ButtonContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_theme")
+text = "[ ABORT ]"
+
+[node name="AlliancePanel" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -180.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="AlliancePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AlliancePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderRow" type="HBoxContainer" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="AlliancePanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.5, 1, 1)
+text = "<=>"
+
+[node name="TitleLabel" type="Label" parent="AlliancePanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.3, 0.5, 1, 1)
+text = " DIPLO_LINK.sys"
+horizontal_alignment = 1
+
+[node name="Icon2" type="Label" parent="AlliancePanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.5, 1, 1)
+text = "<=>"
+
+[node name="HSeparator" type="HSeparator" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AllianceStatusLabel" type="Label" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "> Link Status: NEUTRAL"
+
+[node name="TrustHeader" type="Label" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 1, 0.7)
+text = "[TRUST COEFFICIENT]"
+
+[node name="TrustBar" type="ProgressBar" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_theme")
+min_value = -100.0
+show_percentage = false
+
+[node name="TrustLabel" type="Label" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "  Value: 0"
+
+[node name="AllianceButton" type="Button" parent="AlliancePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+text = "[ REQUEST ALLIANCE ]"
+
+[node name="TargetPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -140.0
+offset_right = 180.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="TargetPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TargetPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderRow" type="HBoxContainer" parent="TargetPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="TargetPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "[!]"
+
+[node name="TargetLabel" type="Label" parent="TargetPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = " SELECT_TARGET.exe"
+horizontal_alignment = 1
+
+[node name="Icon2" type="Label" parent="TargetPanel/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "[!]"
+
+[node name="HSeparator" type="HSeparator" parent="TargetPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TargetList" type="ItemList" parent="TargetPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_theme")
+
+[node name="CancelTargetButton" type="Button" parent="TargetPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+text = "[ CANCEL OPERATION ]"
+
+[node name="GameOverPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -120.0
+offset_right = 250.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="GameOverLabel" type="Label" parent="GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = ">> SIMULATION TERMINATED <<"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+text = "[ REINITIALIZE SYSTEM ]"

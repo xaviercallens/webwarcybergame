@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neo-Hack: Gridlock</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- CSS Architecture -->
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/base.css" />
+    <link rel="stylesheet" href="/styles/components.css" />
+    <link rel="stylesheet" href="/styles/screens.css" />
+    
+    <!-- ES Module Import Map for native browser resolution -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/": "https://unpkg.com/three@0.160.0/",
+        "globe.gl": "https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.mjs"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Always-on Scan lines / CRT effects -->
+    <div class="fx-scanlines"></div>
+    <div class="fx-vignette"></div>
+
+    <!-- App Root -->
+    <div id="app"></div>
+
+    <!-- Entry script -->
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>

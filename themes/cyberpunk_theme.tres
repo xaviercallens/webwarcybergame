@@ -1,0 +1,131 @@
+[gd_resource type="Theme" format=3]
+
+[sub_resource type="StyleBoxFlat" id="panel_style"]
+bg_color = Color(0.02, 0.05, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.9, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0.8, 0.9, 0.3)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="button_normal"]
+bg_color = Color(0.05, 0.1, 0.15, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.9, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="button_hover"]
+bg_color = Color(0, 0.3, 0.4, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1.0, 1.0, 1.0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 1.0, 1.0, 0.4)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="button_pressed"]
+bg_color = Color(0, 0.5, 0.6, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1.0, 1.0, 1.0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="button_disabled"]
+bg_color = Color(0.02, 0.04, 0.06, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.3, 0.4, 0.4)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="progress_bg"]
+bg_color = Color(0.02, 0.05, 0.08, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.5, 0.6, 0.5)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="progress_fill"]
+bg_color = Color(0, 0.8, 0.9, 0.9)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="itemlist_bg"]
+bg_color = Color(0.02, 0.05, 0.08, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.6, 0.7, 0.5)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="itemlist_selected"]
+bg_color = Color(0, 0.4, 0.5, 0.8)
+border_width_left = 2
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color(0, 1.0, 1.0, 1.0)
+
+[sub_resource type="StyleBoxFlat" id="separator_style"]
+bg_color = Color(0, 0.6, 0.7, 0.4)
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+
+[resource]
+PanelContainer/styles/panel = SubResource("panel_style")
+Button/styles/normal = SubResource("button_normal")
+Button/styles/hover = SubResource("button_hover")
+Button/styles/pressed = SubResource("button_pressed")
+Button/styles/disabled = SubResource("button_disabled")
+Button/colors/font_color = Color(0, 0.9, 1.0, 1.0)
+Button/colors/font_hover_color = Color(0.5, 1.0, 1.0, 1.0)
+Button/colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1.0)
+Button/colors/font_disabled_color = Color(0.3, 0.4, 0.5, 0.6)
+ProgressBar/styles/background = SubResource("progress_bg")
+ProgressBar/styles/fill = SubResource("progress_fill")
+Label/colors/font_color = Color(0, 0.9, 1.0, 1.0)
+Label/colors/font_shadow_color = Color(0, 0.5, 0.6, 0.3)
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+ItemList/styles/panel = SubResource("itemlist_bg")
+ItemList/styles/selected = SubResource("itemlist_selected")
+ItemList/colors/font_color = Color(0, 0.9, 1.0, 1.0)
+ItemList/colors/font_selected_color = Color(1.0, 1.0, 1.0, 1.0)
+HSeparator/styles/separator = SubResource("separator_style")

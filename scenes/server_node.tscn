@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://server_node_scene"]
+
+[ext_resource type="Script" path="res://scripts/server_node.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/server_node_neutral.png" id="2_texture"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_click"]
+radius = 40.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_glow"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_particles"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="ServerNode" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_texture")
+
+[node name="SelectionRing" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 0, 0.8)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("2_texture")
+material = SubResource("CanvasItemMaterial_glow")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -30.0
+offset_top = 45.0
+offset_right = 30.0
+offset_bottom = 55.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = -50.0
+offset_top = -65.0
+offset_right = 50.0
+offset_bottom = -45.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_click")
+
+[node name="AttackParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+
+[node name="DefenseParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+lifetime = 0.3
+one_shot = true
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

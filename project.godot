@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="CyberWar"
+run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Config="*res://autoload/Config.gd"
+Audio="*res://scenes/audio_manager.tscn"
+GameState="*res://scripts/game_state.gd"
+
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/moonlake_copilot/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+
+[gui]
+
+theme/custom="res://default_theme.tres"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=2

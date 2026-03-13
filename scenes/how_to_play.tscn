@@ -1,0 +1,170 @@
+[gd_scene load_steps=4 format=3 uid="uid://how_to_play_scene"]
+
+[ext_resource type="Script" path="res://scripts/how_to_play.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/cyber_grid_background.png" id="2_background"]
+[ext_resource type="Theme" path="res://themes/cyberpunk_theme.tres" id="3_theme"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BackgroundOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.03, 0.08, 0.88)
+
+[node name="TopDecor" type="Label" parent="."]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 300.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0, 0.6, 0.7, 0.4)
+theme_override_font_sizes/font_size = 11
+text = "[SYS] Loading training_protocol.dat..."
+
+[node name="HeaderLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 1, 0.9, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.6, 0.8, 0.4)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 28
+text = ">> TRAINING PROTOCOL <<"
+horizontal_alignment = 1
+
+[node name="ContentPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -170.0
+offset_right = 380.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="ContentPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="ContentContainer" type="VBoxContainer" parent="ContentPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderRow" type="HBoxContainer" parent="ContentPanel/MarginContainer/ContentContainer"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="ContentPanel/MarginContainer/ContentContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = "[i]"
+
+[node name="TitleLabel" type="Label" parent="ContentPanel/MarginContainer/ContentContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_font_sizes/font_size = 22
+text = " SECTION_TITLE.doc"
+horizontal_alignment = 1
+
+[node name="Icon2" type="Label" parent="ContentPanel/MarginContainer/ContentContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = "[i]"
+
+[node name="HSeparator" type="HSeparator" parent="ContentPanel/MarginContainer/ContentContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="ContentPanel/MarginContainer/ContentContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0.9, 1, 0.95)
+bbcode_enabled = true
+text = "Content goes here..."
+fit_content = false
+scroll_active = false
+
+[node name="NavigationContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -95.0
+offset_right = 180.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="NavigationContainer"]
+custom_minimum_size = Vector2(120, 45)
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "<< PREV"
+
+[node name="PageLabel" type="Label" parent="NavigationContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8, 0.9, 0.8)
+text = "[ 1 / 6 ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="NavigationContainer"]
+custom_minimum_size = Vector2(120, 45)
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "NEXT >>"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -55.0
+offset_right = 160.0
+offset_bottom = -15.0
+grow_vertical = 0
+theme = ExtResource("3_theme")
+text = "[ EXIT ]"

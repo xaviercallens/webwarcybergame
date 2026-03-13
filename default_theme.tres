@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bk7xq2m4thf5e"]
+
+[ext_resource type="FontFile" uid="uid://h27y6a2c07oh" path="res://assets/fonts/NotoSansSymbols.ttf" id="1_symbols"]
+[ext_resource type="FontFile" uid="uid://cvqww3it1sxan" path="res://assets/fonts/NotoSansSymbols2.ttf" id="2_symbols2"]
+[ext_resource type="FontFile" uid="uid://da38sm0686m2k" path="res://assets/fonts/NotoColorEmoji.ttf" id="3_emoji"]
+
+[sub_resource type="SystemFont" id="SystemFont_base"]
+
+[sub_resource type="FontVariation" id="FontVariation_main"]
+base_font = SubResource("SystemFont_base")
+fallbacks = [ExtResource("1_symbols"), ExtResource("2_symbols2"), ExtResource("3_emoji")]
+
+[resource]
+default_font = SubResource("FontVariation_main")
+default_font_size = 16

@@ -1,0 +1,38 @@
+INFO:     Will watch for changes in these directories: ['/home/kalxav/xdev/webwargame/CascadeProjects/windsurf-project']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [5435] using WatchFiles
+INFO:     Started server process [5438]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60838 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35638 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35642 - "GET /styles/base.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35638 - "GET /styles/tokens.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35646 - "GET /styles/components.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35652 - "GET /styles/screens.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35666 - "GET /scripts/main.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35666 - "GET /scripts/game-engine.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35646 - "GET /scripts/promo-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35642 - "GET /scripts/audio-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35652 - "GET /scripts/demo-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35638 - "GET /scripts/api-client.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35666 - "GET /scripts/ui-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35642 - "GET /scripts/renderer.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35666 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34006 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60880 - "GET /TST_KAFKA_RIGHTSIZING_REPORT.html HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60880 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60880 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60882 - "GET /styles/base.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60884 - "GET /styles/components.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60880 - "GET /styles/tokens.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60900 - "GET /scripts/main.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60886 - "GET /styles/screens.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60900 - "GET /scripts/game-engine.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60886 - "GET /scripts/demo-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60884 - "GET /scripts/promo-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60882 - "GET /scripts/api-client.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60906 - "GET /scripts/audio-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60900 - "GET /scripts/renderer.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60880 - "GET /scripts/ui-manager.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56038 - "GET / HTTP/1.1" 200 OK
