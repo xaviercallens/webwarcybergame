@@ -1,10 +1,22 @@
 # 🌐 Neo-Hack: Gridlock
 
+[![Play Now](https://img.shields.io/badge/PLAY_LIVE-Online_Playground-brightgreen?style=for-the-badge&logo=github)](https://xaviercallens.github.io/webwarcybergame/)
+
 > **Global Cyber Warfare Simulation in full 3D.**
 
-![Neo-Hack: Gridlock](docs/game_view_promo.png)
+🔥 **[Watch the Global Simulation Trailer](docs/neo_hack_promo_trailer.mp4)** 🔥
+
+<video src="https://github.com/xaviercallens/webwarcybergame/raw/main/docs/neo_hack_promo_trailer.mp4" width="100%" controls autoplay loop muted playsinline></video>
 
 **Neo-Hack: Gridlock** is an immersive, browser-based cyber warfare strategy game played out on a visually stunning 3D globe. Take command of regional nodes, bypass enemy firewalls, and launch coordinated hacking payloads to achieve Total Dominance against rival factions.
+
+## 📸 Core Intel
+
+<div align="center">
+  <img src="docs/screenshot_cyber_menu.png" width="32%" alt="Main Menu">
+  <img src="docs/screenshot_cyber_tutorial.png" width="32%" alt="Tactical Tutorial">
+  <img src="docs/screenshot_cyber_game.png" width="32%" alt="Live Gameplay">
+</div>
 
 ## ✨ Features
 
