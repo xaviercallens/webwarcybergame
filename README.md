@@ -66,6 +66,18 @@ The script features a smart deployment pipeline that will automatically:
 4. **Capture**: Watch the firewall integrity drop. When it reaches 0, the node is successfully routed to your control.
 5. **Dominate**: Capture 75% of the globe to achieve Total Dominance!
 
+## 🎨 Cyberpunk Visual Assets
+
+The project utilizes a custom neon-cyberpunk visual design language for its nodes and effects. 
+
+<div align="center">
+  <img src="assets/images/server_node_player.png" width="18%" alt="Player Node">
+  <img src="assets/images/server_node_enemy.png" width="18%" alt="Enemy Node">
+  <img src="assets/images/server_node_ally.png" width="18%" alt="Ally Node">
+  <img src="assets/images/defense_shield.png" width="18%" alt="Firewall Shield">
+  <img src="assets/images/attack_pulse.png" width="18%" alt="Attack Pulse">
+</div>
+
 ## 🤝 Contributing
 Contributions, tactical suggestions, and feature requests are welcome! Feel free to open an issue or submit a Pull Request.
 
