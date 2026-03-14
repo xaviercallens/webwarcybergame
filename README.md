@@ -13,9 +13,9 @@
 ## 📸 Core Intel
 
 <div align="center">
-  <img src="docs/screenshot_cyber_menu.png" width="32%" alt="Main Menu">
-  <img src="docs/screenshot_cyber_tutorial.png" width="32%" alt="Tactical Tutorial">
-  <img src="docs/screenshot_cyber_game.png" width="32%" alt="Live Gameplay">
+  <img src="docs/shot_01_main_menu.png" width="32%" alt="Main Menu">
+  <img src="docs/shot_02_gameplay.png" width="32%" alt="Tactical Tutorial">
+  <img src="docs/shot_03_combat_action.png" width="32%" alt="Live Gameplay">
 </div>
 
 ## ✨ Features
