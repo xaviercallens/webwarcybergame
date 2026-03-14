@@ -5,19 +5,30 @@
 
 class AudioManager {
   constructor() {
-    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-    this.masterGain = this.ctx.createGain();
-    this.masterGain.gain.value = 0.5; // Default volume
-    this.masterGain.connect(this.ctx.destination);
-    
-    // Bind global interactions to resume audio context (browser autoplay policy)
-    const unlock = () => {
-      if (this.ctx.state === 'suspended') {
-        this.ctx.resume();
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.value = 0.5; // Default volume
+        this.masterGain.connect(this.ctx.destination);
+        
+        // Bind global interactions to resume audio context (browser autoplay policy)
+        const unlock = () => {
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+          document.removeEventListener('click', unlock);
+        };
+        document.addEventListener('click', unlock);
+      } else {
+        this.ctx = null;
+        console.warn('AudioContext not supported');
       }
-      document.removeEventListener('click', unlock);
-    };
-    document.addEventListener('click', unlock);
+    } catch(e) {
+      this.ctx = null;
+      console.error('Failed to initialize AudioContext:', e);
+    }
   }
 
   setVolume(val) {

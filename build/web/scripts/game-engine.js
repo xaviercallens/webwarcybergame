@@ -35,7 +35,17 @@ export class GameEngine {
     this.bindEvents();
   }
 
-  async init() {
+  async init(difficulty = 'INTERMEDIATE') {
+    this.difficulty = difficulty;
+    
+    // Set AI aggression modifier
+    switch(this.difficulty) {
+        case 'BEGINNER': this.aiAggression = 0.05; break;
+        case 'INTERMEDIATE': this.aiAggression = 0.1; break;
+        case 'ADVANCED': this.aiAggression = 0.25; break;
+        default: this.aiAggression = 0.1; break;
+    }
+    
     await this.renderer.init();
     
     // Generate initial map (Geographic coordinates)
@@ -46,20 +56,64 @@ export class GameEngine {
     // Start loop
     this.isPlaying = true;
     this.stats = { startTime: performance.now(), nodesCaptured: 0, nodesLost: 0, attacksLaunched: 0 };
-    requestAnimationFrame(this.gameLoop.bind(this));
     
-    console.log('[SYS] Global Game Engine started.');
+    // Prevent overlapping requestAnimationFrame leaps!
+    if (this._animationFrameId) cancelAnimationFrame(this._animationFrameId);
+    this._boundGameLoop = this.gameLoop.bind(this);
+    this._animationFrameId = requestAnimationFrame(this._boundGameLoop);
+    
+    console.log(`[SYS] Global Engine started on ${this.difficulty} difficulty.`);
   }
 
   bindEvents() {
     window.addEventListener('nodeClicked', (e) => {
       this.handleNodeClick(e.detail.nodeId);
     });
-    
-    window.addEventListener('viewChanged', (e) => {
-      if (e.detail.view === 'game' && !this.renderer.globe) {
-        this.init();
-      }
+
+    // Keyboard Shortcuts for Highlighting & Attacking
+    window.addEventListener('keydown', (e) => {
+        if (!this.isPlaying) return;
+        const key = e.key.toLowerCase();
+        let needsRender = false;
+
+        // Auto-Attack (Spacebar)
+        if (key === ' ') {
+            e.preventDefault(); // Prevent page scrolling
+            this.executeAutoAttack();
+            return;
+        }
+
+        if (key === 'e' && !this.highlightEnemies) {
+            this.highlightEnemies = true;
+            needsRender = true;
+        }
+        if (key === 'a' && !this.highlightAttackable) {
+            this.highlightAttackable = true;
+            needsRender = true;
+        }
+
+        if (needsRender && this.renderer.globe) {
+            this.renderer.renderNodes(this.nodes, this.highlightEnemies, this.highlightAttackable, this.connections);
+        }
+    });
+
+    window.addEventListener('keyup', (e) => {
+        if (!this.isPlaying) return;
+        const key = e.key.toLowerCase();
+        let needsRender = false;
+
+        if (key === 'e' && this.highlightEnemies) {
+            this.highlightEnemies = false;
+            needsRender = true;
+        }
+        if (key === 'a' && this.highlightAttackable) {
+            this.highlightAttackable = false;
+            needsRender = true;
+        }
+
+        if (needsRender && this.renderer.globe) {
+            this.renderer.renderNodes(this.nodes, this.highlightEnemies, this.highlightAttackable, this.connections);
+        }
     });
   }
 
@@ -92,36 +146,37 @@ export class GameEngine {
     const innerNodeIds = [];
     
     for (let i = 0; i < innerCount; i++) {
-      const angle = (Math.PI * 2 * i) / innerCount;
-      const jitterAngle = angle + (Math.random() - 0.5) * 0.4;
-      const jitterRadius = innerRadiusDeg + (Math.random() - 0.5) * 5;
-      
-      const lat = corePos.lat + Math.sin(jitterAngle) * jitterRadius;
-      const lng = corePos.lng + Math.cos(jitterAngle) * jitterRadius * 2; // stretch longitude to account for mercator-ish spread
-      
-      let owner = 'NEUTRAL';
-      if (i === 0) owner = 'PLAYER';
-      else if (i === 3) owner = 'ENEMY';
-      else if (i === 5) owner = 'ALLY';
-      
-      const id = currentId++;
-      innerNodeIds.push(id);
-      
-      this.nodes.push({
-        id,
-        name: `SYS-${id.toString().padStart(2, '0')}`,
-        owner,
-        lat, lng,
-        firewall: 100, maxFirewall: 100, power: 8
-      });
-      
-      // Connect to hub
-      this.connections.push({ source: id, target: 0 });
-      
-      // Connect to previous sibling in ring
-      if (i > 0) {
-        this.connections.push({ source: id, target: id - 1 });
-      }
+        const angle = (Math.PI * 2 * i) / innerCount;
+        const jitterAngle = angle + (Math.random() - 0.5) * 0.4;
+        const jitterRadius = innerRadiusDeg + (Math.random() - 0.5) * 5;
+        
+        const lat = corePos.lat + Math.sin(jitterAngle) * jitterRadius;
+        const lng = corePos.lng + Math.cos(jitterAngle) * jitterRadius * 2;
+        
+        // Guarantee conflict by placing PLAYER next to ENEMY and NEUTRAL
+        let owner = 'NEUTRAL';
+        if (i === 0) owner = 'PLAYER';
+        else if (i === 1 || i === 4) owner = 'ENEMY';
+        else if (i === 3) owner = 'ALLY';
+        
+        const id = currentId++;
+        innerNodeIds.push(id);
+        
+        this.nodes.push({
+            id,
+            name: `SYS-${id.toString().padStart(2, '0')}`,
+            owner,
+            lat, lng,
+            firewall: 100, maxFirewall: 100, power: 8
+        });
+        
+        // Connect to hub
+        this.connections.push({ source: id, target: 0 });
+        
+        // Connect to previous sibling to form a solid inner ring
+        if (i > 0) {
+            this.connections.push({ source: id, target: id - 1 });
+        }
     }
     // close inner ring
     this.connections.push({ source: innerNodeIds[0], target: innerNodeIds[innerCount - 1] });
@@ -129,38 +184,53 @@ export class GameEngine {
     // 3. Global Outpost Ring (12 nodes)
     const outerRadiusDeg = 55;
     const outerCount = 12;
+    const outerNodeIds = [];
     
     for (let i = 0; i < outerCount; i++) {
-      const angle = (Math.PI * 2 * i) / outerCount;
-      const ji = angle + (Math.random() - 0.5) * 0.2;
-      const jr = outerRadiusDeg + (Math.random() - 0.5) * 10;
+        const angle = (Math.PI * 2 * i) / outerCount;
+        const ji = angle + (Math.random() - 0.5) * 0.2;
+        const jr = outerRadiusDeg + (Math.random() - 0.5) * 10;
+        
+        const lat = corePos.lat + Math.sin(ji) * jr;
+        const lng = corePos.lng + Math.cos(ji) * jr * 2.5;
+        
+        // Well-distributed layout
+        let owner = 'NEUTRAL';
+        let fw = 80;
       
-      const lat = corePos.lat + Math.sin(ji) * jr;
-      const lng = corePos.lng + Math.cos(ji) * jr * 2.5;
+        if (i === 0 || i === 1) {
+            owner = 'PLAYER';
+            if (this.difficulty === 'BEGINNER') fw = 150;
+            if (this.difficulty === 'ADVANCED') fw = 60;
+        }
+        if (i === 6 || i === 7) {
+            owner = 'ENEMY';
+            if (this.difficulty === 'BEGINNER') fw = 40;
+            if (this.difficulty === 'ADVANCED') fw = 120;
+        }
       
-      let owner = 'NEUTRAL';
-      if (i === 0 || i === 1) owner = 'PLAYER';
-      if (i === 6 || i === 7) owner = 'ENEMY';
+        const id = currentId++;
+        outerNodeIds.push(id);
       
-      const id = currentId++;
-      
-      this.nodes.push({
-        id,
-        name: `EXT-${id.toString().padStart(2, '0')}`,
-        owner,
-        lat, lng,
-        firewall: 80, maxFirewall: 80, power: 6
-      });
-      
-      // Connect to closest inner node
-      const closestInner = this.getClosestNodeGeo(lat, lng, innerNodeIds);
-      this.connections.push({ source: id, target: closestInner });
-      
-      // Connect to previous sibling sometimes
-      if (i > 0 && Math.random() > 0.3) {
-        this.connections.push({ source: id, target: id - 1 });
-      }
+        this.nodes.push({
+            id,
+            name: `EXT-${id.toString().padStart(2, '0')}`,
+            owner,
+            lat, lng,
+            firewall: fw, maxFirewall: fw, power: 6
+        });
+        
+        // Connect to closest inner node
+        const closestInner = this.getClosestNodeGeo(lat, lng, innerNodeIds);
+        this.connections.push({ source: id, target: closestInner });
+        
+        // Always connect outer nodes in a solid ring so no node is an island
+        if (i > 0) {
+            this.connections.push({ source: id, target: id - 1 });
+        }
     }
+    // Close outer ring
+    this.connections.push({ source: outerNodeIds[0], target: outerNodeIds[outerCount - 1] });
   }
 
   // Very basic equirectangular distance approximation for quick lookup
@@ -218,6 +288,62 @@ export class GameEngine {
     }
   }
 
+  executeAutoAttack() {
+      const playerNodes = this.nodes.filter(n => n.owner === 'PLAYER');
+      if (playerNodes.length === 0) return;
+      
+      let source = null;
+      let target = null;
+      
+      // If a player node is currently selected, prioritize attacking from it
+      if (this.selectedNodeId) {
+          const selected = playerNodes.find(n => n.id === this.selectedNodeId);
+          if (selected) {
+              target = this.findBestTargetForNode(selected);
+              if (target) source = selected;
+          }
+      }
+      
+      // If no valid target found from selected node, search all player nodes globally
+      if (!target) {
+          for (const pNode of playerNodes) {
+              target = this.findBestTargetForNode(pNode);
+              if (target) {
+                  source = pNode;
+                  break;
+              }
+          }
+      }
+      
+      if (source && target) {
+          // Launch the attack
+          this.initiateAttack(source.id, target.id);
+          // Visually select the node that launched the attack
+          this.selectedNodeId = source.id;
+          window.dispatchEvent(new CustomEvent('nodeSelected', { detail: { node: source } }));
+      } else {
+          // If the player spams Spacebar but there is absolutely nothing to attack
+          window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'NO VALID TARGETS IN RANGE', type: 'info' } }));
+      }
+  }
+  
+  findBestTargetForNode(sourceNode) {
+      // Find all adjacent node IDs based on the connections graph
+      const adjacentLinks = this.connections.filter(c => c.source === sourceNode.id || c.target === sourceNode.id);
+      const adjacentNodes = adjacentLinks.map(c => c.source === sourceNode.id ? c.target : c.source)
+                                         .map(id => this.nodes.find(n => n.id === id));
+                                         
+      // Prefer ENEMY targets first
+      const enemyTargets = adjacentNodes.filter(n => n && n.owner === 'ENEMY');
+      if (enemyTargets.length > 0) return enemyTargets[Math.floor(Math.random() * enemyTargets.length)];
+      
+      // Fallback to capturing NEUTRAL or ALLY nodes
+      const neutralTargets = adjacentNodes.filter(n => n && n.owner !== 'PLAYER');
+      if (neutralTargets.length > 0) return neutralTargets[Math.floor(Math.random() * neutralTargets.length)];
+      
+      return null;
+  }
+
   initiateAttack(sourceId, targetId) {
     console.log(`[ATK] Attack launched: ${sourceId} -> ${targetId}`);
     
@@ -242,7 +368,7 @@ export class GameEngine {
       this.tick();
     }
     
-    requestAnimationFrame(this.gameLoop.bind(this));
+    this._animationFrameId = requestAnimationFrame(this._boundGameLoop);
   }
 
   tick() {
@@ -291,7 +417,7 @@ export class GameEngine {
         // In normal mode, only ENEMY acts. In promo mode, EVERYONE acts autonomously!
         const canAct = this.promoMode ? (node.owner !== 'NEUTRAL') : (node.owner === 'ENEMY');
         
-        if (canAct && Math.random() < (this.promoMode ? 0.2 : 0.1)) { // Faster attacks in promo mode
+        if (canAct && Math.random() < (this.promoMode ? 0.2 : this.aiAggression)) {
           const adjacentLinks = this.connections.filter(c => c.source === node.id || c.target === node.id);
           const adjacentTargets = adjacentLinks.map(c => c.source === node.id ? c.target : c.source)
                                                .map(id => this.nodes.find(n => n.id === id))

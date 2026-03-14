@@ -7,6 +7,14 @@ export class PromoManager {
 
   start() {
     console.log('[SYS] Initiating Cyber War Promo Simulation');
+    
+    // Safety Guard: Cannot run 3D promo without WebGL Globe
+    if (!this.game.renderer || !this.game.renderer.globe) {
+        console.error('[FATAL] Promo Simulation Aborted: WebGL Context is missing. The 3D Engine failed to start.');
+        window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'SIMULATION ABORTED: Hardware Acceleration Required', type: 'error' } }));
+        return false;
+    }
+
     this.isActive = true;
     
     // Switch Views
@@ -29,12 +37,30 @@ export class PromoManager {
     // Generate specialized 5-team Global Map
     this.buildGlobalMap();
     
-    // Configure Camera for cinematic spinning
-    const controls = this.game.renderer.globe.controls();
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.2;
-    // Slow dramatic zoom in
-    this.game.renderer.globe.pointOfView({ altitude: 1.2 }, 15000);
+    // Configure Camera for cinematic spinning with resilient polling
+    let hookAttempts = 0;
+    const attemptCameraHook = () => {
+        try {
+            if (this.game.renderer.globe) {
+                const controls = this.game.renderer.globe.controls();
+                if (controls) {
+                    controls.autoRotate = true;
+                    controls.autoRotateSpeed = 1.2;
+                    // Slow dramatic zoom in
+                    this.game.renderer.globe.pointOfView({ altitude: 1.2 }, 15000);
+                    return; // Success, stop polling
+                }
+            }
+        } catch(e) { /* ignore null pointer */ }
+        
+        hookAttempts++;
+        if (hookAttempts < 120) { // Try for approx 2 seconds
+            requestAnimationFrame(attemptCameraHook);
+        } else {
+            console.warn("[SYS] Promo camera automation skipped (globe not ready within 2s timeout).");
+        }
+    };
+    attemptCameraHook();
     
     // Start autonomous warfare
     this.game.promoMode = true;

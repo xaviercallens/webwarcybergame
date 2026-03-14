@@ -28,11 +28,16 @@ if [ ! -f "$INPUT_FILE" ]; then
     exit 1
 fi
 
-echo "[*] Converting WebP recording to high-quality MP4 (H.264)..."
+echo "[*] Converting Animated WebP recording to high-quality MP4 (H.264)..."
 echo "[*] This may take a few moments depending on the simulation length."
 
-# FFmpeg command to convert animated webp to mp4 suitable for YouTube
-ffmpeg -i "$INPUT_FILE" -vcodec libx264 -pix_fmt yuv420p -crf 20 -preset slow "$OUTPUT_FILE" -y
+# FFmpeg command specifically tuned for Animated WebP parsing
+ffmpeg -vcodec webp -i "$INPUT_FILE" \
+       -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
+       -c:v libx264 -pix_fmt yuv420p \
+       -profile:v high -level 4.0 -crf 20 -preset slow \
+       -movflags +faststart \
+       "$OUTPUT_FILE" -y
 
 if [ $? -eq 0 ]; then
     echo "[+] SUCCESS! Video generated at: $OUTPUT_FILE"

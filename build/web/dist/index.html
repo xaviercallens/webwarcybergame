@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neo-Hack: Gridlock</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- CSS Architecture -->
+    
+    <!-- Asset Preloads for Optimization -->
+    <link rel="preload" href="/datasets/ne_110m_admin_0_countries.geojson" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="https://unpkg.com/three-globe/example/img/earth-water.png" as="image" crossorigin="anonymous">
+    
+    <!-- ES Module Import Map for native browser resolution -->
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/": "https://unpkg.com/three@0.160.0/",
+        "globe.gl": "https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.mjs"
+      }
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-DH7dT2aj.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DpCWYydZ.css">
+  </head>
+  <body>
+    <script>
+      window.addEventListener('error', function(e) {
+        let err = document.createElement('div');
+        err.style.cssText = 'color:red;font-size:24px;position:absolute;z-index:9999;background:black;padding:20px;';
+        err.innerText = 'ERROR: ' + e.message;
+        document.body.prepend(err);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        let err = document.createElement('div');
+        err.style.cssText = 'color:orange;font-size:24px;position:absolute;z-index:9999;background:black;padding:20px;';
+        err.innerText = 'PROMISE ERROR: ' + e.reason;
+        document.body.prepend(err);
+      });
+    </script>
+    <!-- Always-on Scan lines / CRT effects -->
+    <div class="fx-scanlines"></div>
+    <div class="fx-vignette"></div>
+
+    <!-- App Root -->
+    <div id="app"></div>
+
+    <!-- Entry script -->
+  </body>
+</html>

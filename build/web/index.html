@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="/styles/components.css" />
     <link rel="stylesheet" href="/styles/screens.css" />
     
+    <!-- Asset Preloads for Optimization -->
+    <link rel="preload" href="/datasets/ne_110m_admin_0_countries.geojson" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="https://unpkg.com/three-globe/example/img/earth-water.png" as="image" crossorigin="anonymous">
+    
     <!-- ES Module Import Map for native browser resolution -->
     <script type="importmap">
     {
@@ -28,6 +32,20 @@
     </script>
   </head>
   <body>
+    <script>
+      window.addEventListener('error', function(e) {
+        let err = document.createElement('div');
+        err.style.cssText = 'color:red;font-size:24px;position:absolute;z-index:9999;background:black;padding:20px;';
+        err.innerText = 'ERROR: ' + e.message;
+        document.body.prepend(err);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        let err = document.createElement('div');
+        err.style.cssText = 'color:orange;font-size:24px;position:absolute;z-index:9999;background:black;padding:20px;';
+        err.innerText = 'PROMISE ERROR: ' + e.reason;
+        document.body.prepend(err);
+      });
+    </script>
     <!-- Always-on Scan lines / CRT effects -->
     <div class="fx-scanlines"></div>
     <div class="fx-vignette"></div>

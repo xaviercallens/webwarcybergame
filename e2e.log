@@ -1,0 +1,17 @@
+Starting End-to-End Game Flow Test...
+/home/kalxav/xdev/webwargame/CascadeProjects/windsurf-project/node_modules/@puppeteer/browsers/lib/cjs/launch.js:350
+                reject(new Error([
+                       ^
+
+Error: Failed to launch the browser process:  Code: null
+
+stderr:
+
+
+TROUBLESHOOTING: https://pptr.dev/troubleshooting
+
+    at ChildProcess.onClose (/home/kalxav/xdev/webwargame/CascadeProjects/windsurf-project/node_modules/@puppeteer/browsers/lib/cjs/launch.js:350:24)
+    at ChildProcess.emit (node:events:536:35)
+    at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+
+Node.js v20.20.1

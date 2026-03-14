@@ -7,6 +7,7 @@ import { DemoManager } from './demo-manager.js';
 import { PromoManager } from './promo-manager.js';
 import { api } from './api-client.js';
 import { audio } from './audio-manager.js';
+import { initUI } from './ui-manager.js';
 
 // --- State ---
 const AppState = {
@@ -30,6 +31,16 @@ const views = {
       </div>
       
       <div class="menu-buttons">
+        <div class="difficulty-selector" style="margin-bottom: 2rem; border-bottom: 1px solid var(--color-accent); padding-bottom: 1rem;">
+          <label style="color: var(--color-accent); font-family: var(--font-mono); margin-right: 1rem;">[ DIFFICULTY_SYS ]</label>
+          <select id="sel-difficulty" style="background: var(--color-bg); color: #fff; border: 1px solid var(--color-primary); padding: 0.5rem; font-family: var(--font-display); cursor: pointer; outline: none;">
+            <option value="BEGINNER">🟢 BEGINNER</option>
+            <option value="INTERMEDIATE" selected>🟡 INTERMEDIATE</option>
+            <option value="ADVANCED">🔴 ADVANCED</option>
+          </select>
+          <div id="diff-tooltip" style="color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">Standard warfare. Balanced AI heuristics.</div>
+        </div>
+        
         <button id="btn-play" class="btn btn-primary">▶ PLAY</button>
         <button id="btn-demo" class="btn">⊡ DEMO MODE</button>
         <button id="btn-promo" class="btn" style="color: #ff0055; border-color: #ff0055;">🎦 RECORD PROMO</button>
@@ -37,7 +48,7 @@ const views = {
       </div>
       
       <div class="player-card">
-        <span>Player: <span class="glitch-text">${AppState.player.username}</span></span>
+        <span>Player: <input type="text" id="input-username" class="glitch-text" value="${AppState.player.username}" maxlength="16" style="background:transparent; border:none; border-bottom:1px solid var(--color-accent); color:var(--color-player); font-family:var(--font-mono); font-size:1rem; outline:none; text-shadow:0 0 5px var(--color-player); width:auto;"></span>
         <span>Rank: ${AppState.player.rank}</span>
         <span>XP: ${AppState.player.xp} / ${AppState.player.maxXp}</span>
       </div>
@@ -52,6 +63,14 @@ const views = {
         <div id="hud-layer"></div>
         <button id="btn-quit" class="btn btn-danger" style="position:absolute; top: 1rem; right: 1rem; min-width: 100px;">QUIT</button>
         
+        <!-- Intel Feed (Aria-Live Region) -->
+        <div id="intel-feed" aria-live="polite" aria-atomic="false" style="position:absolute; bottom: 1rem; right: 1rem; width: 300px; height: 250px; background: rgba(0,0,0,0.7); border: 1px solid var(--color-accent); border-radius: 4px; padding: 1rem; overflow-y: hidden; display: flex; flex-direction: column; justify-content: flex-end; font-family: var(--font-mono); font-size: 0.8rem; pointer-events: none; z-index: 50;">
+          <div style="color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase; border-bottom: 1px dashed var(--color-accent); padding-bottom: 0.25rem;">[ INTEL FEED ]</div>
+          <div id="intel-log-container" style="display: flex; flex-direction: column; gap: 0.25rem;">
+            <!-- Logs injected here -->
+          </div>
+        </div>
+        
         <!-- Tutorial Overlay -->
         <div id="tutorial-panel" class="panel" style="display:none; position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); width: 500px; text-align: center; border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0,255,221,0.15); z-index: 100;">
           <h3 id="tut-title" style="color: var(--color-accent); margin-top: 0; font-family: var(--font-display); letter-spacing: 2px;">[ TUTORIAL : STEP 1 ]</h3>
@@ -59,6 +78,14 @@ const views = {
           <div>
               <button id="btn-tut-next" class="btn btn-primary">NEXT >></button>
           </div>
+        </div>
+
+        <!-- Hotkeys Overlay -->
+        <div id="hotkeys-panel" style="position: absolute; bottom: 1rem; left: 1rem; padding: 1rem; background: rgba(0,0,0,0.6); border: 1px solid var(--color-accent); border-radius: 4px; pointer-events: none; font-family: var(--font-mono); font-size: 0.85rem; color: #fff; z-index: 50;">
+          <div style="color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase;">[ HOTKEYS ]</div>
+          <div>Hold <span style="color: var(--color-player); font-weight: bold;">[A]</span> : Highlight Playable Nodes</div>
+          <div>Hold <span style="color: var(--color-enemy); font-weight: bold;">[E]</span> : Highlight Enemy Targets</div>
+          <div>Tap <span style="color: var(--color-accent); font-weight: bold;">[SPACE]</span> : Auto-Strike Target</div>
         </div>
       </div>
     </div>
@@ -147,12 +174,34 @@ async function initApp() {
     subtitle.innerHTML = 'v1.0.0 // SYSTEM <span style="color:var(--color-enemy)">OFFLINE</span> (GUEST MODE)';
   }
   
-  document.getElementById('btn-play').addEventListener('click', () => {
+  const btnPlay = document.getElementById('btn-play');
+  const selDiff = document.getElementById('sel-difficulty');
+  const diffTooltip = document.getElementById('diff-tooltip');
+
+  if (selDiff) {
+    selDiff.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === 'BEGINNER') {
+            diffTooltip.innerText = 'Highly recommended for new operatives. Slower AI response.';
+            diffTooltip.style.color = 'var(--color-player)';
+        } else if (val === 'INTERMEDIATE') {
+            diffTooltip.innerText = 'Standard warfare. Balanced AI heuristics.';
+            diffTooltip.style.color = 'var(--color-text-muted)';
+        } else {
+            diffTooltip.innerText = 'Lethal threat level. Aggressive AI and fortified targets.';
+            diffTooltip.style.color = 'var(--color-enemy)';
+        }
+        audio.playSelect();
+    });
+  }
+
+  btnPlay.addEventListener('click', () => {
     navigateTo('game');
+    const selectedDifficulty = selDiff ? selDiff.value : 'INTERMEDIATE';
     if (window.GameInstance) {
       if (window.DemoInstance) window.DemoInstance.stop();
       if (window.PromoInstance) window.PromoInstance.stop();
-      window.GameInstance.init(); // Reset game on play
+      window.GameInstance.init(selectedDifficulty); // Reset game on play with difficulty
     }
   });
 
@@ -165,9 +214,12 @@ async function initApp() {
   });
 
   document.getElementById('btn-promo').addEventListener('click', () => {
-    if (window.DemoInstance) window.DemoInstance.stop();
     if (window.PromoInstance) {
-      window.PromoInstance.start();
+      const started = window.PromoInstance.start();
+      if (started !== false) {
+          if (window.DemoInstance) window.DemoInstance.stop();
+          navigateTo('game');
+      }
     }
   });
   
@@ -192,6 +244,50 @@ async function initApp() {
   document.getElementById('btn-main-menu').addEventListener('click', () => {
     document.getElementById('view-gameover').style.display = 'none';
     navigateTo('menu');
+  });
+
+  // Handle Custom Name
+  const inputUsername = document.getElementById('input-username');
+  if (inputUsername) {
+      inputUsername.addEventListener('input', (e) => {
+          AppState.player.username = e.target.value.toUpperCase() || 'ANONYMOUS';
+      });
+  }
+
+  // --- Intel Feed (Aria-Live) ---
+  const intelContainer = document.getElementById('intel-log-container');
+  const addIntelLog = (msg, isPositive = true) => {
+      if (!intelContainer) return;
+      const el = document.createElement('div');
+      el.innerText = msg;
+      el.style.color = isPositive ? 'var(--color-player)' : 'var(--color-enemy)';
+      intelContainer.appendChild(el);
+      // Auto-scroll
+      if (intelContainer.children.length > 10) {
+          intelContainer.removeChild(intelContainer.firstChild);
+      }
+  };
+
+  window.addEventListener('attackLaunched', () => addIntelLog('> UPLINK ESTABLISHED. INJECTING PAYLOAD.', true));
+  window.addEventListener('toast', (e) => {
+      addIntelLog(e.detail.message, e.detail.type === 'capture');
+  });
+
+  // --- Global Keyboard Shortcuts ---
+  window.addEventListener('keydown', (e) => {
+      // Don't trigger if user is typing in the name input field
+      if (document.activeElement === inputUsername) return;
+      
+      const key = e.key.toLowerCase();
+      // Menu Shortcuts
+      if (AppState.currentView === 'menu') {
+          if (key === 'p') document.getElementById('btn-play').click();
+          if (key === 'd') document.getElementById('btn-demo').click();
+      }
+      // Game Shortcuts
+      if (AppState.currentView === 'game') {
+          if (key === 'q') document.getElementById('btn-quit').click();
+      }
   });
 
   // Listen for game over event
@@ -290,4 +386,8 @@ function navigateTo(viewName) {
 }
 
 // Bootstrap
-document.addEventListener('DOMContentLoaded', initApp);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}

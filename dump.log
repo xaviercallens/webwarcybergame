@@ -1,0 +1,239 @@
+[13389:13389:0313/230044.661370:ERROR:base/memory/shared_memory_switch.cc:289] Failed global descriptor lookup: 7
+[13488:13488:0313/230045.308733:ERROR:base/memory/shared_memory_switch.cc:289] Failed global descriptor lookup: 7
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Hack: Gridlock</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..700&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Orbitron:wght@400..900&amp;family=Rajdhani:wght@300;400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+    
+    <!-- CSS Architecture -->
+    
+    <!-- ES Module Import Map for native browser resolution -->
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/": "https://unpkg.com/three@0.160.0/",
+        "globe.gl": "https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.mjs"
+      }
+    }
+    </script>
+    <script type="module" crossorigin="" src="/assets/index-DqqRDPSU.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-DpCWYydZ.css">
+  <style type="text/css">.float-tooltip-kap {
+  position: absolute;
+  width: max-content; /* prevent shrinking near right edge */
+  max-width: max(50%, 150px);
+  padding: 3px 5px;
+  border-radius: 3px;
+  font: 12px sans-serif;
+  color: #eee;
+  background: rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+</style><style type="text/css">.scene-nav-info {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+  color: slategrey;
+  opacity: 0.7;
+  font-size: 10px;
+  font-family: sans-serif;
+  pointer-events: none;
+  user-select: none;
+}
+
+.scene-container canvas:focus {
+  outline: none;
+}</style><style type="text/css">.scene-container .clickable {
+  cursor: pointer;
+}</style></head>
+  <body>
+    <script>
+      window.addEventListener('error', function(e) {
+        let err = document.createElement('div');
+        err.style.cssText = 'color:red;font-size:24px;position:absolute;z-index:9999;background:black;padding:20px;';
+        err.innerText = 'ERROR: ' + e.message;
+        document.body.prepend(err);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        let err = document.createElement('div');
+        err.style.cssText = 'color:orange;font-size:24px;position:absolute;z-index:9999;background:black;padding:20px;';
+        err.innerText = 'PROMISE ERROR: ' + e.reason;
+        document.body.prepend(err);
+      });
+    </script>
+    <!-- Always-on Scan lines / CRT effects -->
+    <div class="fx-scanlines"></div>
+    <div class="fx-vignette"></div>
+
+    <!-- App Root -->
+    <div id="app">
+    <div id="view-menu" class="view screen-menu active">
+      <div class="menu-title-container">
+        <h1>NEO-HACK</h1>
+        <h1 style="color: #fff">GRIDLOCK</h1>
+        <div class="menu-subtitle">v1.0.0 // SYSTEM <span style="color:var(--color-player)">ONLINE</span></div>
+      </div>
+      
+      <div class="menu-buttons">
+        <button id="btn-play" class="btn btn-primary">▶ PLAY</button>
+        <button id="btn-demo" class="btn">⊡ DEMO MODE</button>
+        <button id="btn-promo" class="btn" style="color: #ff0055; border-color: #ff0055;">🎦 RECORD PROMO</button>
+        <button id="btn-settings" class="btn">⚙ SETTINGS</button>
+      <button class="btn" id="btn-leaderboard">LEADERBOARD</button></div>
+      
+      <div class="player-card">
+        <span>Player: <span class="glitch-text">GHOST_4X1</span></span>
+        <span>Rank: SCRIPT_KIDDIE</span>
+        <span>XP: 245 / 500</span>
+      </div>
+    </div>
+  
+    <div id="view-game" class="view screen-game">
+      <div id="canvas-container"></div>
+      
+      <div class="game-ui">
+        <!-- HUD will be injected here by ui-manager -->
+        <div id="hud-layer">
+    <!-- Top Left HUD: Faction Stats & Control Progress -->
+    <div id="hud-stats-panel" class="panel" style="position: absolute; top: 1rem; left: 1rem; width: 400px; pointer-events: auto;">
+      <div style="font-family: var(--font-hud); color: var(--color-text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">
+        [SYS] <span style="color:var(--color-player)">Player: <span id="hud-count-player">0</span></span> | 
+        <span style="color:var(--color-enemy)">Enemy: <span id="hud-count-enemy">0</span></span> | 
+        <span style="color:var(--color-ally)">Ally: <span id="hud-count-ally">0</span></span> | 
+        <span style="color:var(--color-neutral)">Neutral: <span id="hud-count-neutral">0</span></span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 0.25rem;">
+        <span>// Global Override: <span id="hud-control-pct">0</span>%</span>
+        <span style="color:var(--color-accent)">Target: 75%</span>
+      </div>
+      <div class="progress-track" style="margin-bottom: 0;">
+        <div id="hud-progress-fill" class="progress-fill player" style="width: 0%; transition: width 0.3s ease;"></div>
+      </div>
+    </div>
+    
+    <!-- Top Center: Toast Notifications -->
+    <div id="toast-container" style="position: absolute; top: 1rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none; z-index: 100;">
+    </div>
+    
+    <!-- Right Panel: Node Info (Hidden by default) -->
+    <div id="info-panel" class="panel" style="position: absolute; top: 1rem; right: 8rem; width: 300px; display: none; pointer-events: auto;">
+      <div class="panel-header">
+        <span id="info-name">SYS-00</span>
+        <span id="info-owner" style="font-size: 0.8rem;">NEUTRAL</span>
+      </div>
+      <div style="margin-top:1rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+          <span>Firewall</span>
+          <span id="info-firewall-text">100/100</span>
+        </div>
+        <div class="progress-track">
+          <div id="info-firewall-fill" class="progress-fill neutral" style="width: 100%;"></div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <span>Power Level: <span id="info-power">8</span> TB/s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+        <button id="btn-quit" class="btn btn-danger" style="position:absolute; top: 1rem; right: 1rem; min-width: 100px;">QUIT</button>
+        
+        <!-- Tutorial Overlay -->
+        <div id="tutorial-panel" class="panel" style="display:none; position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); width: 500px; text-align: center; border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0,255,221,0.15); z-index: 100;">
+          <h3 id="tut-title" style="color: var(--color-accent); margin-top: 0; font-family: var(--font-display); letter-spacing: 2px;">[ TUTORIAL : STEP 1 ]</h3>
+          <p id="tut-text" style="font-family: var(--font-mono); color: #fff; line-height: 1.5; margin: 1.5rem 0;"></p>
+          <div>
+              <button id="btn-tut-next" class="btn btn-primary">NEXT &gt;&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div id="view-leaderboard" class="view screen-leaderboard">
+      <div class="panel" style="width: 600px; margin: 4rem auto; pointer-events: auto;">
+        <div class="panel-header" style="justify-content: center; font-size: 1.5rem; text-shadow: 0 0 10px var(--color-player);">
+          [ GLOBAL RANKINGS ]
+        </div>
+        <table style="width: 100%; margin-top: 2rem; color: #fff; text-align: left; font-family: var(--font-mono);">
+          <tbody><tr style="color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
+            <th>RANK</th><th>OPERATIVE</th><th>TIER</th><th>XP</th>
+          </tr>
+          <tr><td>#1</td><td style="color:var(--color-player);">N30_LUNAR</td><td>ARCHITECT</td><td>9,450</td></tr>
+          <tr><td>#2</td><td>ZERO_SUM</td><td>ELITE</td><td>8,120</td></tr>
+          <tr><td>#3</td><td>GHOST_4X1</td><td>SCRIPT_KIDDIE</td><td>245</td></tr>
+          <tr><td>#4</td><td>GL1TCH</td><td>HACKER</td><td>145</td></tr>
+        </tbody></table>
+        <div style="text-align: center; margin-top: 2rem;">
+          <button id="btn-lb-back" class="btn">RETURN</button>
+        </div>
+      </div>
+    </div>
+  
+    <div id="view-gameover" class="view screen-gameover" style="display:none; justify-content: center; align-items: center; background: rgba(0,0,0,0.8); z-index: 1000; position: absolute; inset: 0;">
+      <div class="panel" style="text-align: center; max-width: 400px; animation: glitch-anim-1 0.3s linear; pointer-events: auto;">
+        <h1 id="gameover-title" style="font-family: var(--font-display); font-size: 3rem; margin-bottom: 1rem; color: var(--color-player); text-shadow: 0 0 15px var(--color-player);">TOTAL DOMINANCE</h1>
+        <p style="color: var(--color-text-muted); font-family: var(--font-mono);">
+          Time: <span id="gameover-time" style="color:#fff">00:00</span><br>
+          Nodes Captured: <span id="gameover-nodes" style="color:#fff">0</span><br>
+          XP Gained: <span id="gameover-xp" style="color:var(--color-accent)">+150</span>
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+          <button id="btn-retry" class="btn btn-primary">REDEPLOY</button>
+          <button id="btn-main-menu" class="btn">DISCONNECT</button>
+        </div>
+      </div>
+    </div>
+  
+    <div id="modal-settings" class="modal-overlay">
+      <div class="panel settings-panel">
+        <div class="panel-header">
+          <span>⚙ SYSTEM.CFG</span>
+          <button id="btn-close-settings" style="background:none; border:none; color:var(--color-accent); cursor:pointer; font-size:1.5rem;">×</button>
+        </div>
+        
+        <div class="setting-row">
+          <label>Master Volume</label>
+          <input type="range" min="0" max="100" value="80">
+        </div>
+        <div class="setting-row">
+          <label>Colorblind Mode</label>
+          <input type="checkbox" id="toggle-colorblind">
+        </div>
+        <div class="setting-row">
+          <label>CRT FX</label>
+          <input type="checkbox" checked="">
+        </div>
+        
+        <div style="margin-top: var(--spacing-6); text-align: right;">
+          <button id="btn-save-settings" class="btn">APPLY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Entry script -->
+  
+
+</body></html>
+[13387:13433:0313/230045.660382:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.660515:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.660800:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.660904:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.660996:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.661303:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.661427:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.661524:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.661642:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.661774:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.661995:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.662234:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.662314:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[13387:13433:0313/230045.662410:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:385] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
