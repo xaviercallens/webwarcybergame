@@ -37,7 +37,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-dev-phase2-secret}
       PYTHONPATH: "/app/src"
     command: >
-      sh -c "alembic upgrade head && uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload"
+      sh -c "uv run alembic upgrade head && uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload"
     depends_on:
       db:
         condition: service_healthy
