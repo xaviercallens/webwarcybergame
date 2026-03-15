@@ -122,20 +122,14 @@ export class GameRenderer {
 
   // --- RENDERING API ---
 
-  getColorForFaction(faction) {
+  getColorForFaction(factionId) {
     const isColorblind = document.documentElement.getAttribute('data-colorblind') === 'true';
-    switch(faction) {
-      case 'PLAYER': return isColorblind ? '#3380FF' : this.colors.player;
-      case 'ENEMY': return isColorblind ? '#FF8000' : this.colors.enemy;
-      case 'ALLY': return isColorblind ? '#E6CC33' : this.colors.ally;
-      
-      // Promo Factions
-      case 'USA': return '#4488FF';    // Tech Blue
-      case 'CHINA': return '#FF1111';  // Security Red
-      case 'EUROPE': return '#FFCC00'; // Grid Gold
-      case 'RUSSIA': return '#8800FF'; // Rogue Purple
-      case 'APAC': return '#00FF88';   // Bio Green
-      
+    switch(factionId) {
+      case 1: return isColorblind ? '#3380FF' : this.colors.player; // Silicon Valley (Player default for now)
+      case 2: return isColorblind ? '#FF8000' : this.colors.enemy;  // Iron Grid
+      case 3: return isColorblind ? '#E6CC33' : '#FFCC00';          // Silk Road
+      case 4: return isColorblind ? '#8800FF' : this.colors.ally;   // Euro Nexus
+      case 5: return isColorblind ? '#00FF88' : '#8800FF';          // Pacific Vanguard
       default: return this.colors.neutral; 
     }
   }
@@ -147,21 +141,21 @@ export class GameRenderer {
     nodes.forEach(n => this.nodeMap.set(n.id, n));
 
     const pointsData = nodes.map(node => {
-      let size = node.owner === 'PLAYER' || node.owner === 'ENEMY' ? 0.3 : 0.15;
-      let color = this.getColorForFaction(node.owner);
+      let size = node.faction_id === 1 ? 0.3 : 0.15; // Player nodes slightly larger
+      let color = this.getColorForFaction(node.faction_id);
       
       // Override for Highlights
-      if (highlightEnemies && node.owner === 'ENEMY') {
+      if (highlightEnemies && node.faction_id !== 1 && node.faction_id !== null) {
           size = 0.8;
           color = '#ffffff'; // Flash white
       }
-      if (highlightAttackable && node.owner === 'PLAYER') {
+      if (highlightAttackable && node.faction_id === 1) {
           // Check if this player node has an adjacent non-player node
           const adjacentLinks = connections.filter(c => c.source === node.id || c.target === node.id);
           const hasTarget = adjacentLinks.some(c => {
              const tId = c.source === node.id ? c.target : c.source;
              const tNode = this.nodeMap.get(tId);
-             return tNode && tNode.owner !== 'PLAYER';
+             return tNode && tNode.faction_id !== 1;
           });
           
           if (hasTarget) {
@@ -171,9 +165,9 @@ export class GameRenderer {
       }
 
       // Accessibility Shapes
-      let shapePrefix = '[■]'; // Neutral/Ally default
-      if (node.owner === 'PLAYER') shapePrefix = '[●]';
-      if (node.owner === 'ENEMY') shapePrefix = '[▲]';
+      let shapePrefix = '[■]'; // Neutral default
+      if (node.faction_id === 1) shapePrefix = '[●]';
+      else if (node.faction_id !== null) shapePrefix = '[▲]';
 
       return {
         id: node.id,
@@ -212,8 +206,8 @@ export class GameRenderer {
       const target = this.nodeMap.get(conn.target);
       if (!source || !target) return null;
       
-      const isCrossFaction = source.owner !== target.owner;
-      const color = isCrossFaction ? this.colors.neutral : this.getColorForFaction(source.owner);
+      const isCrossFaction = source.faction_id !== target.faction_id;
+      const color = isCrossFaction ? this.colors.neutral : this.getColorForFaction(source.faction_id);
       
       return {
         startLat: source.lat,

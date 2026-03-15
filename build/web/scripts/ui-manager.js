@@ -26,6 +26,11 @@ export function initUI() {
       <div class="progress-track" style="margin-bottom: 0;">
         <div id="hud-progress-fill" class="progress-fill player" style="width: 0%; transition: width 0.3s ease;"></div>
       </div>
+      <div style="margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed var(--color-accent); font-family: var(--font-mono); font-size: 0.8rem; display: flex; justify-content: space-between;">
+        <span id="hud-epoch">EPOCH: --</span>
+        <span id="hud-phase" style="color:var(--color-warning)">PHASE: --</span>
+        <span id="hud-timer">00:00</span>
+      </div>
     </div>
     
     <!-- Top Center: Toast Notifications -->
@@ -47,19 +52,30 @@ export function initUI() {
           <div id="info-firewall-fill" class="progress-fill neutral" style="width: 100%;"></div>
         </div>
         <div style="margin-top: 1rem;">
-          <span>Power Level: <span id="info-power">8</span> TB/s</span>
+          <span>Compute Output: <span id="info-power">8</span> TB/s</span>
+        </div>
+        
+        <div id="action-panel" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-accent); display: none;">
+          <div style="margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--color-accent);">[ AVAILABLE ACTIONS ]</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button id="btn-action-breach" class="btn btn-primary" style="flex:1; padding: 0.25rem;">BREACH</button>
+            <button id="btn-action-scan" class="btn" style="flex:1; padding: 0.25rem;">SCAN</button>
+          </div>
+          <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-size:0.8rem;">
+            <span>Commit CU:</span>
+            <input type="range" id="input-cu" min="1" max="100" value="10" style="flex:1;">
+            <span id="text-cu">10</span>
+          </div>
         </div>
       </div>
     </div>
   `;
 
-  bindGameStateEvents();
-}
-
-function bindGameStateEvents() {
+  // Bind Game State Events
   window.addEventListener('gameStateUpdate', (e) => {
     const nodes = e.detail.nodes;
-    updateHUD(nodes);
+    const epoch = e.detail.epoch;
+    updateHUD(nodes, epoch);
   });
   
   window.addEventListener('nodeSelected', (e) => {
@@ -74,25 +90,76 @@ function bindGameStateEvents() {
   window.addEventListener('toast', (e) => {
     showToast(e.detail.message, e.detail.type);
   });
+  
+  // HUD Update loop for the timer
+  setInterval(updateTimer, 1000);
+  
+  // Bind Action Panel Buttons
+  document.getElementById('input-cu').addEventListener('input', (e) => {
+      document.getElementById('text-cu').textContent = e.target.value;
+  });
+  
+  document.getElementById('btn-action-breach').addEventListener('click', () => {
+      const cu = document.getElementById('input-cu').value;
+      if (window.GameInstance) window.GameInstance.submitPlayerAction('BREACH', cu);
+  });
+  
+  document.getElementById('btn-action-scan').addEventListener('click', () => {
+      const cu = document.getElementById('input-cu').value;
+      if (window.GameInstance) window.GameInstance.submitPlayerAction('SCAN', cu);
+  });
 }
 
-function updateHUD(nodes) {
-  let counts = { PLAYER: 0, ENEMY: 0, ALLY: 0, NEUTRAL: 0 };
+let currentEpochEnd = null;
+
+function updateTimer() {
+  if (!currentEpochEnd) return;
+  const now = new Date().getTime();
+  const end = new Date(currentEpochEnd + "Z").getTime(); // Ensure UTC
+  let diff = Math.floor((end - now) / 1000);
+  
+  if (diff < 0) diff = 0;
+  
+  const m = Math.floor(diff / 60);
+  const s = diff % 60;
+  
+  const timerEl = document.getElementById('hud-timer');
+  if (timerEl) {
+    timerEl.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    if (diff <= 10) timerEl.style.color = 'var(--color-enemy)';
+    else timerEl.style.color = '#fff';
+  }
+}
+
+function updateHUD(nodes, epoch) {
+  let counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   
   nodes.forEach(n => {
-    if (counts[n.owner] !== undefined) counts[n.owner]++;
+    if (counts[n.faction_id] !== undefined) counts[n.faction_id]++;
   });
 
-  document.getElementById('hud-count-player').textContent = counts.PLAYER;
-  document.getElementById('hud-count-enemy').textContent = counts.ENEMY;
-  document.getElementById('hud-count-ally').textContent = counts.ALLY;
-  document.getElementById('hud-count-neutral').textContent = counts.NEUTRAL;
+  document.getElementById('hud-count-player').textContent = counts[1];
+  document.getElementById('hud-count-enemy').textContent = counts[2] + counts[3]; // Approx enemies
+  document.getElementById('hud-count-ally').textContent = counts[4];
+  document.getElementById('hud-count-neutral').textContent = counts[5];
 
   const total = nodes.length;
-  const pct = total === 0 ? 0 : Math.round((counts.PLAYER / total) * 100);
+  const pct = total === 0 ? 0 : Math.round((counts[1] || 0) / total * 100); // Faction 1 = Player for testing
   
   document.getElementById('hud-control-pct').textContent = pct;
   document.getElementById('hud-progress-fill').style.width = `${pct}%`;
+  
+  if (epoch) {
+      document.getElementById('hud-epoch').textContent = `EPOCH: ${epoch.number}`;
+      document.getElementById('hud-phase').textContent = `PHASE: ${epoch.phase}`;
+      
+      const phaseEl = document.getElementById('hud-phase');
+      if (epoch.phase === 'PLANNING') phaseEl.style.color = 'var(--color-player)';
+      else if (epoch.phase === 'SIMULATION') phaseEl.style.color = 'var(--color-warning)';
+      else phaseEl.style.color = 'var(--color-enemy)';
+      
+      currentEpochEnd = epoch.ended_at;
+  }
 }
 
 function showInfoPanel(node) {
@@ -100,7 +167,15 @@ function showInfoPanel(node) {
   panel.style.display = 'block';
   
   document.getElementById('info-name').textContent = node.name;
-  document.getElementById('info-owner').textContent = node.owner;
+  
+  let ownerStr = "NEUTRAL";
+  if (node.faction_id === 1) ownerStr = "SILICON VALLEY BLOC";
+  else if (node.faction_id === 2) ownerStr = "IRON GRID";
+  else if (node.faction_id === 3) ownerStr = "SILK ROAD COALITION";
+  else if (node.faction_id === 4) ownerStr = "EURO NEXUS";
+  else if (node.faction_id === 5) ownerStr = "PACIFIC VANGUARD";
+  
+  document.getElementById('info-owner').textContent = ownerStr;
   document.getElementById('info-power').textContent = node.power;
   
   const fwPct = (node.firewall / node.maxFirewall) * 100;
@@ -111,10 +186,20 @@ function showInfoPanel(node) {
   
   // Update color class
   fill.className = 'progress-fill';
-  if (node.owner === 'PLAYER') fill.classList.add('player');
-  else if (node.owner === 'ENEMY') fill.classList.add('enemy');
-  else if (node.owner === 'ALLY') fill.classList.add('ally');
+  
+  // TODO: Use true player faction check
+  if (node.faction_id === 1) fill.classList.add('player');
+  else if (node.faction_id === 2) fill.classList.add('enemy');
+  else if (node.faction_id === 3) fill.classList.add('enemy');
+  else if (node.faction_id === 4) fill.classList.add('ally');
   else fill.classList.add('neutral');
+  
+  const actionPanel = document.getElementById('action-panel');
+  if (node.faction_id !== 1 && window.GameInstance?.currentEpoch?.phase === 'PLANNING') {
+      actionPanel.style.display = 'block';
+  } else {
+      actionPanel.style.display = 'none';
+  }
 }
 
 function hideInfoPanel() {

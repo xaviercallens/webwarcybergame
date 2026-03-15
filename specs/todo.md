@@ -58,18 +58,18 @@
 
 ### 2.1 3D Globe Renderer
 
-- [ ] Integrate Three.js globe with world-state data from `/api/world/state`
-- [ ] Nodes rendered as glowing dots, color-coded by faction
-- [ ] Node size reflects `node_class` tier
-- [ ] Click-to-select node → show info panel (owner, defense, CU output)
-- [ ] Attack arcs: animated curves between nodes during SIM phase
+- [x] Integrate Three.js globe with world-state data from `/api/world/state`
+- [x] Nodes rendered as glowing dots, color-coded by faction
+- [x] Node size reflects `node_class` tier
+- [x] Click-to-select node → show info panel (owner, defense, CU output)
+- [ ] Attack arcs: animated curves between nodes during SIM phase (WIP - backend refactor needed for edges)
 
 ### 2.2 Combat HUD
 
-- [ ] Epoch timer bar — shows current phase + countdown
-- [ ] Faction scoreboard sidebar — live influence percentages
-- [ ] Intel Feed panel — scrolling log of recent epoch events ("Node X captured by Iron Grid")
-- [ ] Action buttons: SCAN, BREACH, DEFEND — disabled outside PLANNING phase
+- [x] Epoch timer bar — shows current phase + countdown
+- [x] Faction scoreboard sidebar — live influence percentages
+- [x] Intel Feed panel — scrolling log of recent epoch events ("Node X captured by Iron Grid")
+- [x] Action buttons: SCAN, BREACH, DEFEND — disabled outside PLANNING phase
 - [ ] Minimap with faction territory heat overlay
 
 ### 2.3 Terminal CLI

@@ -47,7 +47,8 @@ app.add_middleware(
     allow_origins=[
         "https://neohack-gridlock-212120873430.europe-west1.run.app",
         "http://localhost:5173",
-        "http://localhost:8000"
+        "http://localhost:8000",
+        "http://frontend:5173"
     ],
     allow_credentials=True,
     allow_methods=["*"],

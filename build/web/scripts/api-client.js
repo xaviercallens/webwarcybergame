@@ -5,9 +5,13 @@
 
 export class ApiClient {
   constructor() {
-    this.baseUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:8000/api' 
-        : '/api'; // production
+    if (window.location.hostname === 'frontend') {
+        this.baseUrl = 'http://backend:8000/api';
+    } else {
+        this.baseUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8000/api' 
+            : '/api'; // production
+    }
         
     this.token = localStorage.getItem('nh_token') || null;
   }
@@ -109,6 +113,67 @@ export class ApiClient {
       return await res.json();
     } catch(e) {
       console.error('[API] Game Over Stats Error:', e);
+      return null;
+    }
+  }
+  async getWorldState() {
+    try {
+      const res = await fetch(`${this.baseUrl}/world/state`, {
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Failed to fetch world state');
+      const data = await res.json();
+      return data.nodes || Object.values(data) || [];
+    } catch(e) {
+      console.error('[API] World State Error:', e);
+      return [];
+    }
+  }
+
+  async getCurrentEpoch() {
+    try {
+      const res = await fetch(`${this.baseUrl}/epoch/current`, {
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Failed to fetch current epoch');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Current Epoch Error:', e);
+      return null;
+    }
+  }
+
+  async submitAction(targetId, actionType, cuCommitted) {
+    try {
+      const res = await fetch(`${this.baseUrl}/epoch/action`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({
+           target_node_id: targetId,
+           action_type: actionType,
+           cu_committed: cuCommitted
+        })
+      });
+      if (!res.ok) {
+         const errorData = await res.json();
+         throw new Error(errorData.detail || 'Action failed');
+      }
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Action Submit Error:', e);
+      throw e;
+    }
+  }
+
+  async getFactionInfo(factionId) {
+    try {
+      const res = await fetch(`${this.baseUrl}/faction/${factionId}`, {
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Failed to fetch faction info');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Faction Info Error:', e);
       return null;
     }
   }
