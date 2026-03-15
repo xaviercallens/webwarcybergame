@@ -1,0 +1,13 @@
+.git
+.godot
+node_modules
+*.zip
+*.png
+*.import
+promo_frames_tmp
+__pycache__
+.pytest_cache
+.coverage
+*.log
+*.db
+backend/.venv

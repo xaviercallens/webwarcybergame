@@ -11,8 +11,9 @@ from sqlmodel import Session
 from backend import database
 from backend.models import Player
 
+import os
 # normally from env
-SECRET_KEY = "SUPER_SECRET_CYBERWAR_KEY"
+SECRET_KEY = os.getenv("JWT_SECRET", "dev-secret-change-me")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 1 week
 

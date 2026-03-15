@@ -9,6 +9,11 @@ from sqlmodel import Session, select
 from typing import List
 from pydantic import BaseModel
 
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from fastapi import Request, Query
+
 from backend import database, auth, models
 
 WEB_BUILD_DIR = Path(os.getenv("WEB_BUILD_DIR", Path(__file__).parent.parent.parent.parent / "build" / "web"))
@@ -27,9 +32,17 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://neohack-gridlock-212120873430.europe-west1.run.app",
+        "http://localhost:5173",
+        "http://localhost:8000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,7 +54,8 @@ def health_check():
     return {"status": "healthy"}
 
 @app.post("/api/auth/register", response_model=models.Token)
-def register_user(user_in: models.PlayerCreate, session: Session = Depends(database.get_session)):
+@limiter.limit("5/minute")
+def register_user(request: Request, user_in: models.PlayerCreate, session: Session = Depends(database.get_session)):
     existing = session.exec(select(models.Player).where(models.Player.username == user_in.username)).first()
     if existing:
         raise HTTPException(status_code=400, detail="Username already taken")
@@ -56,7 +70,8 @@ def register_user(user_in: models.PlayerCreate, session: Session = Depends(datab
     return {"access_token": access_token, "token_type": "bearer", "player": player}
 
 @app.post("/api/auth/login", response_model=models.Token)
-def login_user(user_in: models.PlayerCreate, session: Session = Depends(database.get_session)):
+@limiter.limit("5/minute")
+def login_user(request: Request, user_in: models.PlayerCreate, session: Session = Depends(database.get_session)):
     player = session.exec(select(models.Player).where(models.Player.username == user_in.username)).first()
     if not player or not auth.verify_password(user_in.password, player.hashed_password):
         raise HTTPException(status_code=401, detail="Incorrect username or password")
@@ -110,7 +125,7 @@ def submit_game_over(stats: GameOverStats, current_user: models.Player = Depends
     return current_user
 
 @app.get("/api/leaderboard", response_model=dict)
-def get_leaderboard(limit: int = 10, session: Session = Depends(database.get_session)):
+def get_leaderboard(limit: int = Query(default=10, ge=1, le=100), session: Session = Depends(database.get_session)):
     players = session.exec(select(models.Player).order_by(models.Player.xp.desc()).limit(limit)).all()
     rankings = []
     for idx, p in enumerate(players):

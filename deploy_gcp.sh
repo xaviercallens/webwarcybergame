@@ -29,7 +29,32 @@ docker build -t $IMAGE_URL .
 echo "📤 2. Pushing image to Artifact Registry..."
 docker push $IMAGE_URL
 
-echo "🌐 3. Deploying to Cloud Run..."
+echo "🔄 3. Running database migrations via Cloud Run Job..."
+# Create or update the Cloud Run Job for migrations
+# We suppress the error if it already exists, and we update it to use the new image
+if gcloud run jobs describe neohack-migrate --region=$REGION >/dev/null 2>&1; then
+  echo "Updating existing migration job..."
+  gcloud run jobs update neohack-migrate \
+    --image=$IMAGE_URL \
+    --region=$REGION \
+    --command="alembic" \
+    --args="upgrade,head"
+else
+  echo "Creating new migration job..."
+  gcloud run jobs create neohack-migrate \
+    --image=$IMAGE_URL \
+    --region=$REGION \
+    --service-account=$SERVICE_ACCOUNT \
+    --add-cloudsql-instances=$DB_INSTANCE \
+    --set-secrets="DATABASE_URL=db-connection-string:latest" \
+    --command="alembic" \
+    --args="upgrade,head"
+fi
+
+# Execute the migration job
+gcloud run jobs execute neohack-migrate --region=$REGION --wait
+
+echo "🌐 4. Deploying to Cloud Run Service..."
 gcloud run deploy $SERVICE_NAME \
   --image=$IMAGE_URL \
   --region=$REGION \
