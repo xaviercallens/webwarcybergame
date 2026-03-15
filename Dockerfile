@@ -9,7 +9,7 @@ FROM python:3.12-slim AS build-backend
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 WORKDIR /app
 
-COPY backend/pyproject.toml backend/uv.lock ./
+COPY backend/pyproject.toml backend/uv.lock backend/README.md ./
 RUN uv sync --frozen --no-dev
 
 COPY backend/src/ ./src/
@@ -23,6 +23,7 @@ WORKDIR /app
 # Copy the environment from the backend builder
 COPY --from=build-backend /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
+ENV PYTHONPATH="/app/src"
 
 COPY --from=build-backend /app /app
 COPY --from=build-frontend /app/frontend/dist /app/static
