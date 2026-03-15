@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cyberwar
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-cyberwar_dev}
+      POSTGRES_DB: cyberwar_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cyberwar -d cyberwar_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build-backend
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/main.py:/app/main.py
+      - ./backend/alembic.ini:/app/alembic.ini
+      - ./backend/migrations:/app/migrations
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://cyberwar:${DB_PASSWORD:-cyberwar_dev}@db:5432/cyberwar_db
+      PORT: 8000
+      JWT_SECRET: ${JWT_SECRET:-dev-phase2-secret}
+      PYTHONPATH: "/app/src"
+    command: >
+      sh -c "alembic upgrade head && uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build-frontend
+    volumes:
+      - ./build/web:/app/frontend
+      - /app/frontend/node_modules
+    working_dir: /app/frontend
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+volumes:
+  pgdata_dev:
