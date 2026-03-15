@@ -11,7 +11,8 @@ import { initUI } from './ui-manager.js';
 
 // --- State ---
 const AppState = {
-  currentView: 'menu',
+  currentView: 'login',
+  isAuthenticated: false,
   player: {
     username: 'GHOST_4X1',
     rank: 'SCRIPT_KIDDIE',
@@ -22,12 +23,56 @@ const AppState = {
 
 // --- View Templates ---
 const views = {
+  login: `
+    <div id="view-login" class="view screen-menu active">
+      <div class="menu-title-container">
+        <h1>NEO-HACK</h1>
+        <h1 style="color: #fff">GRIDLOCK</h1>
+        <div class="menu-subtitle">v2.0.0 // AUTHENTICATION REQUIRED</div>
+      </div>
+
+      <div class="login-container" style="width: 380px; margin-top: 2rem;">
+        <div class="panel" style="pointer-events: auto; padding: 2rem;">
+          <div class="panel-header" style="justify-content: center; margin-bottom: 1.5rem;">
+            <span id="auth-mode-label" style="letter-spacing: 3px;">[ AUTHENTICATE ]</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <label style="font-family: var(--font-hud); color: var(--color-accent); font-size: 0.8rem; letter-spacing: 2px;">OPERATIVE_ID</label>
+              <input type="text" id="login-username" maxlength="20" autocomplete="username"
+                style="width: 100%; padding: 0.75rem; background: rgba(0,20,30,0.8); border: 1px solid var(--color-accent); color: var(--color-player); font-family: var(--font-mono); font-size: 1rem; outline: none; margin-top: 0.25rem; box-sizing: border-box;"
+                placeholder="Enter callsign..." />
+            </div>
+
+            <div>
+              <label style="font-family: var(--font-hud); color: var(--color-accent); font-size: 0.8rem; letter-spacing: 2px;">PASSPHRASE</label>
+              <input type="password" id="login-password" maxlength="64" autocomplete="current-password"
+                style="width: 100%; padding: 0.75rem; background: rgba(0,20,30,0.8); border: 1px solid var(--color-accent); color: var(--color-player); font-family: var(--font-mono); font-size: 1rem; outline: none; margin-top: 0.25rem; box-sizing: border-box;"
+                placeholder="••••••••" />
+            </div>
+
+            <div id="login-error" style="color: var(--color-enemy); font-family: var(--font-mono); font-size: 0.8rem; min-height: 1.2rem; text-shadow: 0 0 8px var(--color-enemy);"></div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+              <button id="btn-login" class="btn btn-primary" style="flex: 1;">▶ LOGIN</button>
+              <button id="btn-register" class="btn" style="flex: 1;">⊕ REGISTER</button>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 1.5rem; border-top: 1px solid rgba(0,255,221,0.15); padding-top: 1rem;">
+            <div style="color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 1px;">STATUS: <span id="login-status" style="color: var(--color-warning);">AWAITING CREDENTIALS</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
   menu: `
     <div id="view-menu" class="view screen-menu active">
       <div class="menu-title-container">
         <h1>NEO-HACK</h1>
         <h1 style="color: #fff">GRIDLOCK</h1>
-        <div class="menu-subtitle">v1.0.0 // SYSTEM ONLINE</div>
+        <div class="menu-subtitle">v2.0.0 // SYSTEM ONLINE</div>
       </div>
       
       <div class="menu-buttons">
@@ -160,18 +205,103 @@ const views = {
 async function initApp() {
   const appElement = document.getElementById('app');
   
-  // Inject HTML
-  appElement.innerHTML = views.menu + views.game + views.leaderboard + views.gameover + views.settingsModal;
-  
+  // Inject HTML — login view is the first screen
+  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.gameover + views.settingsModal;
+
+  // --- Login / Auth Flow ---
+  const loginUsername = document.getElementById('login-username');
+  const loginPassword = document.getElementById('login-password');
+  const loginError = document.getElementById('login-error');
+  const loginStatus = document.getElementById('login-status');
+  const btnLogin = document.getElementById('btn-login');
+  const btnRegister = document.getElementById('btn-register');
+
+  async function handleAuth(isRegister) {
+    const username = loginUsername.value.trim();
+    const password = loginPassword.value;
+    loginError.textContent = '';
+
+    if (!username || !password) {
+      loginError.textContent = '⚠ ALL FIELDS REQUIRED';
+      return;
+    }
+    if (password.length < 6) {
+      loginError.textContent = '⚠ PASSPHRASE MIN 6 CHARS';
+      return;
+    }
+
+    loginStatus.textContent = isRegister ? 'CREATING OPERATIVE...' : 'AUTHENTICATING...';
+    loginStatus.style.color = 'var(--color-accent)';
+
+    try {
+      const data = isRegister
+        ? await api.register(username, password)
+        : await api.login(username, password);
+
+      AppState.isAuthenticated = true;
+      AppState.player.username = data.player.username;
+      AppState.player.rank = data.player.rank;
+      AppState.player.xp = data.player.xp;
+
+      loginStatus.textContent = 'ACCESS GRANTED';
+      loginStatus.style.color = 'var(--color-player)';
+
+      // Update menu player card
+      const usernameInput = document.getElementById('input-username');
+      if (usernameInput) usernameInput.value = AppState.player.username;
+
+      setTimeout(() => navigateTo('menu'), 400);
+    } catch (e) {
+      loginError.textContent = isRegister
+        ? '⚠ REGISTRATION FAILED — CALLSIGN MAY BE TAKEN'
+        : '⚠ AUTH FAILED — INVALID CREDENTIALS';
+      loginStatus.textContent = 'ACCESS DENIED';
+      loginStatus.style.color = 'var(--color-enemy)';
+    }
+  }
+
+  btnLogin.addEventListener('click', () => handleAuth(false));
+  btnRegister.addEventListener('click', () => handleAuth(true));
+
+  // Allow Enter key to submit
+  loginPassword.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleAuth(false);
+  });
+  loginUsername.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loginPassword.focus();
+  });
+
+  // --- Auto-login if token exists ---
+  if (api.token) {
+    loginStatus.textContent = 'RESTORING SESSION...';
+    loginStatus.style.color = 'var(--color-accent)';
+    const profile = await api.getProfile();
+    if (profile) {
+      AppState.isAuthenticated = true;
+      AppState.player.username = profile.username;
+      AppState.player.rank = profile.rank;
+      AppState.player.xp = profile.xp;
+      loginStatus.textContent = 'SESSION RESTORED';
+      loginStatus.style.color = 'var(--color-player)';
+      navigateTo('menu');
+    } else {
+      // Token expired/invalid
+      api.token = null;
+      localStorage.removeItem('nh_token');
+      loginStatus.textContent = 'SESSION EXPIRED — RE-AUTHENTICATE';
+      loginStatus.style.color = 'var(--color-warning)';
+    }
+  }
+
   // Check Backend Status
   const subtitle = document.querySelector('.menu-subtitle');
-  subtitle.innerHTML = 'v1.0.0 // CONTACTING SERVER...';
-  
+  subtitle.innerHTML = 'v2.0.0 // CONTACTING SERVER...';
+
   const health = await api.health();
   if (health.status === 'healthy') {
-    subtitle.innerHTML = 'v1.0.0 // SYSTEM <span style="color:var(--color-player)">ONLINE</span>';
+    subtitle.innerHTML = 'v2.0.0 // SYSTEM <span style="color:var(--color-player)">ONLINE</span>';
   } else {
-    subtitle.innerHTML = 'v1.0.0 // SYSTEM <span style="color:var(--color-enemy)">OFFLINE</span> (GUEST MODE)';
+    subtitle.innerHTML = 'v2.0.0 // SYSTEM <span style="color:var(--color-enemy)">OFFLINE</span> (GUEST MODE)';
   }
   
   const btnPlay = document.getElementById('btn-play');
@@ -223,13 +353,28 @@ async function initApp() {
     }
   });
   
-  // Add Leaderboard button to menu dynamically since we didn't include it in original menu HTML
+  // Add Leaderboard button to menu dynamically
   const menuButtons = document.querySelector('.menu-buttons');
   const lbBtn = document.createElement('button');
   lbBtn.className = 'btn';
   lbBtn.innerText = 'LEADERBOARD';
   lbBtn.id = 'btn-leaderboard';
   menuButtons.appendChild(lbBtn);
+
+  // Add Logout button
+  const logoutBtn = document.createElement('button');
+  logoutBtn.className = 'btn';
+  logoutBtn.id = 'btn-logout';
+  logoutBtn.innerText = '⏻ DISCONNECT';
+  logoutBtn.style.cssText = 'color: var(--color-enemy); border-color: var(--color-enemy); margin-top: 1rem;';
+  menuButtons.appendChild(logoutBtn);
+
+  document.getElementById('btn-logout').addEventListener('click', () => {
+    api.token = null;
+    localStorage.removeItem('nh_token');
+    AppState.isAuthenticated = false;
+    navigateTo('login');
+  });
   
   document.getElementById('btn-leaderboard').addEventListener('click', () => navigateTo('leaderboard'));
   document.getElementById('btn-lb-back').addEventListener('click', () => navigateTo('menu'));
