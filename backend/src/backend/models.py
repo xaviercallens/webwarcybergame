@@ -19,6 +19,16 @@ class ActionType(str, enum.Enum):
     DEFEND = "DEFEND"
     TREATY = "TREATY"
 
+class SentinelStatus(str, enum.Enum):
+    IDLE = "IDLE"
+    DEPLOYED = "DEPLOYED"
+
+class NotificationType(str, enum.Enum):
+    COMBAT = "COMBAT"
+    DIPLOMACY = "DIPLOMACY"
+    EPOCH = "EPOCH"
+    SYSTEM = "SYSTEM"
+
 class Faction(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(unique=True, index=True)
@@ -79,3 +89,47 @@ class Token(SQLModel):
     access_token: str
     token_type: str
     player: PlayerPublic
+
+class Accord(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    faction_a_id: int = Field(foreign_key="faction.id")
+    faction_b_id: int = Field(foreign_key="faction.id")
+    type: str = Field(default="CEASEFIRE") # CEASEFIRE, ALLIANCE, TRADE
+    status: str = Field(default="ACTIVE") # ACTIVE, BROKEN
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class NewsItem(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    epoch_id: int = Field(foreign_key="epoch.id")
+    content: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class Sentinel(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id")
+    name: str
+    status: SentinelStatus = Field(default=SentinelStatus.IDLE)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class SentinelPolicy(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sentinel_id: int = Field(foreign_key="sentinel.id")
+    persistence_weight: float = Field(default=0.5)
+    stealth_weight: float = Field(default=0.5)
+    efficiency_weight: float = Field(default=0.5)
+    aggression_weight: float = Field(default=0.5)
+
+class SentinelLog(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sentinel_id: int = Field(foreign_key="sentinel.id")
+    epoch_id: int = Field(foreign_key="epoch.id")
+    description: str = Field(index=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class Notification(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id")
+    message: str = Field(index=True)
+    type: NotificationType = Field(default=NotificationType.SYSTEM)
+    is_read: bool = Field(default=False)
+    created_at: datetime = Field(default_factory=datetime.utcnow)

@@ -70,6 +70,8 @@ export class GameEngine {
     // Keyboard Shortcuts for Highlighting & Attacking
     window.addEventListener('keydown', (e) => {
         if (!this.isPlaying) return;
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (!e.key) return;
         const key = e.key.toLowerCase();
         let needsRender = false;
 
@@ -89,6 +91,8 @@ export class GameEngine {
 
     window.addEventListener('keyup', (e) => {
         if (!this.isPlaying) return;
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (!e.key) return;
         const key = e.key.toLowerCase();
         let needsRender = false;
 

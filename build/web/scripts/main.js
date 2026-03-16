@@ -1,13 +1,10 @@
-/**
- * Neo-Hack: Gridlock — Main Entry Point & Router
- */
-
 import { GameEngine } from './game-engine.js';
 import { DemoManager } from './demo-manager.js';
 import { PromoManager } from './promo-manager.js';
 import { api } from './api-client.js';
 import { audio } from './audio-manager.js';
-import { initUI } from './ui-manager.js';
+import { initUI, initDiplomacyEvents } from './ui-manager.js';
+import { TerminalManager } from './terminal-manager.js';
 
 // --- State ---
 const AppState = {
@@ -20,6 +17,7 @@ const AppState = {
     maxXp: 500
   }
 };
+window.AppState = AppState;
 
 // --- View Templates ---
 const views = {
@@ -68,7 +66,7 @@ const views = {
     </div>
   `,
   menu: `
-    <div id="view-menu" class="view screen-menu active">
+    <div id="view-menu" class="view screen-menu">
       <div class="menu-title-container">
         <h1>NEO-HACK</h1>
         <h1 style="color: #fff">GRIDLOCK</h1>
@@ -76,7 +74,7 @@ const views = {
       </div>
       
       <div class="menu-buttons">
-        <div class="difficulty-selector" style="margin-bottom: 2rem; border-bottom: 1px solid var(--color-accent); padding-bottom: 1rem;">
+        <div class="difficulty-selector" style="margin-bottom: 1rem; border-bottom: 1px solid var(--color-accent); padding-bottom: 1rem;">
           <label style="color: var(--color-accent); font-family: var(--font-mono); margin-right: 1rem;">[ DIFFICULTY_SYS ]</label>
           <select id="sel-difficulty" style="background: var(--color-bg); color: #fff; border: 1px solid var(--color-primary); padding: 0.5rem; font-family: var(--font-display); cursor: pointer; outline: none;">
             <option value="BEGINNER">🟢 BEGINNER</option>
@@ -85,9 +83,20 @@ const views = {
           </select>
           <div id="diff-tooltip" style="color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">Standard warfare. Balanced AI heuristics.</div>
         </div>
+
+        <div class="difficulty-selector" style="margin-bottom: 2rem; border-bottom: 1px solid var(--color-accent); padding-bottom: 1rem;">
+          <label style="color: var(--color-accent); font-family: var(--font-mono); margin-right: 1rem;">[ DEMO_SCENARIO ]</label>
+          <select id="sel-scenario" style="background: var(--color-bg); color: #fff; border: 1px solid #ff9900; padding: 0.5rem; font-family: var(--font-display); cursor: pointer; outline: none;">
+            <option value="tutorial">01 : CORE SYSTEMS TUTORIAL</option>
+            <option value="bank_run">02 : THE BERYLIA BANK RUN</option>
+            <option value="heist">03 : SILICON SILK ROAD HEIST</option>
+            <option value="blackout">04 : OPERATION BLACKOUT</option>
+          </select>
+          <div id="scenario-tooltip" style="color: #ff9900; font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">Select a guided scenario to learn advanced mechanics.</div>
+        </div>
         
-        <button id="btn-play" class="btn btn-primary">▶ PLAY</button>
-        <button id="btn-demo" class="btn">⊡ DEMO MODE</button>
+        <button id="btn-play" class="btn btn-primary">▶ PLAY SANDBOX</button>
+        <button id="btn-demo" class="btn" style="color: #ff9900; border-color: #ff9900;">⊡ PLAY SCENARIO</button>
         <button id="btn-promo" class="btn" style="color: #ff0055; border-color: #ff0055;">🎦 RECORD PROMO</button>
         <button id="btn-settings" class="btn">⚙ SETTINGS</button>
       </div>
@@ -107,6 +116,7 @@ const views = {
         <!-- HUD will be injected here by ui-manager -->
         <div id="hud-layer"></div>
         <button id="btn-quit" class="btn btn-danger" style="position:absolute; top: 1rem; right: 1rem; min-width: 100px;">QUIT</button>
+        <button id="btn-lab" class="btn btn-primary" style="position:absolute; top: 1rem; right: 8rem; min-width: 130px; box-shadow: 0 0 10px rgba(0, 255, 221, 0.4);">SENTINEL LAB</button>
         
         <!-- Intel Feed (Aria-Live Region) -->
         <div id="intel-feed" aria-live="polite" aria-atomic="false" style="position:absolute; bottom: 1rem; right: 1rem; width: 300px; height: 250px; background: rgba(0,0,0,0.7); border: 1px solid var(--color-accent); border-radius: 4px; padding: 1rem; overflow-y: hidden; display: flex; flex-direction: column; justify-content: flex-end; font-family: var(--font-mono); font-size: 0.8rem; pointer-events: none; z-index: 50;">
@@ -130,7 +140,18 @@ const views = {
           <div style="color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase;">[ HOTKEYS ]</div>
           <div>Hold <span style="color: var(--color-player); font-weight: bold;">[A]</span> : Highlight Playable Nodes</div>
           <div>Hold <span style="color: var(--color-enemy); font-weight: bold;">[E]</span> : Highlight Enemy Targets</div>
-          <div>Tap <span style="color: var(--color-accent); font-weight: bold;">[SPACE]</span> : Auto-Strike Target</div>
+          <div>Tap <span style="color: var(--color-player); font-weight: bold;">[\`]</span> : Toggle Terminal CLI</div>
+        </div>
+
+        <!-- Terminal Overlay -->
+        <div id="terminal-panel" style="display:none; position: absolute; inset: 0; background: rgba(0,20,30,0.95); z-index: 200; font-family: var(--font-mono); color: var(--color-player); padding: 2rem; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto; margin-bottom: 1rem; padding-right: 1rem;" id="terminal-output">
+            <div style="color: var(--color-accent); margin-bottom: 1rem;">Neo-Hack OS v2.0.1 - Terminal Access Granted. Type /help for commands.</div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; border-top: 1px solid var(--color-accent); padding-top: 1rem;">
+            <span style="color: var(--color-accent);">root@gridlock:~$</span>
+            <input type="text" id="terminal-input" style="flex: 1; background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 1rem; outline: none;" autocomplete="off" spellcheck="false" />
+          </div>
         </div>
       </div>
     </div>
@@ -198,6 +219,131 @@ const views = {
         </div>
       </div>
     </div>
+  `,
+  diplomacyModal: `
+    <div id="modal-diplomacy" class="modal-overlay" style="display:none; position: fixed; inset: 0; background: rgba(0,20,30,0.95); z-index: 1000; justify-content: center; align-items: center; font-family: var(--font-mono);">
+      <div class="panel" style="width: 800px; max-height: 80vh; display: flex; flex-direction: column; background: rgba(10,14,23,0.9); border: 2px solid var(--color-accent); pointer-events: auto;">
+        
+        <div class="panel-header" style="justify-content: space-between; border-bottom: 1px solid var(--color-accent); padding-bottom: 0.5rem;">
+          <span style="color: var(--color-accent); text-shadow: 0 0 5px var(--color-accent); font-size: 1.2rem;">[ SECURE DIPLOMATIC CHANNEL ]</span>
+          <button id="btn-close-diplomacy" style="background: none; border: none; color: var(--color-accent); font-size: 1.5rem; cursor: pointer;">×</button>
+        </div>
+
+        <div style="display: flex; flex: 1; overflow: hidden; margin-top: 1rem;">
+          
+          <!-- Contacts Sidebar -->
+          <div style="flex: 1; border-right: 1px solid rgba(0,255,221,0.2); display: flex; flex-direction: column;">
+            <div style="color: var(--color-text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; letter-spacing: 1px;">STATE ACTORS</div>
+            <button class="btn btn-dip-contact" data-fid="2" style="text-align: left; margin-bottom: 0.5rem; border-color: #FF4444;"><span style="color:#FF4444">■</span> Iron Grid</button>
+            <button class="btn btn-dip-contact" data-fid="3" style="text-align: left; margin-bottom: 0.5rem; border-color: #FFCC00;"><span style="color:#FFCC00">▲</span> Silk Road</button>
+            <button class="btn btn-dip-contact" data-fid="4" style="text-align: left; margin-bottom: 0.5rem; border-color: #4488FF;"><span style="color:#4488FF">●</span> Euro Nexus</button>
+            <button class="btn btn-dip-contact" data-fid="5" style="text-align: left; margin-bottom: 1rem; border-color: #AA44FF;"><span style="color:#AA44FF">◆</span> Pacific Vanguard</button>
+
+            <div style="color: var(--color-text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; letter-spacing: 1px;">NON-STATE ACTORS (CNSA)</div>
+            <button class="btn btn-dip-contact" data-fid="6" style="text-align: left; margin-bottom: 0.5rem; border-color: #AAAAAA;" title="Hire Mercenaries: +20% Offense, -100 CU/Epoch"><span style="color:#AAAAAA">★</span> Cyber Mercenaries</button>
+            <button class="btn btn-dip-contact" data-fid="7" style="text-align: left; margin-bottom: 0.5rem; border-color: #FFFFFF;" title="Form Alliance: +20% Global Defense"><span style="color:#FFFFFF">✚</span> Sentinel Vanguard</button>
+            <button class="btn btn-dip-contact" data-fid="8" style="text-align: left; margin-bottom: 0.5rem; border-color: #880088;" title="Chaos Ops: -20% Offense penalty to anyone attacking you"><span style="color:#880088">☠</span> Shadow Cartels</button>
+          </div>
+
+          <!-- Active Diplomatic Session -->
+          <div style="flex: 2; padding-left: 1rem; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+              <div>
+                <h3 id="dip-target-name" style="margin: 0; color: #fff; font-family: var(--font-display);">SELECT CONTACT</h3>
+                <div id="dip-target-leader" style="color: var(--color-accent); font-size: 0.9rem;">--</div>
+              </div>
+              <div id="dip-status-badge" style="padding: 0.25rem 0.5rem; border: 1px solid var(--color-text-muted); color: var(--color-text-muted); font-size: 0.8rem;">NO ACCORD</div>
+            </div>
+
+            <!-- Chat Area -->
+            <div id="dip-chat-box" style="flex: 1; background: rgba(0,0,0,0.5); border: 1px inset rgba(0,255,221,0.2); padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem;">
+              <div style="color: var(--color-text-muted); text-align: center; font-style: italic;">[ Channel Open ]</div>
+            </div>
+
+            <!-- Chat Input -->
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <input type="text" id="dip-chat-input" disabled style="flex: 1; padding: 0.5rem; background: transparent; border: 1px solid var(--color-accent); color: #fff; font-family: var(--font-mono); outline: none;" placeholder="Message Ambassador..." />
+              <button id="btn-dip-send" class="btn btn-primary" disabled>SEND</button>
+            </div>
+
+            <!-- Treaty Proposal -->
+            <div style="border-top: 1px dashed var(--color-accent); padding-top: 1rem; display: flex; gap: 0.5rem;">
+              <select id="dip-treaty-type" disabled style="background: var(--color-bg); color: #fff; border: 1px solid var(--color-accent); padding: 0.5rem; font-family: var(--font-mono); outline: none; cursor: pointer;">
+                <option value="CEASEFIRE">Ceasefire</option>
+                <option value="TRADE">Trade Agreement</option>
+                <option value="ALLIANCE">Grand Alliance</option>
+              </select>
+              <button id="btn-dip-propose" class="btn btn-primary" disabled style="flex: 1;">PROPOSE ACCORD</button>
+              <button id="btn-dip-break" class="btn btn-danger" style="display: none;">REVOKE ACCORD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  sentinelModal: `
+    <div id="modal-sentinel" class="modal-overlay" style="display:none; position: fixed; inset: 0; background: rgba(0,20,30,0.95); z-index: 1000; justify-content: center; align-items: center; font-family: var(--font-mono);">
+      <div class="panel" style="width: 800px; max-height: 80vh; display: flex; flex-direction: column; background: rgba(10,14,23,0.9); border: 2px solid var(--color-accent); pointer-events: auto;">
+        
+        <div class="panel-header" style="justify-content: space-between; border-bottom: 1px solid var(--color-accent); padding-bottom: 0.5rem;">
+          <span style="color: var(--color-accent); text-shadow: 0 0 5px var(--color-accent); font-size: 1.2rem;">[ SENTINEL LAB ]</span>
+          <button id="btn-close-sentinel" style="background: none; border: none; color: var(--color-accent); font-size: 1.5rem; cursor: pointer;">×</button>
+        </div>
+
+        <div style="display: flex; flex: 1; overflow: hidden; margin-top: 1rem; padding: 1rem; gap: 2rem;">
+          
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+            <div style="color: #fff; font-family: var(--font-display); font-size: 1.2rem;">
+               <span id="snt-name">NO SENTINEL FOUND</span>
+            </div>
+            <div style="font-size: 0.9rem; color: var(--color-text-muted);">SYS_STATUS: <span id="snt-status" style="color: var(--color-warning);">NOT INITIALIZED</span></div>
+            
+            <button id="btn-snt-create" class="btn btn-primary" style="display:none;">INITIALIZE SENTINEL</button>
+
+            <div id="snt-controls" style="display: none; flex-direction: column; gap: 1rem;">
+                <div>
+                   <div style="display:flex; justify-content:space-between; color:var(--color-accent); font-size:0.8rem;">
+                       <span>PERSISTENCE</span> <span id="val-persistence">0.50</span>
+                   </div>
+                   <input type="range" id="slider-persistence" min="0" max="100" value="50" style="width:100%; cursor: pointer;">
+                </div>
+                <div>
+                   <div style="display:flex; justify-content:space-between; color:var(--color-accent); font-size:0.8rem;">
+                       <span>STEALTH</span> <span id="val-stealth">0.50</span>
+                   </div>
+                   <input type="range" id="slider-stealth" min="0" max="100" value="50" style="width:100%; cursor: pointer;">
+                </div>
+                <div>
+                   <div style="display:flex; justify-content:space-between; color:var(--color-accent); font-size:0.8rem;">
+                       <span>EFFICIENCY</span> <span id="val-efficiency">0.50</span>
+                   </div>
+                   <input type="range" id="slider-efficiency" min="0" max="100" value="50" style="width:100%; cursor: pointer;">
+                </div>
+                <div>
+                   <div style="display:flex; justify-content:space-between; color:var(--color-accent); font-size:0.8rem;">
+                       <span>AGGRESSION</span> <span id="val-aggression">0.50</span>
+                   </div>
+                   <input type="range" id="slider-aggression" min="0" max="100" value="50" style="width:100%; cursor: pointer;">
+                </div>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                   <button id="btn-snt-save" class="btn btn-primary" style="flex: 1;">SAVE POLICY</button>
+                   <button id="btn-snt-toggle" class="btn" style="flex: 1; color: var(--color-warning); border-color: var(--color-warning);">DEPLOY</button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 1rem; flex: 1; border: 1px solid var(--color-accent); background: rgba(0,0,0,0.5); padding: 0.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.7rem;" id="snt-logs">
+                <div style="color: var(--color-text-muted); font-style: italic;">[ OPERATIONAL LOGS ]</div>
+            </div>
+          </div>
+          
+          <div style="flex: 1; display: flex; justify-content: center; align-items: center; position: relative;">
+            <canvas id="snt-radar-chart"></canvas>
+          </div>
+
+        </div>
+      </div>
+    </div>
   `
 };
 
@@ -206,7 +352,10 @@ async function initApp() {
   const appElement = document.getElementById('app');
   
   // Inject HTML — login view is the first screen
-  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.gameover + views.settingsModal;
+  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal;
+
+  // Ensure only the login view is active initially
+  navigateTo('login');
 
   // --- Login / Auth Flow ---
   const loginUsername = document.getElementById('login-username');
@@ -250,6 +399,7 @@ async function initApp() {
       const usernameInput = document.getElementById('input-username');
       if (usernameInput) usernameInput.value = AppState.player.username;
 
+      api.connectWebSocket();
       setTimeout(() => navigateTo('menu'), 400);
     } catch (e) {
       loginError.textContent = isRegister
@@ -283,6 +433,8 @@ async function initApp() {
       AppState.player.xp = profile.xp;
       loginStatus.textContent = 'SESSION RESTORED';
       loginStatus.style.color = 'var(--color-player)';
+      
+      api.connectWebSocket();
       navigateTo('menu');
     } else {
       // Token expired/invalid
@@ -336,10 +488,11 @@ async function initApp() {
   });
 
   document.getElementById('btn-demo').addEventListener('click', () => {
+    const scenarioId = document.getElementById('sel-scenario').value;
     navigateTo('game');
     if (window.PromoInstance) window.PromoInstance.stop();
     if (window.DemoInstance) {
-      window.DemoInstance.start();
+      window.DemoInstance.start(scenarioId);
     }
   });
 
@@ -422,7 +575,7 @@ async function initApp() {
   window.addEventListener('keydown', (e) => {
       // Don't trigger if user is typing in the name input field
       if (document.activeElement === inputUsername) return;
-      
+      if (!e.key) return;
       const key = e.key.toLowerCase();
       // Menu Shortcuts
       if (AppState.currentView === 'menu') {
@@ -506,9 +659,11 @@ async function initApp() {
   
   // Initialize UI features (HUD, Canvas, etc)
   initUI();
+  initDiplomacyEvents();
   
   // Init Game Engine and Demo
   window.GameInstance = new GameEngine();
+  window.TerminalInstance = new TerminalManager(window.GameInstance);
   window.DemoInstance = new DemoManager(window.GameInstance);
   window.PromoInstance = new PromoManager(window.GameInstance);
 }

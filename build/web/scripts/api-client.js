@@ -177,6 +177,201 @@ export class ApiClient {
       return null;
     }
   }
+
+  // --- SPRINT 3: DIPLOMACY & NEWS API ---
+  
+  async sendDiplomacyChat(factionId, message) {
+    try {
+      const res = await fetch(`${this.baseUrl}/diplomacy/chat`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({
+          faction_id: parseInt(factionId),
+          message: message
+        })
+      });
+      if (!res.ok) throw new Error('Failed to send diplomacy chat');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Diplomacy Chat Error:', e);
+      return { reply: "[CONNECTION FAILED: AMBASSADOR UNAVAILABLE]" };
+    }
+  }
+
+  async proposeTreaty(targetFactionId, type, proposalText) {
+    try {
+      const res = await fetch(`${this.baseUrl}/diplomacy/propose`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({
+          target_faction_id: parseInt(targetFactionId),
+          type: type, // CEASEFIRE, ALLIANCE, TRADE
+          proposal_text: proposalText
+        })
+      });
+      if (!res.ok) throw new Error('Failed to propose treaty');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Treaty Propose Error:', e);
+      return { status: 'error', message: "Transmission failed." };
+    }
+  }
+
+  async getAccords() {
+    try {
+      const res = await fetch(`${this.baseUrl}/diplomacy/accords`, {
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Failed to fetch accords');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Fetch Accords Error:', e);
+      return [];
+    }
+  }
+
+  async getLatestNews(limit = 5) {
+    try {
+      const res = await fetch(`${this.baseUrl}/news/latest?limit=${limit}`, {
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Failed to fetch latest news');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Fetch News Error:', e);
+      return [];
+    }
+  }
+
+  // --- SPRINT 4: SENTINEL API ---
+
+  async getSentinels() {
+    try {
+      const res = await fetch(`${this.baseUrl}/sentinels`, { headers: this.getHeaders() });
+      if (!res.ok) throw new Error('Failed to fetch sentinels');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Get Sentinels Error:', e);
+      return { sentinels: [] };
+    }
+  }
+
+  async createSentinel(name) {
+    try {
+      const res = await fetch(`${this.baseUrl}/sentinels/create`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ name })
+      });
+      if (!res.ok) {
+         const d = await res.json();
+         throw new Error(d.detail || 'Failed to create sentinel');
+      }
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Create Sentinel Error:', e);
+      throw e;
+    }
+  }
+
+  async updateSentinelPolicy(id, weights) {
+    try {
+      const res = await fetch(`${this.baseUrl}/sentinels/${id}/policy`, {
+        method: 'PATCH',
+        headers: this.getHeaders(),
+        body: JSON.stringify(weights)
+      });
+      if (!res.ok) throw new Error('Policy update failed');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Update Sentinel Policy Error:', e);
+      throw e;
+    }
+  }
+
+  async toggleSentinel(id) {
+    try {
+      const res = await fetch(`${this.baseUrl}/sentinels/${id}/toggle`, {
+        method: 'POST',
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Toggle failed');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Toggle Sentinel Error:', e);
+      throw e;
+    }
+  }
+
+  async getSentinelLogs(id) {
+    try {
+      const res = await fetch(`${this.baseUrl}/sentinels/${id}/logs`, { headers: this.getHeaders() });
+      if (!res.ok) throw new Error('Logs fetch failed');
+      return await res.json();
+    } catch(e) {
+      console.error('[API] Get Logs Error:', e);
+      return { logs: [] };
+    }
+  }
+
+  // --- SPRINT 5: WEBSOCKETS & NOTIFICATIONS ---
+
+  connectWebSocket() {
+    if (this.ws) {
+        this.ws.close();
+    }
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    // Convert http:// to ws://
+    const wsUrl = this.baseUrl.replace(/^http/, 'ws').replace('/api', '') + `/ws/game?token=${token}`;
+    
+    this.ws = new WebSocket(wsUrl);
+
+    this.ws.onopen = () => {
+        console.log('[WS] Connected to Game State Stream');
+    };
+
+    this.ws.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            // Dispatch a global event that ui-manager can listen to
+            const wsEvent = new CustomEvent('wsMessage', { detail: data });
+            window.dispatchEvent(wsEvent);
+        } catch (e) {
+            console.error('[WS] Error parsing message:', e);
+        }
+    };
+
+    this.ws.onclose = () => {
+        console.log('[WS] Disconnected. Reconnecting in 3s...');
+        setTimeout(() => this.connectWebSocket(), 3000);
+    };
+
+    this.ws.onerror = (err) => {
+        console.error('[WS] Connection Error', err);
+    };
+  }
+
+  async getNotifications() {
+      try {
+          const res = await fetch(`${this.baseUrl}/notifications`, { headers: this.getHeaders() });
+          if (!res.ok) throw new Error('Fetch notifications failed');
+          return await res.json();
+      } catch(e) {
+          console.error('[API] Get Notifications error:', e);
+          return { notifications: [] };
+      }
+  }
+
+  async markNotificationsRead() {
+      try {
+          await fetch(`${this.baseUrl}/notifications/read`, { method: 'POST', headers: this.getHeaders() });
+      } catch(e) {
+          console.error('[API] Mark Notifications Read error:', e);
+      }
+  }
+
 }
 
 // Export singleton instance

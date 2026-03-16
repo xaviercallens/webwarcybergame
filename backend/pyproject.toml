@@ -16,6 +16,7 @@ dependencies = [
     "sqlmodel>=0.0.31",
     "uvicorn[standard]>=0.40.0",
     "slowapi>=0.1.9",
+    "google-genai>=1.67.0",
 ]
 
 [project.optional-dependencies]

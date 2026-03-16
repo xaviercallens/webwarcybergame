@@ -10,12 +10,12 @@
 > [!CAUTION]
 > These items block all Phase 2 work. Do NOT ship new features until these are resolved.
 
-- [ ] **Fix hardcoded JWT secret** — `auth.py` line 15: read from `os.environ["JWT_SECRET"]`
-- [ ] **Restrict CORS origins** — `main.py` line 31: replace `allow_origins=["*"]` with deployed URL + localhost
-- [ ] **Add rate limiting** on `/api/auth/login` and `/api/auth/register` (use `slowapi`)
-- [ ] **Cap leaderboard `limit`** — add `Query(default=10, ge=1, le=100)`
-- [ ] **Add `.dockerignore`** — exclude `.git`, `node_modules`, `*.zip`, `*.png`, `*.log`, `*.db`
-- [ ] **Separate Alembic from CMD** — run migrations in Cloud Build, not on container startup
+- [x] **Fix hardcoded JWT secret** — `auth.py` line 15: read from `os.environ["JWT_SECRET"]`
+- [x] **Restrict CORS origins** — `main.py` line 31: replace `allow_origins=["*"]` with deployed URL + localhost
+- [x] **Add rate limiting** on `/api/auth/login` and `/api/auth/register` (use `slowapi`)
+- [x] **Cap leaderboard `limit`** — add `Query(default=10, ge=1, le=100)`
+- [x] **Add `.dockerignore`** — exclude `.git`, `node_modules`, `*.zip`, `*.png`, `*.log`, `*.db`
+- [x] **Separate Alembic from CMD** — run migrations in Cloud Build, not on container startup
 
 ---
 
@@ -23,34 +23,34 @@
 
 ### 1.1 Data Model — Nodes, Factions, Epochs
 
-- [ ] Design PostgreSQL schema for `Node`, `Faction`, `Epoch`, `EpochAction`
+- [x] Design PostgreSQL schema for `Node`, `Faction`, `Epoch`, `EpochAction`
   - `Node`: id, name, lat, lng, faction_id, defense_level, compute_output, node_class (TIER_1/2/3)
   - `Faction`: id, name, color, compute_reserves, global_influence_pct
   - `Epoch`: id, number, phase (PLANNING/SIM/TRANSITION), started_at, ended_at
   - `EpochAction`: id, epoch_id, player_id, action_type (SCAN/BREACH/DEFEND/TREATY), target_node_id
-- [ ] Create Alembic migration for new tables
-- [ ] Seed initial world state: 5 factions × ~50 starting nodes each = 250 nodes
+- [x] Create Alembic migration for new tables
+- [x] Seed initial world state: 5 factions × ~50 starting nodes each = 250 nodes
   - Silicon Valley Bloc, Iron Grid, Silk Road Coalition, Euro Nexus, Pacific Vanguard
 
 ### 1.2 Epoch Loop Backend
 
-- [ ] `POST /api/epoch/action` — submit player action during PLANNING phase
-- [ ] `GET /api/epoch/current` — return current epoch number, phase, and time remaining
-- [ ] `GET /api/world/state` — return all nodes with faction ownership and stats
-- [ ] `GET /api/faction/{id}` — return faction stats, compute reserves, node count
-- [ ] Epoch Scheduler — background task (APScheduler or Cloud Scheduler)
+- [x] `POST /api/epoch/action` — submit player action during PLANNING phase
+- [x] `GET /api/epoch/current` — return current epoch number, phase, and time remaining
+- [x] `GET /api/world/state` — return all nodes with faction ownership and stats
+- [x] `GET /api/faction/{id}` — return faction stats, compute reserves, node count
+- [x] Epoch Scheduler — background task (APScheduler or Cloud Scheduler)
   - 10 min PLANNING → 4 min SIM → 1 min TRANSITION → repeat
   - During TRANSITION: resolve all actions, flip nodes, update compute reserves
-- [ ] Epoch resolution engine: attack/defense calculations
+- [x] Epoch resolution engine: attack/defense calculations
   - Attacker CU vs Defender defense_level → probability-based outcome
   - Multiple attackers on same node: highest CU wins
 
 ### 1.3 Compute Units (CU) Economy
 
-- [ ] Each node generates CU per epoch based on `node_class` tier
-- [ ] Faction `compute_reserves` updated during TRANSITION
-- [ ] Actions cost CU: SCAN (10), BREACH (50–200), DEFEND (30)
-- [ ] `GET /api/faction/{id}/economy` — CU income, expenses, and balance per epoch
+- [x] Each node generates CU per epoch based on `node_class` tier
+- [x] Faction `compute_reserves` updated during TRANSITION
+- [x] Actions cost CU: SCAN (10), BREACH (50–200), DEFEND (30)
+- [x] `GET /api/faction/{id}/economy` — CU income, expenses, and balance per epoch
 
 ---
 
@@ -74,14 +74,15 @@
 
 ### 2.3 Terminal CLI
 
-- [ ] In-game terminal overlay activated with backtick `` ` ``
-- [ ] Commands:
-  - `/scan [node_id]` — reveal node stats and defenses
-  - `/breach [node_id]` — launch attack (costs CU)
-  - `/defend [node_id]` — reinforce owned node
-  - `/status` — show own faction stats
-  - `/epoch` — show current epoch info
-- [ ] Terminal output styled as green-on-black monospace
+- [x] In-game terminal overlay activated with backtick `` ` ``
+- [x] Commands:
+  - [x] `/scan [node_id]` — reveal node stats and defenses
+  - [x] `/breach [node_id]` — launch attack (costs CU)
+  - [x] `/defend [node_id]` — reinforce owned node
+  - [x] `/status` — show own faction stats
+  - [x] `/epoch` — show current epoch info
+- [x] Terminal output styled as green-on-black monospace
+
 
 ---
 
@@ -89,61 +90,60 @@
 
 ### 3.1 Faction AI Ambassadors
 
-- [ ] Enable Gemini API (`aiplatform.googleapis.com`)
-- [ ] Create `DiplomacyService` using Gemini 2.5 Flash
-- [ ] System prompt per faction ambassador with personality + current game state injection
+- [x] Enable Gemini API (`aiplatform.googleapis.com`)
+- [x] Create `DiplomacyService` using Gemini 2.5 Flash
+- [x] System prompt per faction ambassador with personality + current game state injection
   - Silicon Valley: cautious, privacy-focused, values data sovereignty
   - Iron Grid: aggressive, transactional, respects strength
   - Silk Road: opportunistic, trade-focused, values mutual benefit
-- [ ] `POST /api/diplomacy/chat` — player sends message to faction ambassador
-- [ ] Context injection: inject current epoch stats, recent battles, treaty history into LLM context
+- [x] `POST /api/diplomacy/chat` — player sends message to faction ambassador
+- [x] Context injection: inject current epoch stats, recent battles, treaty history into LLM context
 
 ### 3.2 Treaty (Accords) System
 
-- [ ] `POST /api/diplomacy/propose` — player drafts a treaty (alliance, ceasefire, trade)
-- [ ] LLM evaluates proposal against game state → accept/reject/counter
-- [ ] `GET /api/diplomacy/accords` — list active treaties
-- [ ] Active treaties automate CU sharing between factions per epoch
-- [ ] Treaty violations detected: attacking an ally's node breaks the accord
-- [ ] `POST /api/diplomacy/break` — manually break an accord (reputation penalty)
+- [x] `POST /api/diplomacy/propose` — player drafts a treaty (alliance, ceasefire, trade)
+- [x] LLM evaluates proposal against game state → accept/reject/counter
+- [x] `GET /api/diplomacy/accords` — list active treaties
+- [x] Active treaties automate CU sharing between factions per epoch
+- [x] Treaty violations detected: attacking an ally's node breaks the accord
+- [x] `POST /api/diplomacy/break` — manually break an accord (reputation penalty)
 
 ### 3.3 AI-Generated News & Briefings
 
-- [ ] After each TRANSITION, Gemini generates 2–3 sentences summarizing epoch outcomes
-- [ ] `GET /api/news/latest` — returns last 10 news items
-- [ ] News displayed in Intel Feed panel on the HUD
+- [x] After each TRANSITION, Gemini generates 2–3 sentences summarizing epoch outcomes
+- [x] `GET /api/news/latest` — returns last 10 news items
+- [x] News displayed in Intel Feed panel on the HUD
 
 ---
 
-## 🔵 Sprint 4 — Sentinel RL Training Suite (Weeks 8–10)
+## 🟢 Sprint 3.5 — Cyber Non-State Actors & UI Restoration
 
-### 4.1 Sentinel Data Model
+- [x] Enhance backend data seeder to create Cyber Mercenaries, Sentinel Vanguard, and Shadow Cartels
+- [x] Add Persona configurations for the new CNSA factions
+- [x] Implement `<EMOTION>` tag accessibility parsers in frontend
+- [x] Restore Diplomacy UI and map to all 8 factions
+- [x] Apply specific Accord mechanics (Buffs/Debuffs) for CNSA treaties
 
-- [ ] `Sentinel` model: id, player_id, name, status (TRAINING/DEPLOYED/IDLE)
-- [ ] `SentinelPolicy` model: persistence_weight, stealth_weight, efficiency_weight, aggression_weight
-- [ ] `POST /api/sentinels/create` — create new sentinel with default weights
-- [ ] `PATCH /api/sentinels/{id}/policy` — update reward weights
+---
 
-### 4.2 Sentinel Lab UI
+## 🟢 Sprint 4 — Sentinel Lab (Completed)
 
-- [ ] "Sentinel Lab" panel accessible from HUD
-- [ ] Sliders for reward function weights:
-  - Persistence (maintain foothold vs retreat)
-  - Stealth (penalty for detection)
-  - Efficiency (minimize CU per breach)
-  - Aggression (favor attack over defense)
-- [ ] Radar chart showing current policy shape (Chart.js)
-- [ ] Deploy/Recall buttons
+> [!NOTE]
+> Autonomous AI units configured by the player to fight on their behalf.
 
-### 4.3 Sentinel Behavior Engine
-
-- [ ] During SIM phase, deployed sentinels execute autonomous actions based on weighted policy
-- [ ] Simple rule-based engine first (no ML), weights determine action probabilities:
-  - High aggression → more BREACH actions
-  - High stealth → target weaker nodes, avoid heavily defended ones
-  - High persistence → defend owned nodes first
-- [ ] Sentinel action log: `GET /api/sentinels/{id}/log`
-- [ ] *Future:* Vertex AI PPO training pipeline (Phase 3)
+- [x] **Data Model**
+  - Add `Sentinel` (id, player_id, name, status=`IDLE|DEPLOYED`)
+  - Add `SentinelPolicy` (persistance, stealth, efficiency, aggression) [Floats 0.0-1.0]
+- [x] **API Endpoints**
+  - `POST /api/sentinels/create`: Initialize new AI agent
+  - `PATCH /api/sentinels/policy`: Update AI heuristics (sliders)
+  - `POST /api/sentinels/toggle`: Deploy/Recall
+- [x] **Frontend UI (`#modal-sentinel-lab`)**
+  - Render a visual readout of the Policy Weights using `Chart.js` Radar graph.
+  - 4 Sliders to adjust weights.
+  - Render an Action Log box pulling from `SentinelActionLog`.
+- [x] **Epoch Engine Injection**
+  - During `TRANSITION`, deployed Sentinels autonomously act. High aggression = attack, High defense = fortify, etc.
 
 ---
 

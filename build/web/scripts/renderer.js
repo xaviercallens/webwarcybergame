@@ -59,9 +59,11 @@ export class GameRenderer {
             } else {
                 // If it already reloaded once, the browser is permanently unable to render WebGL.
                 const errDiv = document.createElement('div');
-                errDiv.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:var(--color-enemy); background:rgba(0,0,0,0.9); padding:2rem; border:2px solid var(--color-enemy); z-index:99999; font-family:var(--font-mono); text-align:center;';
-                errDiv.innerHTML = '<h2>CRITICAL ERROR</h2><p>Your browser or OS does not support WebGL 3D Hardware Acceleration.</p><button onclick="window.location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">RETRY</button>';
+                errDiv.id = 'webgl-error-modal';
+                errDiv.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:var(--color-enemy); background:rgba(0,0,0,0.9); padding:2rem; border:2px solid var(--color-enemy); z-index:99999; font-family:var(--font-mono); text-align:center; pointer-events: auto;';
+                errDiv.innerHTML = `<h2>CRITICAL ERROR</h2><p>Your browser or OS does not support WebGL 3D Hardware Acceleration.</p><button onclick="document.getElementById('webgl-error-modal').style.display='none'" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">DISMISS</button>`;
                 document.body.appendChild(errDiv);
+                this.fallbackMode = true;
                 return;
             }
         }
@@ -135,7 +137,7 @@ export class GameRenderer {
   }
 
   renderNodes(nodes, highlightEnemies = false, highlightAttackable = false, connections = []) {
-    if (!this.globe) return;
+    if (!this.globe || this.fallbackMode) return;
     
     this.nodeMap.clear();
     nodes.forEach(n => this.nodeMap.set(n.id, n));
@@ -200,7 +202,7 @@ export class GameRenderer {
   }
 
   renderConnections(connections, nodes) {
-    if (!this.globe) return;
+    if (!this.globe || this.fallbackMode) return;
     const arcsData = connections.map(conn => {
       const source = this.nodeMap.get(conn.source);
       const target = this.nodeMap.get(conn.target);

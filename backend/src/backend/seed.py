@@ -43,6 +43,30 @@ FACTIONS_DATA = [
         "base_lat": 35.6762,
         "base_lng": 139.6503,
     },
+    {
+        "name": "Cyber Mercenaries",
+        "color": "#AAAAAA",
+        "global_influence_pct": 0.0,
+        "base_lat": 0.0,
+        "base_lng": 0.0,
+        "is_cnsa": True
+    },
+    {
+        "name": "Sentinel Vanguard",
+        "color": "#FFFFFF",
+        "global_influence_pct": 0.0,
+        "base_lat": 0.0,
+        "base_lng": 0.0,
+        "is_cnsa": True
+    },
+    {
+        "name": "Shadow Cartels",
+        "color": "#880088",
+        "global_influence_pct": 0.0,
+        "base_lat": 0.0,
+        "base_lng": 0.0,
+        "is_cnsa": True
+    }
 ]
 
 def generate_nodes_for_faction(faction: Faction, base_lat: float, base_lng: float, count: int = 50):
@@ -95,26 +119,27 @@ def seed_database():
             return
 
         # Create factions
-        factions = []
+        factions_for_nodes = []
         for data in FACTIONS_DATA:
             faction = Faction(
                 name=data["name"],
                 color=data["color"],
                 global_influence_pct=data["global_influence_pct"],
-                compute_reserves=5000
+                compute_reserves=50000 if data.get("is_cnsa") else 5000
             )
             session.add(faction)
-            factions.append((faction, data["base_lat"], data["base_lng"]))
+            if not data.get("is_cnsa"):
+                factions_for_nodes.append((faction, data["base_lat"], data["base_lng"]))
             
         session.commit()
         
         # Now create nodes
-        for faction, base_lat, base_lng in factions:
+        for faction, base_lat, base_lng in factions_for_nodes:
             nodes = generate_nodes_for_faction(faction, base_lat, base_lng, 50)
             session.add_all(nodes)
             
         session.commit()
-        print("Database seeded successfully with Factions and 250 initial Nodes.")
+        print("Database seeded successfully with Factions and initial Nodes.")
 
 if __name__ == "__main__":
     seed_database()

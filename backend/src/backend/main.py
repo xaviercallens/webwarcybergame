@@ -1,31 +1,34 @@
 import os
 from contextlib import asynccontextmanager
+import asyncio
 from pathlib import Path
+from typing import Annotated, List, Optional
 
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Request, Query, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
-from typing import List
 from pydantic import BaseModel
+from sqlalchemy.orm import joinedload
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
-from fastapi import Request, Query
 
-from backend import database, auth, models
+from backend import database, auth, models, engine
 from backend.engine import epoch_loop
+from backend.services.diplomacy import DiplomacyService
+from backend.websocket import manager
 from datetime import datetime
 
 WEB_BUILD_DIR = Path(os.getenv("WEB_BUILD_DIR", Path(__file__).parent.parent.parent.parent / "build" / "web"))
 
+diplomacy_svc = DiplomacyService(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     database.init_db()
     # Start the local game loop engine
-    import asyncio
     task = asyncio.create_task(epoch_loop())
     yield
     task.cancel()
@@ -183,15 +186,31 @@ class ActionRequest(BaseModel):
     target_node_id: int
     cu_committed: int
 
+@app.get("/api/faction/{faction_id}/economy")
+def get_faction_economy(faction_id: int, session: Session = Depends(database.get_session)):
+    faction = session.get(models.Faction, faction_id)
+    if not faction:
+        raise HTTPException(status_code=404, detail="Faction not found")
+        
+    nodes = session.exec(select(models.Node).where(models.Node.faction_id == faction_id)).all()
+    income = sum(n.compute_output for n in nodes if n.compute_output)
+    
+    return {
+        "faction_id": faction.id,
+        "compute_reserves": faction.compute_reserves,
+        "income_per_epoch": income,
+        "expenses_per_epoch": 0,
+        "balance": faction.compute_reserves
+    }
+
 @app.post("/api/epoch/action")
 def submit_action(
     req: ActionRequest, 
-    current_user: models.Player = Depends(auth.get_current_user), 
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
     session: Session = Depends(database.get_session)
 ):
     if not current_user.faction_id:
         # For testing, assign random faction if none 
-        # (in real app, players would pick upon registration or faction select screen)
         import random
         from sqlmodel import select
         factions = session.exec(select(models.Faction)).all()
@@ -245,6 +264,245 @@ def submit_action(
         
     session.commit()
     return {"status": "success", "message": f"Action {req.action_type.value} registered", "cu_committed": req.cu_committed}
+
+# --- DIPLOMACY & NEWS API (SPRINT 3) ---
+
+class ChatRequest(BaseModel):
+    faction_id: int
+    message: str
+
+@app.post("/api/diplomacy/chat")
+async def diplomacy_chat(
+    req: ChatRequest,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    nodes = session.exec(select(models.Node)).all()
+    # Build simple state summary
+    faction_counts = {}
+    for n in nodes:
+        faction_counts[n.faction_id] = faction_counts.get(n.faction_id, 0) + 1
+    
+    state_summary = f"Total Nodes: {len(nodes)}. Distribution: {faction_counts}"
+    
+    reply = await diplomacy_svc.generate_chat_reply(req.faction_id, req.message, state_summary)
+    return {"reply": reply}
+
+class TreatyProposal(BaseModel):
+    target_faction_id: int
+    type: str  # CEASEFIRE, ALLIANCE, TRADE
+    proposal_text: str
+
+@app.post("/api/diplomacy/propose")
+async def diplomacy_propose(
+    req: TreatyProposal,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    if not current_user.faction_id:
+        raise HTTPException(status_code=400, detail="You must belong to a faction to propose treaties.")
+        
+    state_summary = "Factions are currently vying for control over 250 global nodes in Gridlock phase."
+    accepted = await diplomacy_svc.evaluate_treaty_proposal(req.target_faction_id, req.proposal_text, state_summary)
+    
+    if accepted:
+        accord = models.Accord(
+            faction_a_id=current_user.faction_id,
+            faction_b_id=req.target_faction_id,
+            type=req.type,
+            status="ACTIVE"
+        )
+        session.add(accord)
+        session.commit()
+        return {"status": "accepted", "message": "The Ambassador has accepted your terms."}
+    else:
+        return {"status": "rejected", "message": "The terms were unacceptable."}
+
+@app.get("/api/diplomacy/accords", response_model=List[models.Accord])
+def get_accords(session: Session = Depends(database.get_session)):
+    return session.exec(select(models.Accord).where(models.Accord.status == "ACTIVE")).all()
+
+@app.get("/api/news/latest", response_model=List[models.NewsItem])
+def get_latest_news(limit: int = 5, session: Session = Depends(database.get_session)):
+    return session.exec(select(models.NewsItem).order_by(models.NewsItem.created_at.desc()).limit(limit)).all()
+
+# --- SPRINT 4: SENTINEL API ---
+
+@app.get("/api/sentinels")
+def get_sentinels(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    sentinels = session.exec(select(models.Sentinel).where(models.Sentinel.player_id == current_user.id)).all()
+    results = []
+    for s in sentinels:
+        policy = session.exec(select(models.SentinelPolicy).where(models.SentinelPolicy.sentinel_id == s.id)).first()
+        results.append({
+            "sentinel": s,
+            "policy": policy
+        })
+    return {"sentinels": results}
+
+class SentinelCreate(BaseModel):
+    name: str
+
+@app.post("/api/sentinels/create")
+def create_sentinel(
+    req: SentinelCreate,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    existing = session.exec(select(models.Sentinel).where(
+        (models.Sentinel.player_id == current_user.id) & 
+        (models.Sentinel.name == req.name)
+    )).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="You already have a sentinel with this name.")
+        
+    new_s = models.Sentinel(
+        player_id=current_user.id,
+        name=req.name,
+        status=models.SentinelStatus.IDLE
+    )
+    session.add(new_s)
+    session.commit()
+    session.refresh(new_s)
+    
+    new_p = models.SentinelPolicy(
+        sentinel_id=new_s.id,
+        persistence_weight=0.5,
+        stealth_weight=0.5,
+        efficiency_weight=0.5,
+        aggression_weight=0.5
+    )
+    session.add(new_p)
+    session.commit()
+    
+    return {"status": "success", "sentinel_id": new_s.id}
+
+class PolicyUpdate(BaseModel):
+    persistence_weight: float
+    stealth_weight: float
+    efficiency_weight: float
+    aggression_weight: float
+
+@app.patch("/api/sentinels/{id}/policy")
+def update_policy(
+    id: int,
+    req: PolicyUpdate,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    s = session.get(models.Sentinel, id)
+    if not s or s.player_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Sentinel not found")
+        
+    p = session.exec(select(models.SentinelPolicy).where(models.SentinelPolicy.sentinel_id == id)).first()
+    if p:
+        p.persistence_weight = req.persistence_weight
+        p.stealth_weight = req.stealth_weight
+        p.efficiency_weight = req.efficiency_weight
+        p.aggression_weight = req.aggression_weight
+        session.add(p)
+        session.commit()
+        return {"status": "success"}
+    raise HTTPException(status_code=404, detail="Policy not found")
+
+@app.post("/api/sentinels/{id}/toggle")
+def toggle_sentinel(
+    id: int,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    s = session.get(models.Sentinel, id)
+    if not s or s.player_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Sentinel not found")
+        
+    s.status = models.SentinelStatus.DEPLOYED if s.status == models.SentinelStatus.IDLE else models.SentinelStatus.IDLE
+    session.add(s)
+    session.commit()
+    return {"status": "success", "new_status": s.status}
+
+@app.get("/api/sentinels/{id}/logs")
+def get_sentinel_logs(
+    id: int,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    limit: int = 10,
+    session: Session = Depends(database.get_session)
+):
+    s = session.get(models.Sentinel, id)
+    if not s or s.player_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Sentinel not found")
+        
+    logs = session.exec(select(models.SentinelLog).where(models.SentinelLog.sentinel_id == id).order_by(models.SentinelLog.created_at.desc()).limit(limit)).all()
+    return {"logs": logs}
+
+# --- Phase 5: Real-time Sync & WebSockets ---
+
+@app.websocket("/ws/game")
+async def websocket_endpoint(websocket: WebSocket, token: str = Query(None)):
+    if not token:
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+        return
+        
+    try:
+        # Validate token using JWT
+        payload = auth.decode_access_token(token)
+        username: str = payload.get("sub")
+        if username is None:
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
+    except auth.JWTError:
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+        return
+        
+    with Session(database.engine) as session:
+        user = session.exec(select(models.Player).where(models.Player.username == username)).first()
+        if not user:
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
+            
+        player_id = user.id
+
+    await manager.connect(player_id, websocket)
+    try:
+        while True:
+            # Client can send keep-alives or chat messages here
+            data = await websocket.receive_text()
+            # We don't necessarily need to process incoming messages right now,
+            # but we could echo them or handle chat.
+    except WebSocketDisconnect:
+        manager.disconnect(player_id, websocket)
+
+@app.get("/api/notifications")
+def get_notifications(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    limit: int = 20,
+    session: Session = Depends(database.get_session)
+):
+    notifs = session.exec(
+        select(models.Notification)
+        .where(models.Notification.player_id == current_user.id)
+        .order_by(models.Notification.created_at.desc())
+        .limit(limit)
+    ).all()
+    return {"notifications": notifs}
+
+@app.post("/api/notifications/read")
+def mark_notifications_read(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    notifs = session.exec(
+        select(models.Notification)
+        .where(models.Notification.player_id == current_user.id)
+        .where(models.Notification.is_read == False)
+    ).all()
+    for n in notifs:
+        n.is_read = True
+        session.add(n)
+    session.commit()
+    return {"status": "success"}
 
 if WEB_BUILD_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_BUILD_DIR, html=True), name="static")
