@@ -49,25 +49,10 @@ export class GameRenderer {
     } catch (e) {
         console.error('[CRITICAL] Failed to initialize WebGL context:', e);
         
-        // If Vite HMR has exhausted WebGL contexts (16 limit block), self-heal by forcing a hard page reload.
-        if (e.message && e.message.toLowerCase().includes('webgl')) {
-            if (!sessionStorage.getItem('webgl_reloaded')) {
-                console.warn('[SYS] Triggering automatic GC reload to flush orphaned WebGL contexts...');
-                sessionStorage.setItem('webgl_reloaded', 'true');
-                window.location.reload();
-                return;
-            } else {
-                // If it already reloaded once, the browser is permanently unable to render WebGL.
-                const errDiv = document.createElement('div');
-                errDiv.id = 'webgl-error-modal';
-                errDiv.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:var(--color-enemy); background:rgba(0,0,0,0.9); padding:2rem; border:2px solid var(--color-enemy); z-index:99999; font-family:var(--font-mono); text-align:center; pointer-events: auto;';
-                errDiv.innerHTML = `<h2>CRITICAL ERROR</h2><p>Your browser or OS does not support WebGL 3D Hardware Acceleration.</p><button onclick="document.getElementById('webgl-error-modal').style.display='none'" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">DISMISS</button>`;
-                document.body.appendChild(errDiv);
-                this.fallbackMode = true;
-                return;
-            }
-        }
-        throw e;
+        console.warn('[SYS] WebGL initialization failed. Falling back to 2D Degraded Mode.');
+        this.fallbackMode = true;
+        this.initFallbackCanvas(container);
+        return;
     }
 
     // Load GeoJSON for landmasses
@@ -77,7 +62,7 @@ export class GameRenderer {
       
       this.globe
         .hexPolygonsData(countries.features)
-        .hexPolygonResolution(3)
+        .hexPolygonResolution(1)
         .hexPolygonMargin(0.3)
         .hexPolygonColor(() => this.colors.earthLines);
         
@@ -137,7 +122,11 @@ export class GameRenderer {
   }
 
   renderNodes(nodes, highlightEnemies = false, highlightAttackable = false, connections = []) {
-    if (!this.globe || this.fallbackMode) return;
+    if (this.fallbackMode) {
+      this.renderFallback(nodes, connections);
+      return;
+    }
+    if (!this.globe) return;
     
     this.nodeMap.clear();
     nodes.forEach(n => this.nodeMap.set(n.id, n));
@@ -186,7 +175,7 @@ export class GameRenderer {
       .pointAltitude('size')
       .pointColor('color')
       .pointRadius(0.5)
-      .pointResolution(32);
+      .pointResolution(16);
       
     // Custom label text for nodes
     this.globe
@@ -197,12 +186,13 @@ export class GameRenderer {
       .labelSize(1.5)
       .labelDotRadius(0)
       .labelColor('color')
-      .labelResolution(2)
+      .labelResolution(1)
       .labelAltitude(d => d.size + 0.05);
   }
 
   renderConnections(connections, nodes) {
-    if (!this.globe || this.fallbackMode) return;
+    if (this.fallbackMode) return; // Handled concurrently in renderFallback
+    if (!this.globe) return;
     const arcsData = connections.map(conn => {
       const source = this.nodeMap.get(conn.source);
       const target = this.nodeMap.get(conn.target);
@@ -228,5 +218,177 @@ export class GameRenderer {
       .arcDashInitialGap(() => Math.random())
       .arcDashAnimateTime(2000)
       .arcStroke(0.5);
+  }
+
+  // --- FALLBACK 2D RENDERING ---
+
+  initFallbackCanvas(container) {
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = container.clientWidth || 800;
+    this.canvas.height = container.clientHeight || 600;
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+    container.innerHTML = '';
+    container.appendChild(this.canvas);
+    this.ctx = this.canvas.getContext('2d');
+    
+    // Store calculated 2D coordinates for hit detection
+    this.mappedNodes = [];
+
+    this.drawFallbackText('DEGRADED MODE - SYSTEM ONLINE');
+    
+    window.addEventListener('resize', () => {
+        if (!this.canvas || !container) return;
+        this.canvas.width = container.clientWidth;
+        this.canvas.height = container.clientHeight;
+        if (this.lastNodes) {
+          this.renderFallback(this.lastNodes, this.lastConnections);
+        } else {
+          this.drawFallbackText('DEGRADED MODE - SYSTEM ONLINE');
+        }
+    });
+
+    // Real node interaction for the 2D map fallback
+    this.canvas.addEventListener('click', (e) => {
+        if (!this.mappedNodes || this.mappedNodes.length === 0) return;
+        
+        const rect = this.canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // Find the closest node within a hit radius
+        const HIT_RADIUS = 15;
+        let closestNode = null;
+        let minDistance = Infinity;
+
+        for (const mn of this.mappedNodes) {
+            const dx = mn.x - mouseX;
+            const dy = mn.y - mouseY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < minDistance && dist <= HIT_RADIUS) {
+                minDistance = dist;
+                closestNode = mn.node;
+            }
+        }
+
+        if (closestNode) {
+            window.dispatchEvent(new CustomEvent('nodeClicked', { detail: { nodeId: closestNode.id } }));
+        }
+    });
+  }
+
+  drawFallbackText(text) {
+      if (!this.ctx) return;
+      this.ctx.fillStyle = this.colors.background || '#0a0e17'; 
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      
+      this.ctx.fillStyle = this.colors.player || '#00ff88';
+      this.ctx.font = '24px monospace';
+      this.ctx.textAlign = 'center';
+      this.ctx.textBaseline = 'middle';
+      this.ctx.fillText(text, this.canvas.width / 2, this.canvas.height / 2);
+  }
+
+  renderFallback(nodes, connections) {
+      this.lastNodes = nodes;
+      this.lastConnections = connections;
+      if (!this.ctx || !this.canvas) return;
+      
+      this.ctx.fillStyle = this.colors.background || '#0a0e17';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      
+      const width = this.canvas.width;
+      const height = this.canvas.height;
+      const hw = width / 2;
+      const hh = height / 2;
+      
+      // Draw Statistics in the top-left corner
+      this.ctx.fillStyle = this.colors.ally || '#4488ff';
+      this.ctx.textAlign = 'left';
+      this.ctx.textBaseline = 'top';
+      this.ctx.font = '20px monospace';
+      this.ctx.fillText('DEGRADED MODE: 2D MAP', 20, 20);
+      
+      const counts = {};
+      nodes.forEach(n => {
+          counts[n.faction_id] = (counts[n.faction_id] || 0) + 1;
+      });
+      
+      let y = 60;
+      this.ctx.font = '16px monospace';
+      for (const [faction, count] of Object.entries(counts)) {
+         this.ctx.fillStyle = this.getColorForFaction(faction === 'null' ? null : parseInt(faction));
+         let fName = faction === '1' ? 'Player' : faction === 'null' ? 'Neutral' : 'Enemy ' + faction;
+         this.ctx.fillText(`${fName} Nodes: ${count}`, 20, y);
+         y += 25;
+      }
+      this.ctx.fillStyle = '#ffff00';
+      this.ctx.fillText(`Connections: ${connections ? connections.length : 0}`, 20, y + 10);
+      
+      // Setup Earth projection space
+      const earthRadius = Math.min(width, height) * 0.4;
+      const cx = hw + 100; // Shift earth a bit to the right
+      const cy = hh;
+      
+      // Draw Earth Circle
+      this.ctx.strokeStyle = this.colors.earthLines || '#1d2c4d';
+      this.ctx.lineWidth = 2;
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, earthRadius, 0, 2 * Math.PI);
+      this.ctx.stroke();
+      
+      // Simple pulsing glow
+      const time = Date.now() * 0.002;
+      const pulse = (Math.sin(time) + 1) / 2;
+      this.ctx.fillStyle = `rgba(68, 136, 255, ${0.05 + pulse * 0.05})`;
+      this.ctx.fill();
+
+      // Convert Lat/Lng to X/Y using simple equirectangular projection onto the circle area
+      // lat: -90 to +90, lng: -180 to +180
+      this.mappedNodes = nodes.map(node => {
+         // Normalize lat/lng to -1 to +1 range
+         const nx = node.lng / 180;
+         // Invert lat so southern hemisphere is +y
+         const ny = -node.lat / 90; 
+         
+         return {
+            node: node,
+            x: cx + (nx * earthRadius * 0.9), // 0.9 padding
+            y: cy + (ny * earthRadius * 0.9)
+         }
+      });
+
+      // Draw Connections First
+      if (connections && connections.length > 0) {
+          const mapDict = Object.fromEntries(this.mappedNodes.map(mn => [mn.node.id, mn]));
+          this.ctx.lineWidth = 1;
+          
+          connections.forEach(conn => {
+              const src = mapDict[conn.source];
+              const tgt = mapDict[conn.target];
+              if (src && tgt) {
+                  const isCross = src.node.faction_id !== tgt.node.faction_id;
+                  this.ctx.strokeStyle = isCross ? this.colors.neutral : this.getColorForFaction(src.node.faction_id);
+                  this.ctx.globalAlpha = 0.5;
+                  
+                  this.ctx.beginPath();
+                  this.ctx.moveTo(src.x, src.y);
+                  this.ctx.lineTo(tgt.x, tgt.y);
+                  this.ctx.stroke();
+              }
+          });
+          this.ctx.globalAlpha = 1.0;
+      }
+      
+      // Draw Nodes
+      this.mappedNodes.forEach(mn => {
+          this.ctx.fillStyle = this.getColorForFaction(mn.node.faction_id);
+          const size = mn.node.faction_id === 1 ? 6 : 4;
+          
+          this.ctx.beginPath();
+          this.ctx.arc(mn.x, mn.y, size, 0, 2 * Math.PI);
+          this.ctx.fill();
+      });
   }
 }

@@ -4,6 +4,10 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
+# Set test environment variables before importing app
+os.environ["JWT_SECRET"] = "test_secret_key_for_testing"
+os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+
 from backend.main import app
 from backend.database import get_session
 

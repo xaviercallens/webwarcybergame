@@ -75,6 +75,20 @@ export class GameEngine {
         const key = e.key.toLowerCase();
         let needsRender = false;
 
+        if (key === ' ') {
+            e.preventDefault();
+            this.isPlaying = !this.isPlaying;
+            if (this.isPlaying) {
+                this.lastApiPoll = performance.now();
+                this._boundGameLoop = this.gameLoop.bind(this);
+                this._animationFrameId = requestAnimationFrame(this._boundGameLoop);
+                window.dispatchEvent(new CustomEvent('toast', { detail: { message: '[SYS] TIME RESUMED', type: 'info' } }));
+            } else {
+                window.dispatchEvent(new CustomEvent('toast', { detail: { message: '[SYS] TIME PAUSED', type: 'warning' } }));
+            }
+            return;
+        }
+
         if (key === 'e' && !this.highlightEnemies) {
             this.highlightEnemies = true;
             needsRender = true;
@@ -179,25 +193,8 @@ export class GameEngine {
     const targetNode = this.nodes.find(n => n.id === nodeId);
     if (!targetNode) return;
     
-    // If we already have a player node selected, check for attack
-    if (this.selectedNodeId !== null) {
-      const sourceNode = this.nodes.find(n => n.id === this.selectedNodeId);
-      
-      if (sourceNode && sourceNode.owner === 'PLAYER' && sourceNode.id !== targetNode.id) {
-        // Is it adjacent?
-        const isAdjacent = this.connections.some(c => 
-          (c.source === sourceNode.id && c.target === targetNode.id) ||
-          (c.target === sourceNode.id && c.source === targetNode.id)
-        );
-        
-        if (isAdjacent && targetNode.owner !== 'PLAYER') {
-          this.initiateAttack(sourceNode.id, targetNode.id);
-          this.selectedNodeId = null; // deselect after attacking
-          return;
-        }
-      }
-    }
-    
+    // Always select the node and show its info panel
+    this.selectedNodeId = targetNode.id;
     window.dispatchEvent(new CustomEvent('nodeSelected', { detail: { node: targetNode } }));
   }
 

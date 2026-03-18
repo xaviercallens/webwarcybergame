@@ -212,7 +212,6 @@ def submit_action(
     if not current_user.faction_id:
         # For testing, assign random faction if none 
         import random
-        from sqlmodel import select
         factions = session.exec(select(models.Faction)).all()
         if factions:
             current_user.faction_id = random.choice(factions).id

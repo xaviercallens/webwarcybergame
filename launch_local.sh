@@ -48,6 +48,7 @@ if [ ! -d ".venv" ]; then
 fi
 
 export WEB_BUILD_DIR="$WEB_DIR/dist"
+export JWT_SECRET="dev-secret-change-me"
 .venv/bin/python main.py > backend.log 2>&1 &
 BACKEND_PID=$!
 

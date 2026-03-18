@@ -116,7 +116,7 @@ const views = {
         <!-- HUD will be injected here by ui-manager -->
         <div id="hud-layer"></div>
         <button id="btn-quit" class="btn btn-danger" style="position:absolute; top: 1rem; right: 1rem; min-width: 100px;">QUIT</button>
-        <button id="btn-lab" class="btn btn-primary" style="position:absolute; top: 1rem; right: 8rem; min-width: 130px; box-shadow: 0 0 10px rgba(0, 255, 221, 0.4);">SENTINEL LAB</button>
+        <button id="btn-lab" class="btn btn-primary" style="position:absolute; top: 4rem; right: 1rem; min-width: 130px; box-shadow: 0 0 10px rgba(0, 255, 221, 0.4); z-index: 1000;">SENTINEL LAB</button>
         
         <!-- Intel Feed (Aria-Live Region) -->
         <div id="intel-feed" aria-live="polite" aria-atomic="false" style="position:absolute; bottom: 1rem; right: 1rem; width: 300px; height: 250px; background: rgba(0,0,0,0.7); border: 1px solid var(--color-accent); border-radius: 4px; padding: 1rem; overflow-y: hidden; display: flex; flex-direction: column; justify-content: flex-end; font-family: var(--font-mono); font-size: 0.8rem; pointer-events: none; z-index: 50;">
@@ -140,7 +140,8 @@ const views = {
           <div style="color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase;">[ HOTKEYS ]</div>
           <div>Hold <span style="color: var(--color-player); font-weight: bold;">[A]</span> : Highlight Playable Nodes</div>
           <div>Hold <span style="color: var(--color-enemy); font-weight: bold;">[E]</span> : Highlight Enemy Targets</div>
-          <div>Tap <span style="color: var(--color-player); font-weight: bold;">[\`]</span> : Toggle Terminal CLI</div>
+          <div>Tap <span style="color: var(--color-player); font-weight: bold;">[\`]</span> or <span style="color: var(--color-player); font-weight: bold;">[C]</span> : Toggle Terminal CLI</div>
+          <div>Tap <span style="color: var(--color-player); font-weight: bold;">[Space]</span> : Pause / Resume Time</div>
         </div>
 
         <!-- Terminal Overlay -->
@@ -573,8 +574,9 @@ async function initApp() {
 
   // --- Global Keyboard Shortcuts ---
   window.addEventListener('keydown', (e) => {
-      // Don't trigger if user is typing in the name input field
-      if (document.activeElement === inputUsername) return;
+      // Don't trigger if user is typing in any input/textarea field
+      const tag = document.activeElement ? document.activeElement.tagName : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
       if (!e.key) return;
       const key = e.key.toLowerCase();
       // Menu Shortcuts

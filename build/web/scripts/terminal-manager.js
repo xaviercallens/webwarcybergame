@@ -15,7 +15,16 @@ export class TerminalManager {
     window.addEventListener('keydown', (e) => {
       if (window.AppState && window.AppState.currentView !== 'game') return;
       
-      if (e.key === '\`' || e.key === '~') {
+      // Don't toggle if user is typing in any input or textarea
+      const tag = document.activeElement ? document.activeElement.tagName : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      
+      if (e.key === '`' || e.key === '~' || (e.key.toLowerCase() === 'c' && !this.isOpen)) {
+        e.preventDefault();
+        this.toggle();
+      }
+      // Allow Escape to close the terminal
+      if (e.key === 'Escape' && this.isOpen) {
         e.preventDefault();
         this.toggle();
       }
@@ -59,27 +68,39 @@ export class TerminalManager {
     this.output.scrollTop = this.output.scrollHeight;
   }
 
+  resolveNode(input) {
+    // Try numeric ID first
+    const numId = parseInt(input);
+    if (!isNaN(numId)) {
+      return this.gameEngine.nodes.find(n => n.id === numId) || null;
+    }
+    // Try node name (case-insensitive)
+    const nameLower = input.toLowerCase();
+    return this.gameEngine.nodes.find(n => n.name && n.name.toLowerCase() === nameLower) || null;
+  }
+
   async processCommand(commandStr) {
-    const parts = commandStr.trim().split(/\\s+/);
+    const parts = commandStr.trim().split(/\s+/);
     if (parts.length === 0 || !parts[0]) return;
     const cmd = parts[0].toLowerCase();
     const args = parts.slice(1);
 
     if (cmd === '/help') {
       this.print('AVAILABLE COMMANDS:', '#fff');
-      this.print('  /scan [node_id]   - Reveal node stats');
-      this.print('  /breach [node_id] - Launch attack on enemy node (Costs CU)');
-      this.print('  /defend [node_id] - Reinforce owned node (Costs CU)');
-      this.print('  /diplomacy        - Open the Secure Diplomatic Channel');
-      this.print('  /status           - Show global faction stats');
-      this.print('  /epoch            - Show current epoch info');
-      this.print('  /clear            - Clear terminal output');
+      this.print('  /scan [node_name or id]   - Reveal node stats');
+      this.print('  /breach [node_name or id] - Launch attack on enemy node (Costs CU)');
+      this.print('  /defend [node_name or id] - Reinforce owned node (Costs CU)');
+      this.print('  /diplomacy                - Open the Secure Diplomatic Channel');
+      this.print('  /status                   - Show global faction stats');
+      this.print('  /epoch                    - Show current epoch info');
+      this.print('  /clear                    - Clear terminal output');
       return;
     }
 
     if (cmd === '/diplomacy' || cmd === '/dip') {
        const modal = document.getElementById('modal-diplomacy');
        if (modal) {
+           modal.style.display = 'flex';
            modal.classList.add('active');
            this.print('[*] SECURE DIPLOMATIC CHANNEL OPENED.', 'var(--color-accent)');
        } else {
@@ -129,13 +150,12 @@ export class TerminalManager {
 
     if (cmd === '/scan') {
       if (!args[0]) {
-          this.print('ERR: Missing target ID. Usage: /scan [node_id]', 'var(--color-enemy)');
+          this.print('ERR: Missing target. Usage: /scan [node_name or id]', 'var(--color-enemy)');
           return;
       }
-      const targetId = parseInt(args[0]);
-      const node = this.gameEngine.nodes.find(n => n.id === targetId);
+      const node = this.resolveNode(args.join(' '));
       if (!node) {
-          this.print(`ERR: Node ${targetId} not found.`, 'var(--color-warning)');
+          this.print(`ERR: Node '${args.join(' ')}' not found. Use /status to see nodes.`, 'var(--color-warning)');
           return;
       }
       this.print(`SCAN RESULTS FOR: ${node.name} [ID: ${node.id}]`, '#fff');
@@ -148,18 +168,22 @@ export class TerminalManager {
 
     if (cmd === '/breach') {
        if (!args[0]) {
-           this.print('ERR: Missing target ID. Usage: /breach [node_id]', 'var(--color-enemy)');
+           this.print('ERR: Missing target. Usage: /breach [node_name or id]', 'var(--color-enemy)');
            return;
        }
        if (this.gameEngine.currentEpoch && this.gameEngine.currentEpoch.phase !== 'PLANNING') {
            this.print('ERR: ACTIONS ONLY PERMITTED IN PLANNING PHASE', 'var(--color-enemy)');
            return;
        }
-       const targetId = parseInt(args[0]);
-       const cu = 25; // Default for now
+       const node = this.resolveNode(args.join(' '));
+       if (!node) {
+           this.print(`ERR: Node '${args.join(' ')}' not found.`, 'var(--color-warning)');
+           return;
+       }
+       const cu = 25;
        try {
-           const res = await api.submitAction(targetId, 'BREACH', cu);
-           this.print(`[+] BREACH payload queued against Node ${targetId}. Committing ${cu} CU.`, 'var(--color-player)');
+           const res = await api.submitAction(node.id, 'BREACH', cu);
+           this.print(`[+] BREACH payload queued against ${node.name} [${node.id}]. Committing ${cu} CU.`, 'var(--color-player)');
        } catch (e) {
            this.print(`ERR: Failed to queue BREACH. ${e.message}`, 'var(--color-enemy)');
        }
@@ -168,18 +192,22 @@ export class TerminalManager {
 
     if (cmd === '/defend') {
        if (!args[0]) {
-           this.print('ERR: Missing target ID. Usage: /defend [node_id]', 'var(--color-enemy)');
+           this.print('ERR: Missing target. Usage: /defend [node_name or id]', 'var(--color-enemy)');
            return;
        }
        if (this.gameEngine.currentEpoch && this.gameEngine.currentEpoch.phase !== 'PLANNING') {
            this.print('ERR: ACTIONS ONLY PERMITTED IN PLANNING PHASE', 'var(--color-enemy)');
            return;
        }
-       const targetId = parseInt(args[0]);
-       const cu = 25; // Default for now
+       const node = this.resolveNode(args.join(' '));
+       if (!node) {
+           this.print(`ERR: Node '${args.join(' ')}' not found.`, 'var(--color-warning)');
+           return;
+       }
+       const cu = 25;
        try {
-           const res = await api.submitAction(targetId, 'DEFEND', cu);
-           this.print(`[+] DEFEND protocol queued for Node ${targetId}. Committing ${cu} CU.`, 'var(--color-player)');
+           const res = await api.submitAction(node.id, 'DEFEND', cu);
+           this.print(`[+] DEFEND protocol queued for ${node.name} [${node.id}]. Committing ${cu} CU.`, 'var(--color-player)');
        } catch (e) {
            this.print(`ERR: Failed to queue DEFEND. ${e.message}`, 'var(--color-enemy)');
        }

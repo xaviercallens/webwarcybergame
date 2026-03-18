@@ -325,6 +325,7 @@ export function initDiplomacyEvents() {
 
   closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
+    modal.classList.remove('active');
     audio.playClick();
   });
 
@@ -496,6 +497,7 @@ export function openDiplomacyPanel(factionId) {
   document.getElementById('dip-status-badge').style.borderColor = 'var(--color-text-muted)';
   
   modal.style.display = 'flex';
+  modal.classList.add('active');
   audio.playClick();
 }
 

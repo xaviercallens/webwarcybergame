@@ -30,10 +30,30 @@ def main():
         print("Navigating to http://localhost:8000 ...")
         driver.get("http://localhost:8000")
 
-        print("Checking if Main Menu is visible...")
+        print("Handling Login Screen...")
         wait = WebDriverWait(driver, 10)
-        btn_play = wait.until(EC.visibility_of_element_located((By.ID, "btn-play")))
-
+        
+        # Wait for login view
+        username_input = wait.until(EC.visibility_of_element_located((By.ID, "login-username")))
+        password_input = driver.find_element(By.ID, "login-password")
+        
+        username_input.send_keys("SELENIUM_TEST")
+        password_input.send_keys("test_pass_123")
+        
+        # Click Register to create user or login if exists
+        btn_register = driver.find_element(By.ID, "btn-register")
+        driver.execute_script("arguments[0].click();", btn_register)
+        
+        print("Checking if Main Menu is visible...")
+        
+        try:
+            btn_play = wait.until(EC.visibility_of_element_located((By.ID, "btn-play")))
+        except Exception:
+            # Maybe it already exists? Try login instead
+            btn_login = driver.find_element(By.ID, "btn-login")
+            driver.execute_script("arguments[0].click();", btn_login)
+            btn_play = wait.until(EC.visibility_of_element_located((By.ID, "btn-play")))
+            
         print("Waiting for backend healthcheck to complete...")
         wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "menu-subtitle"), "ONLINE"))
 

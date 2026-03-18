@@ -69,7 +69,7 @@ FACTIONS_DATA = [
     }
 ]
 
-def generate_nodes_for_faction(faction: Faction, base_lat: float, base_lng: float, count: int = 50):
+def generate_nodes_for_faction(faction: Faction, base_lat: float, base_lng: float, count: int = 45):
     nodes = []
     for i in range(count):
         # Determine class and stats
@@ -107,39 +107,57 @@ def generate_nodes_for_faction(faction: Faction, base_lat: float, base_lng: floa
         nodes.append(node)
     return nodes
 
-def seed_database():
-    print("Seeding database...")
+def seed_database(total_nodes: int = 30):
+    print(f"Seeding database with {total_nodes} nodes...")
     engine = get_engine()
     
     with Session(engine) as session:
-        # Check if already seeded
+        # Check if factions already exist
         existing_factions = session.exec(select(Faction)).all()
-        if existing_factions:
-            print("Database already seeded. Skipping.")
+        
+        if not existing_factions:
+            # Create factions on first run
+            for data in FACTIONS_DATA:
+                faction = Faction(
+                    name=data["name"],
+                    color=data["color"],
+                    global_influence_pct=data["global_influence_pct"],
+                    compute_reserves=50000 if data.get("is_cnsa") else 5000
+                )
+                session.add(faction)
+            session.commit()
+            existing_factions = session.exec(select(Faction)).all()
+
+        # Build playable faction list (non-CNSA)
+        cnsa_names = {d["name"] for d in FACTIONS_DATA if d.get("is_cnsa")}
+        factions_for_nodes = []
+        for faction in existing_factions:
+            if faction.name not in cnsa_names:
+                match = next((d for d in FACTIONS_DATA if d["name"] == faction.name), None)
+                if match:
+                    factions_for_nodes.append((faction, match["base_lat"], match["base_lng"]))
+
+        if not factions_for_nodes:
+            print("No playable factions found. Aborting seed.")
             return
 
-        # Create factions
-        factions_for_nodes = []
-        for data in FACTIONS_DATA:
-            faction = Faction(
-                name=data["name"],
-                color=data["color"],
-                global_influence_pct=data["global_influence_pct"],
-                compute_reserves=50000 if data.get("is_cnsa") else 5000
-            )
-            session.add(faction)
-            if not data.get("is_cnsa"):
-                factions_for_nodes.append((faction, data["base_lat"], data["base_lng"]))
-            
+        # Delete existing nodes to allow re-seeding with new count
+        session.exec(select(Node)).all()  # load
+        from sqlalchemy import delete
+        session.exec(delete(Node))
         session.commit()
+
+        # Create nodes distributed across factions
+        nodes_per_faction = max(1, total_nodes // len(factions_for_nodes))
+        extra_nodes = total_nodes % len(factions_for_nodes)
         
-        # Now create nodes
-        for faction, base_lat, base_lng in factions_for_nodes:
-            nodes = generate_nodes_for_faction(faction, base_lat, base_lng, 50)
+        for i, (faction, base_lat, base_lng) in enumerate(factions_for_nodes):
+            count = nodes_per_faction + (1 if i < extra_nodes else 0)
+            nodes = generate_nodes_for_faction(faction, base_lat, base_lng, count)
             session.add_all(nodes)
             
         session.commit()
-        print("Database seeded successfully with Factions and initial Nodes.")
+        print(f"Database seeded successfully with {total_nodes} nodes across {len(factions_for_nodes)} factions.")
 
 if __name__ == "__main__":
     seed_database()
