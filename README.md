@@ -10,6 +10,14 @@
 
 **Neo-Hack: Gridlock** is an immersive, browser-based cyber warfare strategy game played out on a visually stunning 3D globe. Take command of regional nodes, bypass enemy firewalls, and launch coordinated hacking payloads to achieve Total Dominance against rival factions.
 
+## 🌟 What's New in Release 2.1
+
+- 🌍 **WebGL Fallback Support**: Enjoy the game smoothly even on browsers without hardware acceleration.
+- ⚙️ **Customizable Node Counts**: Tailor your match length by choosing between 10 to 100 global nodes.
+- 🤝 **Diplomacy Enhancements**: Improved faction interaction with a revamped diplomacy modal.
+- 📊 **Real-Time HUD**: Comprehensive Epoch Phase tracking (Planning, Simulation, Transition).
+- 🛡️ **Unmatched Stability**: Over 360 passing tests ensuring 90%+ coverage across backend and frontend engines.
+
 ## 📸 Core Intel
 
 <div align="center">
