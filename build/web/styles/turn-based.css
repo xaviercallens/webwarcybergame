@@ -1,0 +1,407 @@
+/**
+ * Turn-based UI styles for Neo-Hack v3.1.
+ * Blueprint Alignment: Day 4, Section 2 (User Experience)
+ */
+
+/* ===== Turn HUD ===== */
+.turn-hud {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  pointer-events: none;
+  font-family: var(--font-hud, 'Rajdhani', sans-serif);
+}
+
+.turn-hud__row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(0, 10, 20, 0.85);
+  border: 1px solid rgba(0, 255, 221, 0.3);
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  backdrop-filter: blur(4px);
+}
+
+.turn-hud__label {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(0, 255, 221, 0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.turn-hud__value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.turn-hud__player-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.turn-hud__player-indicator.attacker {
+  background: rgba(255, 0, 85, 0.15);
+  border: 1px solid rgba(255, 0, 85, 0.5);
+  color: #ff0055;
+  text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+}
+
+.turn-hud__player-indicator.defender {
+  background: rgba(0, 120, 255, 0.15);
+  border: 1px solid rgba(0, 120, 255, 0.5);
+  color: #0088ff;
+  text-shadow: 0 0 10px rgba(0, 120, 255, 0.5);
+}
+
+.turn-hud__player-icon {
+  font-size: 1.2rem;
+}
+
+.turn-hud__alert-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  background: rgba(0, 10, 20, 0.85);
+  border: 1px solid rgba(0, 255, 221, 0.2);
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+}
+
+/* ===== Alert Meter ===== */
+.alert-meter {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.alert-meter__fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+.alert-meter__value {
+  font-size: 0.85rem;
+  color: #fff;
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* Alert Meter Widget (standalone) */
+.alert-meter-widget {
+  background: rgba(0, 10, 20, 0.9);
+  border: 1px solid rgba(0, 255, 221, 0.3);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-hud, 'Rajdhani', sans-serif);
+}
+
+.alert-meter-widget__label {
+  font-size: 0.7rem;
+  color: rgba(0, 255, 221, 0.7);
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.alert-meter-widget__warning {
+  color: #ff0055;
+  animation: blink-warning 0.8s infinite;
+}
+
+.alert-meter-widget__bar {
+  position: relative;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  overflow: visible;
+}
+
+.alert-meter-widget__fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+.alert-meter-widget__fill--critical {
+  animation: pulse-alert 1s infinite;
+}
+
+.alert-meter-widget__threshold {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.alert-meter-widget__value {
+  font-size: 0.8rem;
+  color: #fff;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+/* ===== Action Menu ===== */
+.action-menu {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 260px;
+  background: rgba(0, 10, 20, 0.92);
+  border: 1px solid rgba(0, 255, 221, 0.3);
+  border-radius: 4px;
+  z-index: 60;
+  font-family: var(--font-mono, 'Fira Code', monospace);
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+}
+
+.action-menu--attacker {
+  border-color: rgba(255, 0, 85, 0.4);
+}
+
+.action-menu--defender {
+  border-color: rgba(0, 120, 255, 0.4);
+}
+
+.action-menu__header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(0, 255, 221, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-menu__title {
+  font-size: 0.75rem;
+  color: rgba(0, 255, 221, 0.8);
+  letter-spacing: 2px;
+}
+
+.action-menu__target {
+  font-size: 0.65rem;
+  color: #ffcc00;
+}
+
+.action-menu__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 3px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  color: #fff;
+  font-family: var(--font-mono, 'Fira Code', monospace);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  text-align: left;
+}
+
+.action-btn:hover:not(:disabled) {
+  background: rgba(0, 255, 221, 0.08);
+  border-color: rgba(0, 255, 221, 0.4);
+}
+
+.action-btn:active:not(:disabled) {
+  background: rgba(0, 255, 221, 0.15);
+}
+
+.action-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.action-btn__icon {
+  font-size: 1rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.action-btn__name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-btn__rate {
+  color: #00ffdd;
+  font-size: 0.65rem;
+  min-width: 2rem;
+  text-align: right;
+}
+
+.action-btn__cost {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.6rem;
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* ===== Mission Panel ===== */
+.mission-panel {
+  position: absolute;
+  right: 1rem;
+  top: 5rem;
+  width: 280px;
+  background: rgba(0, 10, 20, 0.92);
+  border: 1px solid rgba(0, 255, 221, 0.3);
+  border-radius: 4px;
+  z-index: 60;
+  font-family: var(--font-mono, 'Fira Code', monospace);
+  pointer-events: auto;
+  display: none;
+}
+
+.mission-panel__header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(0, 255, 221, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mission-panel__title {
+  font-size: 0.75rem;
+  color: rgba(0, 255, 221, 0.8);
+  letter-spacing: 2px;
+}
+
+.mission-panel__toggle {
+  background: none;
+  border: none;
+  color: rgba(0, 255, 221, 0.6);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.mission-panel__section {
+  padding: 0.75rem 1rem;
+}
+
+.mission-panel__section--attacker {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mission-panel__role-header {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin: 0 0 0.5rem 0;
+}
+
+.mission-panel__role-header--attacker {
+  color: #ff0055;
+}
+
+.mission-panel__role-header--defender {
+  color: #0088ff;
+}
+
+.mission-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mission-panel__objective {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.2rem 0;
+}
+
+.mission-panel__objective--done {
+  color: rgba(0, 255, 221, 0.6);
+  text-decoration: line-through;
+}
+
+/* ===== Floating Text Feedback ===== */
+.floating-text {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px currentColor;
+  opacity: 1;
+}
+
+.floating-text--success {
+  color: #00ffdd;
+}
+
+.floating-text--failure {
+  color: #ff0055;
+}
+
+/* ===== Alert Popup ===== */
+.alert-popup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 0, 85, 0.15);
+  border: 2px solid #ff0055;
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-hud, 'Rajdhani', sans-serif);
+  color: #ff0055;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+  animation: shake-alert 0.3s ease;
+}
+
+.alert-popup__icon {
+  font-size: 2rem;
+}
+
+.action-feedback-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+}
+
+/* ===== Animations ===== */
+@keyframes blink-warning {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes pulse-alert {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes shake-alert {
+  0%, 100% { transform: translateX(-50%); }
+  25% { transform: translateX(calc(-50% - 5px)); }
+  75% { transform: translateX(calc(-50% + 5px)); }
+}

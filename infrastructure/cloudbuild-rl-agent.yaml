@@ -1,0 +1,35 @@
+steps:
+  # Build RL agent image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-agent:$SHORT_SHA'
+      - '-f'
+      - 'backend/Dockerfile.rl_agent'
+      - 'backend/'
+
+  # Push image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-agent:$SHORT_SHA'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'neohack-rl-agent'
+      - '--image=europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-agent:$SHORT_SHA'
+      - '--region=europe-west1'
+      - '--platform=managed'
+      - '--min-instances=1'
+      - '--max-instances=5'
+      - '--memory=1Gi'
+      - '--cpu=1'
+      - '--no-allow-unauthenticated'
+      - '--service-account=neohack-backend@webwar-490207.iam.gserviceaccount.com'
+
+images:
+  - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-agent:$SHORT_SHA'

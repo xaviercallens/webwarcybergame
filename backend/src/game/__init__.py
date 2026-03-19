@@ -11,6 +11,8 @@ from .victory_conditions import (
     ScenarioObjectives,
     GameEndConditions,
 )
+from .actions import ActionExecutor, AttackerActionHandler, DefenderActionHandler
+from .replay_recorder import ReplayRecorder
 
 __all__ = [
     "TurnManager",
@@ -23,4 +25,8 @@ __all__ = [
     "VictoryType",
     "ScenarioObjectives",
     "GameEndConditions",
+    "ActionExecutor",
+    "AttackerActionHandler",
+    "DefenderActionHandler",
+    "ReplayRecorder",
 ]
