@@ -19,6 +19,28 @@
 
 ---
 
+## 🎮 v3.2 Demo — Operation Crimson Tide (10 min)
+
+<video src="https://github.com/xaviercallens/webwarcybergame/raw/main/specs/demo_recordings/demo_crimson_tide_10min.mp4" width="100%" controls muted playsinline></video>
+
+> **[▶ Download full demo (MP4, 9 MB)](specs/demo_recordings/demo_crimson_tide_10min.mp4)** | **[📄 Playthrough log](specs/demo_recordings/demo_playthrough_log_2026-03-21T09-07-58.txt)** | **[📄 API call log](specs/demo_logs/demo_api_log_20260321_093347.txt)**
+
+This **8-minute recorded gameplay session** showcases the full v3.2 experience:
+
+| Timestamp | Phase | What You'll See |
+|-----------|-------|-----------------|
+| 0:00 – 0:30 | **Login & Setup** | User authentication, menu navigation, difficulty & scenario selection |
+| 0:30 – 1:00 | **Role Select** | Attacker faction card (Scarlet Protocol), mission briefing overlay |
+| 1:00 – 2:30 | **Turns 1–3: Recon** | Node selection on 2D tactical map, SCAN & BREACH actions via action panel |
+| 2:30 – 4:00 | **Diplomacy** | Silk Road Coalition chat, trade proposal, Sentinel Vanguard negotiation |
+| 4:00 – 6:30 | **Turns 4–7: Assault** | Deep network penetration, alternating SCAN/BREACH on Iron Grid nodes |
+| 6:30 – 7:00 | **Sentinel Lab** | AI agent creation with tunable parameters |
+| 7:00 – 8:30 | **Turns 8–10: Exfiltration** | Final data extraction push, mission conclusion |
+
+**87 demo actions** and **84 API calls** were captured during recording — full logs available in [`specs/demo_logs/`](specs/demo_logs/).
+
+---
+
 ## 📸 Screenshots
 
 <div align="center">
@@ -35,19 +57,26 @@
 
 ## 🌟 What's New in v3.2.0
 
+### Headline Features
+
 - **Turn-Based Gameplay** — Replace real-time loops with strategic turn-based combat (20–100 turns, alternating attacker/defender)
 - **Asymmetric Factions** — Attacker (3 AP, exploit kits, stealth) vs Defender (2→3 AP, IR budget, alert scaling)
-- **Role Select Screen** — Choose Attacker or Defender with faction stat cards before each mission
+- **Operation Crimson Tide** — Flagship scenario: 16-node Eastern European banking network, 5 factions, asymmetric win conditions ([full scenario spec](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md))
 - **Fog of War** — Attacker discovers nodes progressively; Defender sees all but blind to undetected compromises
 - **15 Game Actions** — 8 attacker + 7 defender actions, all executable via GUI, CLI, hotkeys, or gamepad
 - **Full CLI Console** — Tab-complete, command history, aliases — mirrors all GUI actions
+- **RL Agent Backend** — Rule-based pretrained agents (novice/normal/expert) with Gymnasium environment + PPO training pipeline
+
+### Additional v3.2 Additions
+
+- **Role Select Screen** — Choose Attacker or Defender with faction stat cards before each mission
 - **Interactive Tutorial** — 9-step guided tutorial with highlight boxes and event-gated progression
 - **Mission Briefings & Debriefs** — Narrative overlays with objectives and XP breakdown
-- **RL Agent Backend** — Rule-based pretrained agents (novice/normal/expert) with Gymnasium environment
 - **Gamepad Support** — Full Xbox/PlayStation controller mapping (D-pad, face buttons, triggers)
 - **Accessibility** — ARIA live regions, focus traps, reduced motion, high contrast, UI scaling 0.8×–1.5×
-- **Scenario System** — 5 playable scenarios including *Operation Crimson Tide* (16-node banking network)
+- **8 New UI Components** — Briefing, Debrief, Toast, LogPanel, NodeTooltip, ContextMenu, PauseMenu, HelpOverlay
 - **250 Tests** — 172 frontend unit + 29 E2E + 78 backend unit, all passing
+- **Demo Recording System** — Automated Playwright-based video capture with API logging middleware
 
 ---
 
@@ -201,7 +230,52 @@ ir [node]            — Incident response
 
 ## 🗺️ Scenarios
 
-### Backend Scenarios (RL Environment)
+### Featured: Operation Crimson Tide
+
+> *A state-sponsored APT group targets an Eastern European banking cluster. The clock is ticking.*
+
+```
+                    [Internet]
+                        |
+                   ┌────┴────┐
+              (1) DMZ-FW    (2) VPN-GW
+                   │              │
+              ┌────┴────┐    ┌───┴───┐
+         (3) WEB-01  (4) WEB-02  (5) MAIL-SRV
+              │         │         │
+              └────┬────┘    ┌───┘
+              (6) APP-LB ────┤
+              ┌────┴────┐    │
+         (7) APP-01  (8) APP-02
+              │         │
+              └────┬────┘
+              (9) INT-FW
+              ┌────┴────┐
+        (10) LDAP-DC  (11) FILE-SRV
+              │              │
+              └──────┬───────┘
+              (12) CORE-DB  ←── TARGET
+              │
+        (13) BACKUP-SRV
+              │
+        (14) SIEM-MON ─── (15) LOG-AGG ─── (16) HONEYPOT
+```
+
+**5 asymmetric factions** compete for control:
+
+| Faction | Role | Nodes | AP | Special |
+|---------|------|-------|----|---------|
+| **Scarlet Protocol** (Player) | Attacker | 2 entry points | 3/turn | 5 exploit kits, 100% stealth |
+| **Iron Bastion** (AI) | Defender | 5 core nodes | 2→3/turn | 8 IR credits, scales at alert ≥50 |
+| **Silk Road Coalition** | NPC Diplomacy | 4 trade nodes | — | Negotiable via Gemini LLM chat |
+| **Shadow Cartels** | NPC Hostile | 2 dark nodes | — | Low defense, easy early targets |
+| **Sentinel Vanguard** | NPC Potential Ally | 3 monitoring nodes | — | Alliance requires trust |
+
+**Why no equilibrium:** The attacker has **tempo** (3 AP vs 2 AP) and **stealth**. The defender has **visibility** (sees all nodes), **scaling** (gains AP at high alert), and **time** (attacker loses at turn 20). This creates a ticking-clock dynamic where aggression is rewarded early but punished late.
+
+> **[📄 Full scenario spec with turn-by-turn transcript](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md)** | **[📄 10-min gameplay simulation report](specs/DEMO_10MIN_GAMEPLAY_REPORT.md)**
+
+### All Scenarios
 
 | ID | Name | Nodes | Turns | Difficulty | Type |
 |----|------|-------|-------|------------|------|
@@ -209,14 +283,7 @@ ir [node]            — Incident response
 | `corporate_network` | Corporate Network Intrusion | 10 | 50 | Normal | Default |
 | `data_center` | Data Center Siege | 20 | 80 | Normal | Capture the Flag |
 | `critical_infrastructure` | Critical Infrastructure Defense | 30 | 100 | Expert | Survival |
-
-### Frontend Scenario
-
-| Name | Map | Factions | Duration |
-|------|-----|----------|----------|
-| **Operation Crimson Tide** | 16-node Eastern European banking cluster | Scarlet Protocol vs Iron Bastion | ~10 min (20 turns) |
-
-Operation Crimson Tide features asymmetric balance: the Attacker has early-game tempo (3 AP, 5 exploit kits) while the Defender scales in the late game (2→3 AP at alert ≥50, 8 IR credits). Full scenario spec with turn-by-turn transcript: **[specs/SCENARIO_OPERATION_CRIMSON_TIDE.md](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md)**
+| **`crimson_tide`** | **Operation Crimson Tide** | **16** | **20** | **Normal** | **Asymmetric** |
 
 ---
 
@@ -286,12 +353,16 @@ Operation Crimson Tide features asymmetric balance: the Attacker has early-game 
 | [BACKEND.md](BACKEND.md) | Backend overview — FastAPI app structure, middleware, database |
 | [BACKEND_CONFIG.md](BACKEND_CONFIG.md) | Configuration — env variables, database URL, JWT secret |
 
-### Gameplay & Controls
+### Gameplay, Scenarios & Demo
 
 | Document | Description |
 |----------|-------------|
 | [docs/CONTROLS.md](docs/CONTROLS.md) | Full controls reference — keyboard, CLI, gamepad, accessibility |
-| [specs/SCENARIO_OPERATION_CRIMSON_TIDE.md](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md) | 10-minute gameplay scenario with turn-by-turn transcript |
+| [specs/SCENARIO_OPERATION_CRIMSON_TIDE.md](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md) | Operation Crimson Tide — 16-node map, 5 factions, 20-turn transcript |
+| [specs/DEMO_10MIN_GAMEPLAY_REPORT.md](specs/DEMO_10MIN_GAMEPLAY_REPORT.md) | 10-min gameplay simulation — turn-by-turn with API calls, RL logs, scoring |
+| [specs/GAME_RULES_AND_UI_SPECIFICATION.md](specs/GAME_RULES_AND_UI_SPECIFICATION.md) | Game rules, action costs, win conditions, UI spec |
+| [specs/demo_recordings/](specs/demo_recordings/) | Recorded demo video (MP4/WebM), screenshots, playthrough logs |
+| [specs/demo_logs/](specs/demo_logs/) | Backend API call logs captured during demo recording |
 
 ### Testing
 
