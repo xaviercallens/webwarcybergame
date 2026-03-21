@@ -57,6 +57,12 @@ const puppeteer = require('puppeteer');
         console.log("Programmatically clicking 'PLAY' button...");
         await page.evaluate(() => document.getElementById('btn-play').click());
         
+        console.log("Waiting for role select transition...");
+        await page.waitForSelector('#view-role_select.active', { visible: true, timeout: 5000 });
+        
+        console.log("Clicking role card...");
+        await page.evaluate(() => document.querySelector('.role-card--attacker').click());
+        
         // Wait for the view-game to become active
         console.log("Waiting for game view transition...");
         try {
@@ -86,6 +92,8 @@ const puppeteer = require('puppeteer');
         
         console.log("Clicking 'PLAY' again to simulate multiple sessions...");
         await page.evaluate(() => document.getElementById('btn-play').click());
+        await page.waitForSelector('#view-role_select.active', { visible: true, timeout: 5000 });
+        await page.evaluate(() => document.querySelector('.role-card--attacker').click());
         await page.waitForSelector('#view-game.active', { visible: true, timeout: 5000 });
         await new Promise(r => setTimeout(r, 2000));
         
