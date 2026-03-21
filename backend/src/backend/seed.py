@@ -5,11 +5,8 @@ This module provides utilities to initialize the database with factions
 and a starting distribution of controllable nodes. It supports generating
 nodes with asymmetric properties based on v3 balance configuration.
 """
-import asyncio
-import os
 import random
 from sqlmodel import Session, select
-from sqlalchemy.ext.asyncio import create_async_engine
 
 from backend.database import get_engine
 from backend.models import Faction, Node, NodeClass
