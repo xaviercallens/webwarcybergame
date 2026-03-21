@@ -24,7 +24,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at center, rgba(0, 255, 221, 0.05) 0%, transparent 60%);
+  background: radial-gradient(circle at center, rgba(0, 255, 221, 0.05) 0%, transparent 60%),
+              url('/assets/images/hex_grid_bg.svg');
 }
 
 .menu-title-container {

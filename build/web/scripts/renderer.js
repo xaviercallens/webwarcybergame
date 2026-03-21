@@ -39,7 +39,7 @@ export class GameRenderer {
     // Initialize Globe.gl with relaxed WebGL config for Chrome OS / headless fallback
     try {
         this.globe = Globe()(container)
-          .globeImageUrl('//unpkg.com/three-globe/example/img/earth-water.png') // Fallback base texture (optional, can omit for pure wireframe)
+          .globeImageUrl('/assets/images/cyber_earth_map.jpg') // Fallback base texture (optional, can omit for pure wireframe)
           .backgroundColor('rgba(0,0,0,0)') // Transparent background to show our CSS space gradient
           .showAtmosphere(true)
           .atmosphereColor(this.colors.neutral)

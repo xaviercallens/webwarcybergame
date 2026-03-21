@@ -76,6 +76,7 @@
 .panel {
   background: var(--panel-bg);
   border: 1px solid rgba(0, 204, 214, 0.3);
+  border-image: url('/assets/images/ui_panel_border.svg') 10 stretch;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);

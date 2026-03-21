@@ -146,7 +146,10 @@ const views = {
         <!-- Terminal Overlay -->
         <div id="terminal-panel" style="display:none; position: absolute; inset: 0; background: rgba(0,20,30,0.95); z-index: 200; font-family: var(--font-mono); color: var(--color-player); padding: 2rem; flex-direction: column;">
           <div style="flex: 1; overflow-y: auto; margin-bottom: 1rem; padding-right: 1rem;" id="terminal-output">
-            <div style="color: var(--color-accent); margin-bottom: 1rem;">Neo-Hack OS v2.0.1 - Terminal Access Granted. Type /help for commands.</div>
+            <div style="color: var(--color-accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <img src="/assets/images/terminal_icon.svg" alt="Terminal" style="width: 24px; height: 24px;" />
+              Neo-Hack OS v2.0.1 - Terminal Access Granted. Type /help for commands.
+            </div>
           </div>
           <div style="display: flex; gap: 0.5rem; border-top: 1px solid var(--color-accent); padding-top: 1rem;">
             <span style="color: var(--color-accent);">root@gridlock:~$</span>
@@ -392,7 +395,7 @@ async function initApp() {
       AppState.player.rank = data.player.rank;
       AppState.player.xp = data.player.xp;
 
-      loginStatus.textContent = 'ACCESS GRANTED';
+    loginStatus.innerHTML = '<img src="/assets/images/check_cyber.svg" style="vertical-align: middle; margin-right: 4px; width: 16px; height: 16px;"> ACCESS GRANTED';
       loginStatus.style.color = 'var(--color-player)';
 
       // Update menu player card
