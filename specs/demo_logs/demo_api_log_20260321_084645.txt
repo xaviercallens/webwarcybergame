@@ -1,0 +1,45 @@
+================================================================================
+  NEO-HACK: GRIDLOCK v3.2 — DEMO API CALL LOG
+  Started: 2026-03-21T08:46:45.461510
+================================================================================
+
+[00:14.208] GET /api/health → 200 (4ms)
+  REQUEST:  —
+  RESPONSE: {'status': 'healthy'}
+────────────────────────────────────────────────────────────────────────────────
+[00:20.981] GET /api/health → 200 (1ms)
+  REQUEST:  —
+  RESPONSE: {'status': 'healthy'}
+────────────────────────────────────────────────────────────────────────────────
+[12:43.150] OPTIONS /api/world/state → 200 (1ms)
+  REQUEST:  —
+  RESPONSE: OK
+────────────────────────────────────────────────────────────────────────────────
+[12:43.150] OPTIONS /api/epoch/current → 200 (1ms)
+  REQUEST:  —
+  RESPONSE: OK
+────────────────────────────────────────────────────────────────────────────────
+[12:43.164] GET /api/epoch/current → 200 (5ms)
+  REQUEST:  —
+  RESPONSE: {'id': 762, 'number': 762, 'phase': 'PLANNING', 'started_at': '2026-03-21T07:59:04.822938', 'elapsed_seconds': 23}
+────────────────────────────────────────────────────────────────────────────────
+[12:43.172] GET /api/world/state → 200 (14ms)
+  REQUEST:  —
+  RESPONSE: {'nodes': [{'lng': -124.30307043694683, 'id': 1, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N000', 'lat': 33.16822567131157, 'faction_id': 1, 'compute_output': 15}, {'lng': -132.97534073739058, 'id': 2, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N001', 'lat': 41.187757397909884, 'faction_id': 1, 'compute_output': 18}, {'lng': -117.19186906674518, 'id': 3, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N002', 'lat': 47.16115497066788, 'faction_id': 1, 'compute_output': 15}, {'lng': -131.0145758921185, 'id': 4, 'defense_level': 150, 'node_class': 'TIER_2', 'name': 'SIL-N003', 'lat': 44.65712572705583, 'faction_id': 1, 'compute_output': 48}, {'lng': -118.54868479194772, 'id': 5, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N004', 'lat': 29.3901265214567, 'faction_id': 1, 'compute_output': 17}, {'lng': -130.16057739963406, 'id': 6, 'defense_level': 150, 'node_class': 'TIER_3', 'name': 'SIL-N005', 'lat': 31.393428372096977, 'faction_... [truncated, 8499 chars total]
+────────────────────────────────────────────────────────────────────────────────
+[12:47.970] GET /api/world/state → 200 (5ms)
+  REQUEST:  —
+  RESPONSE: {'nodes': [{'lng': -124.30307043694683, 'id': 1, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N000', 'lat': 33.16822567131157, 'faction_id': 1, 'compute_output': 15}, {'lng': -132.97534073739058, 'id': 2, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N001', 'lat': 41.187757397909884, 'faction_id': 1, 'compute_output': 18}, {'lng': -117.19186906674518, 'id': 3, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N002', 'lat': 47.16115497066788, 'faction_id': 1, 'compute_output': 15}, {'lng': -131.0145758921185, 'id': 4, 'defense_level': 150, 'node_class': 'TIER_2', 'name': 'SIL-N003', 'lat': 44.65712572705583, 'faction_id': 1, 'compute_output': 48}, {'lng': -118.54868479194772, 'id': 5, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N004', 'lat': 29.3901265214567, 'faction_id': 1, 'compute_output': 17}, {'lng': -130.16057739963406, 'id': 6, 'defense_level': 150, 'node_class': 'TIER_3', 'name': 'SIL-N005', 'lat': 31.393428372096977, 'faction_... [truncated, 8499 chars total]
+────────────────────────────────────────────────────────────────────────────────
+[12:47.986] GET /api/epoch/current → 200 (7ms)
+  REQUEST:  —
+  RESPONSE: {'id': 762, 'number': 762, 'phase': 'PLANNING', 'started_at': '2026-03-21T07:59:04.822938', 'elapsed_seconds': 28}
+────────────────────────────────────────────────────────────────────────────────
+[12:52.963] GET /api/epoch/current → 200 (2ms)
+  REQUEST:  —
+  RESPONSE: {'id': 762, 'number': 762, 'phase': 'PLANNING', 'started_at': '2026-03-21T07:59:04.822938', 'elapsed_seconds': 33}
+────────────────────────────────────────────────────────────────────────────────
+[12:53.001] GET /api/world/state → 200 (8ms)
+  REQUEST:  —
+  RESPONSE: {'nodes': [{'lng': -124.30307043694683, 'id': 1, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N000', 'lat': 33.16822567131157, 'faction_id': 1, 'compute_output': 15}, {'lng': -132.97534073739058, 'id': 2, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N001', 'lat': 41.187757397909884, 'faction_id': 1, 'compute_output': 18}, {'lng': -117.19186906674518, 'id': 3, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N002', 'lat': 47.16115497066788, 'faction_id': 1, 'compute_output': 15}, {'lng': -131.0145758921185, 'id': 4, 'defense_level': 150, 'node_class': 'TIER_2', 'name': 'SIL-N003', 'lat': 44.65712572705583, 'faction_id': 1, 'compute_output': 48}, {'lng': -118.54868479194772, 'id': 5, 'defense_level': 150, 'node_class': 'TIER_1', 'name': 'SIL-N004', 'lat': 29.3901265214567, 'faction_id': 1, 'compute_output': 17}, {'lng': -130.16057739963406, 'id': 6, 'defense_level': 150, 'node_class': 'TIER_3', 'name': 'SIL-N005', 'lat': 31.393428372096977, 'faction_... [truncated, 8499 chars total]
+────────────────────────────────────────────────────────────────────────────────

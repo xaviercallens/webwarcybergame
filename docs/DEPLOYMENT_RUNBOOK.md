@@ -93,6 +93,8 @@ gcloud firestore databases create --region=europe-west1
 | `JWT_SECRET` | Backend | JWT signing secret |
 | `RL_AGENT_URL` | Backend | Internal URL of RL agent service |
 | `GOOGLE_CLOUD_PROJECT` | Both | GCP project ID |
+| `GOOGLE_API_KEY` | Backend | Google Gemini API key for Diplomacy AI features |
+| `WEB_BUILD_DIR` | Backend | (Optional) Path to static frontend build directory |
 
 ## 6. Monitoring
 

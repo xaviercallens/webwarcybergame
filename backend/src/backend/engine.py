@@ -168,6 +168,31 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
                     "message": f"Node {node.name} has been captured by Faction {strongest_attacker_faction}"
                 }))
                 
+    # 1b. Heal all nodes slightly (capped at 150 to keep captures viable)
+    for node in session.exec(select(Node)).all():
+        if node.defense_level < 150:
+            node.defense_level = min(150, node.defense_level + 3)
+            session.add(node)
+
+    # 1c. Award XP to players who submitted actions
+    for action in actions:
+        player = session.get(Player, action.player_id)
+        if not player:
+            continue
+        xp_gain = 15 if action.action_type == ActionType.BREACH else 10
+        player.xp += xp_gain
+        # Recalculate rank
+        xp = player.xp
+        if xp >= 20000: player.rank = "GRID_SOVEREIGN"
+        elif xp >= 12000: player.rank = "SHADOW_ADMIN"
+        elif xp >= 7000: player.rank = "BLACK_HAT"
+        elif xp >= 3500: player.rank = "ZERO_DAY"
+        elif xp >= 1500: player.rank = "ROOT_ACCESS"
+        elif xp >= 500: player.rank = "PACKET_SNIFFER"
+        else: player.rank = "SCRIPT_KIDDIE"
+        session.add(player)
+    session.commit()
+
     # 2. Update economy (Compute Units) and global influence
     factions = session.exec(select(Faction)).all()
     total_nodes = session.exec(select(Node)).all()

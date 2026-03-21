@@ -5,6 +5,7 @@
 
 import { api } from './api-client.js';
 import { audio } from './audio-manager.js';
+import { events, Events } from './game-events.js';
 
 export function initUI() {
   const hudLayer = document.getElementById('hud-layer');
@@ -136,13 +137,25 @@ export function initUI() {
   });
   
   document.getElementById('btn-action-breach').addEventListener('click', () => {
-      const cu = document.getElementById('input-cu').value;
-      if (window.GameInstance) window.GameInstance.submitPlayerAction('BREACH', cu);
+      // Use v3.2 turn-based event system
+      const targetNode = window.GameInstance?.selectedNodeId ?? 0;
+      events.emit(Events.ACTION_EXECUTE, {
+        actionId: 1,  // EXPLOIT_VULNERABILITY
+        actionName: 'EXPLOIT_VULNERABILITY',
+        targetNode: targetNode
+      });
+      audio.playClick();
   });
   
   document.getElementById('btn-action-scan').addEventListener('click', () => {
-      const cu = document.getElementById('input-cu').value;
-      if (window.GameInstance) window.GameInstance.submitPlayerAction('SCAN', cu);
+      // Use v3.2 turn-based event system
+      const targetNode = window.GameInstance?.selectedNodeId ?? 0;
+      events.emit(Events.ACTION_EXECUTE, {
+        actionId: 0,  // SCAN_NETWORK
+        actionName: 'SCAN_NETWORK',
+        targetNode: targetNode
+      });
+      audio.playClick();
   });
   
   // Diplomacy action binding
@@ -510,13 +523,19 @@ export async function openSentinelLab() {
   const modal = document.getElementById('modal-sentinel');
   if(!modal) return;
   modal.style.display = 'flex';
+  modal.classList.add('active');
+  modal.style.zIndex = '10000';
   audio.playClick();
   
   // Bind close
-  document.getElementById('btn-close-sentinel').onclick = () => {
-     modal.style.display = 'none';
-     audio.playClick();
-  };
+  const closeBtn = document.getElementById('btn-close-sentinel');
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+       modal.style.display = 'none';
+       modal.classList.remove('active');
+       audio.playClick();
+    };
+  }
   
   await refreshSentinelLab();
 }

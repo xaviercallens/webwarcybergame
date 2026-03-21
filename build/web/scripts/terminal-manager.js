@@ -1,12 +1,13 @@
 import { api } from './api-client.js';
-
-export class TerminalManager {
+import { AutoComplete } from './cli/autocomplete.js';
+import { parseCommand } from './cli/command-parser.js';export class TerminalManager {
   constructor(gameEngine) {
     this.gameEngine = gameEngine;
     this.panel = document.getElementById('terminal-panel');
     this.input = document.getElementById('terminal-input');
     this.output = document.getElementById('terminal-output');
     this.isOpen = false;
+    this.autocomplete = new AutoComplete();
 
     this.bindEvents();
   }
@@ -32,9 +33,36 @@ export class TerminalManager {
 
     if (this.input) {
       this.input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          if (!this.input.value) return;
+          
+          this.autocomplete.setNodes(this.gameEngine.nodes || []);
+          this.autocomplete.setPlayerFaction(window.AppState ? window.AppState.playerFactionId : 1);
+          
+          const result = this.autocomplete.complete(this.input.value);
+          if (result.replacement) {
+            this.input.value = result.replacement;
+          }
+          if (result.isAmbiguous && result.completions.length > 0) {
+            this.print(`> ${this.input.value}`, 'var(--color-text-muted)');
+            this.print(result.completions.join('   '), '#fff');
+          }
+        }
+        else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const cmd = this.autocomplete.navigateHistory(-1);
+          if (cmd !== null) this.input.value = cmd;
+        }
+        else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const cmd = this.autocomplete.navigateHistory(1);
+          if (cmd !== null) this.input.value = cmd;
+        }
+        else if (e.key === 'Enter') {
           const cmd = this.input.value.trim();
           if (cmd) {
+            this.autocomplete.pushHistory(cmd);
             this.print(`> ${cmd}`, 'var(--color-text-muted)');
             this.processCommand(cmd);
             this.input.value = '';
@@ -90,10 +118,44 @@ export class TerminalManager {
       this.print('  /scan [node_name or id]   - Reveal node stats');
       this.print('  /breach [node_name or id] - Launch attack on enemy node (Costs CU)');
       this.print('  /defend [node_name or id] - Reinforce owned node (Costs CU)');
+      this.print('  /nodes [my|enemies|all]   - List nodes by faction');
       this.print('  /diplomacy                - Open the Secure Diplomatic Channel');
       this.print('  /status                   - Show global faction stats');
       this.print('  /epoch                    - Show current epoch info');
       this.print('  /clear                    - Clear terminal output');
+      return;
+    }
+
+    if (cmd === '/nodes' || cmd === '/ls' || cmd === '/list') {
+      const filter = args[0] ? args[0].toLowerCase() : 'all';
+      const myFaction = window.AppState ? window.AppState.playerFactionId : 1;
+      const nodes = this.gameEngine.nodes || [];
+      
+      let filtered = [];
+      let title = '';
+      if (filter === 'my' || filter === 'mine' || filter === 'ally') {
+          title = 'YOUR NODES:';
+          filtered = nodes.filter(n => n.faction_id === myFaction);
+      } else if (filter === 'enemy' || filter === 'enemies') {
+          title = 'ENEMY NODES:';
+          filtered = nodes.filter(n => n.faction_id && n.faction_id !== myFaction);
+      } else {
+          title = 'ALL NODES:';
+          filtered = nodes;
+      }
+      
+      this.print(title, '#fff');
+      if (filtered.length === 0) {
+          this.print('  No nodes found matching filter.', 'var(--color-text-muted)');
+          return;
+      }
+      
+      filtered.forEach(n => {
+          let allegiance = n.faction_id === myFaction ? '[ALLY]' : n.faction_id === null ? '[NEUT]' : '[ENMY]';
+          let color = n.faction_id === myFaction ? 'var(--color-player)' : n.faction_id === null ? 'var(--color-text-muted)' : 'var(--color-enemy)';
+          const paddedId = n.id.toString().padStart(3, '0');
+          this.print(`  ${paddedId} | ${allegiance} | ${n.name}`, color);
+      });
       return;
     }
 

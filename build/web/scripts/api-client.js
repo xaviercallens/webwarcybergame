@@ -5,12 +5,13 @@
 
 export class ApiClient {
   constructor() {
-    if (window.location.hostname === 'frontend') {
+    const host = window.location.hostname;
+    if (host === 'frontend') {
         this.baseUrl = 'http://backend:8000/api';
+    } else if (host === 'localhost' || host === '127.0.0.1') {
+        this.baseUrl = 'http://localhost:8000/api';
     } else {
-        this.baseUrl = window.location.hostname === 'localhost' 
-            ? 'http://localhost:8000/api' 
-            : '/api'; // production
+        this.baseUrl = '/api'; // production
     }
         
     this.token = localStorage.getItem('nh_token') || null;
@@ -311,6 +312,75 @@ export class ApiClient {
     } catch(e) {
       console.error('[API] Get Logs Error:', e);
       return { logs: [] };
+    }
+  }
+
+  // --- v3.2: TURN-BASED GAME API ---
+
+  async createGameSession({ role, difficulty, scenario }) {
+    try {
+      const res = await fetch(`${this.baseUrl}/game/create`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ role, difficulty, scenario })
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.detail || 'Failed to create game session');
+      }
+      return await res.json();
+    } catch (e) {
+      console.error('[API] Create Game Session Error:', e);
+      throw e;
+    }
+  }
+
+  async submitTurnAction({ session_id, player_role, action_type, action_id, target_node }) {
+    try {
+      const res = await fetch(`${this.baseUrl}/game/action`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ session_id, player_role, action_type, action_id, target_node })
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.detail || 'Action rejected');
+      }
+      return await res.json();
+    } catch (e) {
+      console.error('[API] Turn Action Error:', e);
+      throw e;
+    }
+  }
+
+  async endTurn({ session_id, player_role }) {
+    try {
+      const res = await fetch(`${this.baseUrl}/game/end-turn`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ session_id, player_role })
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.detail || 'End turn failed');
+      }
+      return await res.json();
+    } catch (e) {
+      console.error('[API] End Turn Error:', e);
+      throw e;
+    }
+  }
+
+  async getGameState(sessionId) {
+    try {
+      const res = await fetch(`${this.baseUrl}/game/state/${sessionId}`, {
+        headers: this.getHeaders()
+      });
+      if (!res.ok) throw new Error('Failed to fetch game state');
+      return await res.json();
+    } catch (e) {
+      console.error('[API] Game State Error:', e);
+      return null;
     }
   }
 

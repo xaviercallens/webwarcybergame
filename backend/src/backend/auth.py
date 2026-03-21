@@ -1,3 +1,10 @@
+"""
+Authentication and Authorization Module.
+
+Handles JWT token creation, password hashing, verification, 
+and user current context extraction for all secure API endpoints 
+in the Neo-Hack backend.
+"""
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -19,15 +26,44 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 1 week
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """
+    Verify a plaintext password against a stored bcrypt hash.
+    
+    Args:
+        plain_password (str): The provided plaintext password.
+        hashed_password (str): The correct bcrypt hash.
+        
+    Returns:
+        bool: True if the password matches, False otherwise.
+    """
     try:
         return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
     except Exception:
         return False
 
 def get_password_hash(password: str) -> str:
+    """
+    Generate a bcrypt hash from a plaintext password.
+    
+    Args:
+        password (str): The plaintext password to hash.
+        
+    Returns:
+        str: The generated bcrypt hash.
+    """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    """
+    Create a new JWT access token containing the provided data.
+    
+    Args:
+        data (dict): The payload to encode in the token.
+        expires_delta (Optional[timedelta]): Optional expiration delta. Defaults to 15 minutes if not provided.
+        
+    Returns:
+        str: The encoded JWT token as a string.
+    """
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -38,6 +74,20 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(database.get_session)):
+    """
+    Dependency to retrieve the currently authenticated user from a JWT token.
+    
+    Args:
+        token (str): The JWT token provided in the Authorization header.
+        session (Session): The database session.
+        
+    Raises:
+        HTTPException: Raises 401 Unauthorized if the token is invalid, expired, 
+                       or the user cannot be found in the database.
+                       
+    Returns:
+        Player: The authenticated player object.
+    """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

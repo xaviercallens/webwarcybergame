@@ -1,0 +1,3 @@
+timestamp,timesteps,episodes,mean_reward_100,win_rate,elapsed_min
+2026-03-20T10:01:59,27649,13821,6.00,0.000,15.4
+2026-03-20T14:16:45,46081,23035,6.00,0.000,270.2

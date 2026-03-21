@@ -1,5 +1,10 @@
 /**
  * Neo-Hack: Gridlock — Base Styles & FX
+ * 
+ * Defines global variables, typography baselines, and reset attributes.
+ * Also includes UI overlays like scanlines, vignettes, and glitch animations
+ * to deliver a cyberpunk aesthetic out-of-the-box.
+ * Depends on CSS tokens defined in `tokens.css`.
  */
 
 * {

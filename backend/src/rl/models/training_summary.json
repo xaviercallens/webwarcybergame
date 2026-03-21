@@ -1,0 +1,29 @@
+{
+  "completed_at": "2026-03-20T17:01:39.053538",
+  "total_hours": 4.0,
+  "difficulties_trained": [
+    "novice",
+    "normal",
+    "expert"
+  ],
+  "models": {
+    "novice": [
+      "ppo_attacker_latest.zip",
+      "ppo_attacker_h0.zip",
+      "ppo_defender_latest.zip",
+      "ppo_defender_h0.zip"
+    ],
+    "normal": [
+      "ppo_attacker_latest.zip",
+      "ppo_attacker_h0.zip",
+      "ppo_defender_latest.zip",
+      "ppo_defender_h0.zip",
+      "ppo_defender_h4.zip"
+    ],
+    "expert": [
+      "ppo_attacker_latest.zip",
+      "ppo_attacker_h0.zip",
+      "ppo_attacker_h2.zip"
+    ]
+  }
+}

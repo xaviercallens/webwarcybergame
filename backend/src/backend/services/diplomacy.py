@@ -77,7 +77,19 @@ class DiplomacyService:
         game_state_summary provides context about current node ownership and treaties.
         """
         if not self.client:
-            return f"[SYSTEM NOTIFICATION]: Secure uplink to Faction {faction_id} unavailable (Missing API Key)."
+            # Provide mock responses based on faction personality
+            persona = FACTION_PERSONAS.get(faction_id, FACTION_PERSONAS[2])
+            mock_responses = {
+                1: "[Calculating] Your proposal has merit. We will analyze the data streams and respond accordingly.",
+                2: "[Stern] Speak plainly. What do you want? We have no time for diplomatic games.",
+                3: "[Intrigued] Interesting... There may be profit in this arrangement. Continue.",
+                4: "[Measured] We appreciate the outreach. Let us discuss terms through proper channels.",
+                5: "[Honorable] Your message is received. We value those who approach with respect.",
+                6: "[Greedy] Everything has a price. What are you offering?",
+                7: "[Vigilant] We monitor all communications. State your intentions clearly.",
+                8: "[Amused] How delightful. Another player enters the game..."
+            }
+            return mock_responses.get(faction_id, "[Neutral] Message acknowledged. We will consider your words.")
 
         try:
             prompt = (
@@ -105,8 +117,21 @@ class DiplomacyService:
         Returns True (Accept) or False (Reject).
         """
         if not self.client:
-            # Default to Accept in local mock mode
-            return True
+            # In mock mode, accept most proposals (70% chance) based on faction personality
+            import random
+            # Some factions are more agreeable than others
+            acceptance_rates = {
+                1: 0.6,  # Silicon Valley - cautious
+                2: 0.4,  # Iron Grid - aggressive, less likely
+                3: 0.8,  # Silk Road - trade-focused, very agreeable
+                4: 0.7,  # Euro Nexus - diplomatic
+                5: 0.5,  # Pacific Vanguard - defensive
+                6: 0.6,  # Cyber Mercenaries - profit-driven
+                7: 0.7,  # Sentinel Vanguard - ethical
+                8: 0.3,  # Shadow Cartels - chaotic, rarely agrees
+            }
+            rate = acceptance_rates.get(faction_id, 0.5)
+            return random.random() < rate
 
         try:
             persona = FACTION_PERSONAS.get(faction_id, FACTION_PERSONAS[2])

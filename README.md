@@ -1,82 +1,389 @@
-# 🌐 Neo-Hack: Gridlock
+# 🌐 Neo-Hack: Gridlock v3.2
 
 [![Play Now](https://img.shields.io/badge/PLAY_LIVE-Online_Playground-brightgreen?style=for-the-badge&logo=github)](https://xaviercallens.github.io/webwarcybergame/)
+[![Tests](https://img.shields.io/badge/Tests-250%2F250_passing-blue?style=for-the-badge)](#-test-coverage)
+[![Version](https://img.shields.io/badge/Version-3.2.0-orange?style=for-the-badge)](#-whats-new-in-v320)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)](#-license)
 
-> **Global Cyber Warfare Simulation in full 3D.**
+> **Asymmetric Cyber Warfare Strategy — Turn-Based, Multi-Modal, Accessible.**
 
-🔥 **[Watch the Global Simulation Trailer](docs/neo_hack_promo_trailer.mp4)** 🔥
+**Neo-Hack: Gridlock** is an immersive, browser-based cyber warfare strategy game played on a 3D globe. Choose your role — **Attacker** or **Defender** — and battle through asymmetric, turn-based scenarios where stealth, timing, and resource management decide the outcome. AI opponents are powered by rule-based and RL-trained agents via a Gymnasium environment.
+
+---
+
+## 🎬 Trailer
 
 <video src="https://github.com/xaviercallens/webwarcybergame/raw/main/docs/neo_hack_promo_trailer.mp4" width="100%" controls autoplay loop muted playsinline></video>
 
-**Neo-Hack: Gridlock** is an immersive, browser-based cyber warfare strategy game played out on a visually stunning 3D globe. Take command of regional nodes, bypass enemy firewalls, and launch coordinated hacking payloads to achieve Total Dominance against rival factions.
+> **[▶ Download the trailer (MP4)](docs/neo_hack_promo_trailer.mp4)**
 
-## 🌟 What's New in Release 2.1
+---
 
-- 🌍 **WebGL Fallback Support**: Enjoy the game smoothly even on browsers without hardware acceleration.
-- ⚙️ **Customizable Node Counts**: Tailor your match length by choosing between 10 to 100 global nodes.
-- 🤝 **Diplomacy Enhancements**: Improved faction interaction with a revamped diplomacy modal.
-- 📊 **Real-Time HUD**: Comprehensive Epoch Phase tracking (Planning, Simulation, Transition).
-- 🛡️ **Unmatched Stability**: Over 360 passing tests ensuring 90%+ coverage across backend and frontend engines.
-
-## 📸 Core Intel
+## 📸 Screenshots
 
 <div align="center">
-  <img src="docs/shot_01_main_menu.png" width="32%" alt="Main Menu">
-  <img src="docs/shot_02_gameplay.png" width="32%" alt="Tactical Tutorial">
-  <img src="docs/shot_03_combat_action.png" width="32%" alt="Live Gameplay">
+  <img src="docs/shot_01_main_menu.png" width="32%" alt="Main Menu — Scenario & Difficulty Select">
+  <img src="docs/shot_02_gameplay.png" width="32%" alt="Turn-Based Gameplay on 3D Globe">
+  <img src="docs/shot_03_combat_action.png" width="32%" alt="Combat Action — Node Exploitation">
 </div>
+<div align="center">
+  <img src="docs/shot_04_global_war.png" width="48%" alt="Global War View">
+  <img src="docs/game_view_promo.png" width="48%" alt="Cyberpunk Game View">
+</div>
+
+---
+
+## 🌟 What's New in v3.2.0
+
+- **Turn-Based Gameplay** — Replace real-time loops with strategic turn-based combat (20–100 turns, alternating attacker/defender)
+- **Asymmetric Factions** — Attacker (3 AP, exploit kits, stealth) vs Defender (2→3 AP, IR budget, alert scaling)
+- **Role Select Screen** — Choose Attacker or Defender with faction stat cards before each mission
+- **Fog of War** — Attacker discovers nodes progressively; Defender sees all but blind to undetected compromises
+- **15 Game Actions** — 8 attacker + 7 defender actions, all executable via GUI, CLI, hotkeys, or gamepad
+- **Full CLI Console** — Tab-complete, command history, aliases — mirrors all GUI actions
+- **Interactive Tutorial** — 9-step guided tutorial with highlight boxes and event-gated progression
+- **Mission Briefings & Debriefs** — Narrative overlays with objectives and XP breakdown
+- **RL Agent Backend** — Rule-based pretrained agents (novice/normal/expert) with Gymnasium environment
+- **Gamepad Support** — Full Xbox/PlayStation controller mapping (D-pad, face buttons, triggers)
+- **Accessibility** — ARIA live regions, focus traps, reduced motion, high contrast, UI scaling 0.8×–1.5×
+- **Scenario System** — 5 playable scenarios including *Operation Crimson Tide* (16-node banking network)
+- **250 Tests** — 172 frontend unit + 29 E2E + 78 backend unit, all passing
+
+---
 
 ## ✨ Features
 
-- **Interactive 3D Globe**: Built on `Three.js` and `Globe.gl`, interact with a beautiful, fully rotatable, and zoomable globe tracking real-time attack arcs and cyber node rendering.
-- **Dynamic Combat System**: Engage in tactical node-based combat. Drain target firewalls using adjacent captured network hubs.
-- **Automated Faction AI**: Play against autonomous AI factions competing for global control.
-- **Stunning Cyberpunk Aesthetics**: A cohesive hacker-themed UI with CRT scanlines, glitch effects, neon palettes, and atmospheric sound design.
-- **Smart Launch System**: A lightning-fast `./launch_local.sh` tool with Vite caching, automated Selenium E2E health checks, and automatic browser deployment.
+- **Interactive 3D Globe** — Built on `Three.js` and `Globe.gl` with click-to-select nodes, status overlays, and fog of war
+- **Turn-Based Strategy** — Plan each action carefully — AP, stealth, and exploit kits are finite resources
+- **RL-Powered AI** — Gymnasium environment (`NeoHackEnv`) with rule-based and trainable PPO agents
+- **Multi-Modal Input** — Mouse/keyboard, CLI console, hotkeys (`1`-`7`), and gamepad — all produce identical results
+- **Event-Driven Architecture** — Lightweight event bus decouples all UI components for clean state management
+- **Cyberpunk Aesthetics** — CRT scanlines, glitch effects, neon palettes, procedural audio, and atmospheric sound design
+- **Scenario Engine** — Structured scenario data with node maps, faction configs, objectives, and action modifiers
+- **WebSocket Real-time Sync** — Live game state updates via persistent WebSocket connections
 
-## 🚀 Quick Start (Local Development)
+---
 
-Getting the global cyber battlefield running locally is designed to be seamless.
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v20+ recommended)
-- Python (3.11+ recommended)
+- **Node.js** v20+
+- **Python** 3.11+
 
-### Installation & Launch
+### One-Command Launch
 
-1. Clone the repository.
-2. Run the smart launch script:
-   ```bash
-   chmod +x launch_local.sh
-   ./launch_local.sh
-   ```
+```bash
+git clone https://github.com/xaviercallens/webwarcybergame.git
+cd webwarcybergame/CascadeProjects/windsurf-project
+chmod +x launch_local.sh
+./launch_local.sh
+```
 
-The script features a smart deployment pipeline that will automatically:
-- Install frontend dependencies and build the Vite production bundle (caches aggressively to save time).
-- Spin up the FastAPI backend on port `8000`.
-- Run headless automated Selenium End-to-End tests to verify WebGL stability and dataset integrity.
-- Open your default browser to `http://localhost:8000`.
+This script installs dependencies, starts the backend (port 8000), builds the frontend, runs health checks, and opens the browser.
 
-*To force a fresh frontend build without using the cache, run `./launch_local.sh --build`.*
+### Manual Launch (Development)
+
+```bash
+# 1. Backend
+cd backend
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+JWT_SECRET=dev-secret PYTHONPATH=src python main.py
+# → http://localhost:8000  (health: /api/health)
+
+# 2. Frontend (separate terminal)
+cd build/web
+npm install
+npm run dev
+# → http://localhost:5173
+```
+
+### Run Tests
+
+```bash
+# Frontend unit tests (Vitest — 172 tests)
+cd build/web && npm test
+
+# Frontend E2E tests (Playwright — 29 tests)
+cd build/web && npm run test:e2e
+
+# Backend unit tests (pytest — 78 tests)
+cd backend && source .venv/bin/activate
+PYTHONPATH=src JWT_SECRET=test pytest
+```
+
+---
+
+## 🎮 Player Guide
+
+### Game Flow
+
+```
+LOGIN → MENU → ROLE SELECT → BRIEFING → GAME → DEBRIEF
+```
+
+1. **Login or Register** — Create an account (username + password)
+2. **Menu** — Select difficulty (Novice / Normal / Expert) and scenario
+3. **Choose Role** — **Attacker** (Scarlet Protocol) or **Defender** (Iron Bastion)
+4. **Read Briefing** — Mission narrative, objectives, faction stats, map preview
+5. **Play Turns** — Select nodes on the map, execute actions via GUI / CLI / hotkeys / gamepad
+6. **Debrief** — Post-game incident report with XP breakdown, win/loss stats
+
+### Attacker Strategy
+
+| Phase | Turns | Goal | Key Actions |
+|-------|-------|------|-------------|
+| **Recon** | 1–4 | Map the network | `SCAN_NETWORK`, `PHISHING` |
+| **Intrusion** | 5–10 | Gain footholds | `EXPLOIT_VULNERABILITY`, `ELEVATE_PRIVILEGES` |
+| **Expansion** | 11–16 | Reach target | `LATERAL_MOVEMENT`, `INSTALL_MALWARE` |
+| **Extraction** | 17–20 | Exfiltrate data | `EXFILTRATE_DATA`, `CLEAR_LOGS` |
+
+> **Win condition:** Exfiltrate data from the target node before time runs out.
+
+### Defender Strategy
+
+| Phase | Turns | Goal | Key Actions |
+|-------|-------|------|-------------|
+| **Monitoring** | 1–6 | Detect intrusion | `MONITOR_LOGS`, `SCAN_FOR_MALWARE` |
+| **Hardening** | 7–12 | Patch & fortify | `APPLY_PATCH`, `FIREWALL_RULE` |
+| **Response** | 13–20 | Contain & eject | `ISOLATE_HOST`, `INCIDENT_RESPONSE`, `RESTORE_BACKUP` |
+
+> **Win condition:** Raise alert level to 100 (attacker caught) or survive until max turns.
+
+### Controls Reference
+
+| Input | Action |
+|-------|--------|
+| `Click` node | Select target |
+| `Right-click` node | Context menu with role actions |
+| `1`–`7` | Execute action by slot |
+| `Space` | End turn |
+| `` ` `` (backtick) | Toggle CLI console |
+| `Tab` | Autocomplete CLI command |
+| `↑` / `↓` | CLI command history |
+| `Esc` | Pause menu |
+| `F1` | Help overlay |
+| `Ctrl+H` | Toggle high contrast |
+| Gamepad `A` / `X` | Confirm / Action |
+| Gamepad `D-pad` | Navigate nodes |
+| Gamepad `Start` | Pause |
+
+> Full reference with all keybindings, CLI commands, and gamepad mapping: **[docs/CONTROLS.md](docs/CONTROLS.md)**
+
+### CLI Commands
+
+**Attacker commands:**
+```
+scan [node]          — Scan network from a node
+exploit [node]       — Exploit a vulnerability
+phish [node]         — Phishing attack
+malware [node]       — Install persistent malware
+privesc [node]       — Elevate privileges
+lateral [node]       — Move to adjacent node
+exfil [node]         — Exfiltrate data
+clearlogs [node]     — Clear attack evidence
+```
+
+**Defender commands:**
+```
+monitor [node]       — Check system logs
+scanmal [node]       — Scan for malware
+patch [node]         — Apply security patch
+isolate [node]       — Quarantine a host
+restore [node]       — Restore from backup
+firewall [node]      — Add firewall rule
+ir [node]            — Incident response
+```
+
+**Meta commands:** `help`, `status`, `endturn`, `quit`
+
+---
+
+## 🗺️ Scenarios
+
+### Backend Scenarios (RL Environment)
+
+| ID | Name | Nodes | Turns | Difficulty | Type |
+|----|------|-------|-------|------------|------|
+| `tutorial` | Tutorial — First Breach | 5 | 20 | Novice | Default |
+| `corporate_network` | Corporate Network Intrusion | 10 | 50 | Normal | Default |
+| `data_center` | Data Center Siege | 20 | 80 | Normal | Capture the Flag |
+| `critical_infrastructure` | Critical Infrastructure Defense | 30 | 100 | Expert | Survival |
+
+### Frontend Scenario
+
+| Name | Map | Factions | Duration |
+|------|-----|----------|----------|
+| **Operation Crimson Tide** | 16-node Eastern European banking cluster | Scarlet Protocol vs Iron Bastion | ~10 min (20 turns) |
+
+Operation Crimson Tide features asymmetric balance: the Attacker has early-game tempo (3 AP, 5 exploit kits) while the Defender scales in the late game (2→3 AP at alert ≥50, 8 IR credits). Full scenario spec with turn-by-turn transcript: **[specs/SCENARIO_OPERATION_CRIMSON_TIDE.md](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md)**
+
+---
+
+## 🧪 Test Coverage
+
+### Summary
+
+| Suite | Framework | Tests | Status |
+|-------|-----------|-------|--------|
+| Frontend Unit | Vitest | 172 | ✅ All passing |
+| Frontend E2E | Playwright | 29 | ✅ All passing |
+| Backend Unit | pytest | 78 | ✅ All passing |
+| **Total** | | **279** | **✅ 100%** |
+
+### Frontend Unit Tests (172)
+
+| Test File | Module | Tests |
+|-----------|--------|-------|
+| `game-events.test.js` | Event bus, subscriptions, emit | ✔ |
+| `state-machine.test.js` | View transitions, guards | ✔ |
+| `turn-controller.test.js` | Turn flow, action submission, polling | ✔ |
+| `command-parser.test.js` | CLI parsing, aliases, validation | ✔ |
+| `autocomplete.test.js` | Tab completion, command history | ✔ |
+| `fog-of-war.test.js` | Partial observability per role | ✔ |
+| `hotkey-manager.test.js` | Keybinding, suppression, remap | ✔ |
+| `api-client.test.js` | HTTP client, auth, error handling | ✔ |
+| `audio-manager.test.js` | Sound effects, music, fallbacks | ✔ |
+| `audio-manager-fallback.test.js` | Graceful degradation | ✔ |
+
+### Frontend E2E Tests (29)
+
+| Spec File | Coverage |
+|-----------|----------|
+| `game-flow.spec.js` | Login flow, UI components, keyboard nav, accessibility, responsive layout |
+| `playthrough.spec.js` | Attacker flow, defender flow, tutorial, gamepad sim, keyboard-only, CLI, Crimson Tide scenario |
+
+### Backend Unit Tests (78)
+
+| Area | Tests |
+|------|-------|
+| API Endpoints | 32 |
+| Database Module | 18 |
+| Configuration | 10 |
+| FastAPI App | 18 |
+
+> Detailed backend test report: **[TESTING.md](TESTING.md)**
+
+---
+
+## 📚 Documentation
+
+### Architecture & Design
+
+| Document | Description |
+|----------|-------------|
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture — 5-layer diagram, component interactions |
+| [docs/ROADMAP_V3.2.md](docs/ROADMAP_V3.2.md) | v3.2 roadmap — deep RL pipeline, curriculum learning, GPU training |
+| [docs/RL_INTEGRATION_GUIDE.md](docs/RL_INTEGRATION_GUIDE.md) | RL environment API — Gymnasium & PettingZoo usage, observation/action spaces |
+| [backend/RL_FRAMEWORKS_INSTALLED.md](backend/RL_FRAMEWORKS_INSTALLED.md) | RL framework versions — numpy, gymnasium, pettingzoo |
+
+### API & Operations
+
+| Document | Description |
+|----------|-------------|
+| [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | Full REST API reference — auth, game sessions, AI decisions, world state |
+| [docs/DEPLOYMENT_RUNBOOK.md](docs/DEPLOYMENT_RUNBOOK.md) | GCP Cloud Run deployment — Docker, env vars, scaling |
+| [BACKEND.md](BACKEND.md) | Backend overview — FastAPI app structure, middleware, database |
+| [BACKEND_CONFIG.md](BACKEND_CONFIG.md) | Configuration — env variables, database URL, JWT secret |
+
+### Gameplay & Controls
+
+| Document | Description |
+|----------|-------------|
+| [docs/CONTROLS.md](docs/CONTROLS.md) | Full controls reference — keyboard, CLI, gamepad, accessibility |
+| [specs/SCENARIO_OPERATION_CRIMSON_TIDE.md](specs/SCENARIO_OPERATION_CRIMSON_TIDE.md) | 10-minute gameplay scenario with turn-by-turn transcript |
+
+### Testing
+
+| Document | Description |
+|----------|-------------|
+| [TESTING.md](TESTING.md) | Backend pytest report — 78 tests, API/DB/config coverage |
+| [UNIT_TESTING_SUMMARY.md](UNIT_TESTING_SUMMARY.md) | Unit testing methodology and results |
+| [INTEGRATION_FUNCTIONAL_TESTS.md](INTEGRATION_FUNCTIONAL_TESTS.md) | Integration & functional test plan |
+| [TEST_QUICK_START.md](TEST_QUICK_START.md) | Quick start guide for running all test suites |
+| [COVERAGE_REPORT.md](COVERAGE_REPORT.md) | Code coverage analysis |
+
+---
+
+## 📐 Specifications
+
+| Specification | Description |
+|---------------|-------------|
+| [specs/functional_specification_v2.md](specs/functional_specification_v2.md) | Core functional spec — game rules, actions, win conditions |
+| [specs/functional_specification_v2b.md](specs/functional_specification_v2b.md) | Revised functional spec with hardened rules |
+| [specs/backend-specification.md](specs/backend-specification.md) | Backend API specification — endpoints, models, auth |
+| [specs/web_interface_specification.md](specs/web_interface_specification.md) | Frontend UI specification — views, components, interactions |
+| [specs/globe_architecture_spec.md](specs/globe_architecture_spec.md) | 3D globe rendering — Three.js, Globe.gl, node visualization |
+| [specs/global_multiplayer_architecture.md](specs/global_multiplayer_architecture.md) | Multiplayer architecture — WebSocket, matchmaking, sync |
+| [specs/deployment_specification.md](specs/deployment_specification.md) | Deployment spec — Docker, GCP Cloud Run, CI/CD |
+| [specs/IMPLEMENTATION_PLAN_V3.2_1WEEK.md](specs/IMPLEMENTATION_PLAN_V3.2_1WEEK.md) | v3.2 implementation plan — 7-day sprint, daily deliverables |
+| [specs/functional_test_plan.md](specs/functional_test_plan.md) | Functional test plan — test cases, acceptance criteria |
+
+---
 
 ## 🛠️ Technology Stack
 
-- **Frontend Engine**: `Vite`, `Three.js`, `Globe.gl`
-- **Backend Architecture**: `FastAPI`, `Uvicorn`, `Python`
-- **Testing Integrity**: `Selenium` (End-to-End headless Chrome UI verification)
-- **Styling**: Modular CSS design system with CSS Variables
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | Vite, Three.js, Globe.gl, vanilla ES modules, modular CSS |
+| **Backend** | FastAPI, Uvicorn, SQLModel, SQLAlchemy, Python 3.12 |
+| **RL / AI** | Gymnasium, PettingZoo, NumPy, rule-based agents (PPO-ready) |
+| **Database** | SQLite (dev), PostgreSQL (prod) |
+| **Auth** | JWT (PyJWT), bcrypt |
+| **Testing** | Vitest (unit), Playwright (E2E), pytest (backend), axe-core (a11y) |
+| **Deploy** | Docker, GCP Cloud Run, GitHub Pages (static demo) |
 
-## 🎮 How to Play
+---
 
-1. **Observe**: Your claimed network nodes are designated **GREEN**. Hostile targets are **RED**. Neutral systems are **CYAN**.
-2. **Select**: Click your `GREEN` node to access its root terminal.
-3. **Attack**: Click an adjacent `RED` or `CYAN` node to launch an encrypted attack payload across the network.
-4. **Capture**: Watch the firewall integrity drop. When it reaches 0, the node is successfully routed to your control.
-5. **Dominate**: Capture 75% of the globe to achieve Total Dominance!
+## 🏗️ Project Structure
 
-## 🎨 Cyberpunk Visual Assets
+```
+windsurf-project/
+├── backend/                    # FastAPI backend + RL agents
+│   ├── main.py                 # Entry point (uvicorn)
+│   ├── requirements.txt        # Python dependencies
+│   ├── src/
+│   │   ├── backend/            # API routes, auth, models, game engine
+│   │   │   ├── main.py         # FastAPI app, all REST endpoints
+│   │   │   ├── game_routes.py  # v3.2 turn-based game session API
+│   │   │   ├── auth.py         # JWT authentication & password hashing
+│   │   │   ├── models.py       # SQLModel schemas
+│   │   │   ├── engine.py       # Epoch-based game loop
+│   │   │   └── seed.py         # Database seeding & faction setup
+│   │   ├── rl/                 # RL environment + training
+│   │   │   ├── neohack_env.py  # Gymnasium environment
+│   │   │   ├── action_space.py # 15 actions (8 attacker + 7 defender)
+│   │   │   ├── train_agents.py # Self-play training loop
+│   │   │   └── scenarios/      # Scenario definitions & loader
+│   │   ├── rl_agent/           # RL agent microservice
+│   │   └── game/               # Game core (turns, detection, resources)
+│   └── migrations/             # Alembic database migrations
+├── build/web/                  # Frontend application
+│   ├── scripts/
+│   │   ├── main.js             # App entry, views, navigation
+│   │   ├── turn-controller.js  # Turn-based game controller
+│   │   ├── game-events.js      # Event bus (20+ events)
+│   │   ├── state-machine.js    # View state machine
+│   │   ├── fog-of-war.js       # Partial observability
+│   │   ├── api-client.js       # Backend HTTP client
+│   │   ├── audio-manager.js    # Procedural UI sound generation
+│   │   ├── cli/                # CLI console (parser + autocomplete)
+│   │   ├── components/         # UI components (HUD, menus, overlays)
+│   │   ├── tutorial/           # Interactive tutorial engine
+│   │   └── scenarios/          # Frontend scenario data
+│   ├── tests/                  # Vitest unit tests (172)
+│   ├── e2e/                    # Playwright E2E tests (29)
+│   └── styles/                 # CSS (turn-based.css, responsive)
+├── docs/                       # Documentation & media
+├── specs/                      # Game design specifications
+├── assets/                     # Visual assets (node sprites, effects)
+├── capture_game.js             # Puppeteer rendering capture script
+└── launch_local.sh             # One-command local launcher
+```
 
-The project utilizes a custom neon-cyberpunk visual design language for its nodes and effects. 
+---
+
+## 🎨 Visual Assets
 
 <div align="center">
   <img src="assets/images/server_node_player.png" width="18%" alt="Player Node">
@@ -86,8 +393,21 @@ The project utilizes a custom neon-cyberpunk visual design language for its node
   <img src="assets/images/attack_pulse.png" width="18%" alt="Attack Pulse">
 </div>
 
+---
+
 ## 🤝 Contributing
-Contributions, tactical suggestions, and feature requests are welcome! Feel free to open an issue or submit a Pull Request.
+
+Contributions, tactical suggestions, and feature requests are welcome!
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feat/my-feature`)
+3. Run all tests before submitting (`npm test && npm run test:e2e`)
+4. Open a Pull Request with a clear description
+
+See the [v3.2 Roadmap](docs/ROADMAP_V3.2.md) for planned improvements including deep RL training, curriculum learning, and GPU-accelerated agent training.
+
+---
 
 ## 📜 License
+
 This project is distributed under the MIT License.

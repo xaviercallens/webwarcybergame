@@ -214,6 +214,18 @@ class TurnManager:
     def has_action_points(self, player: str) -> bool:
         """Check if player has action points remaining."""
         return self.remaining_action_points.get(player, 0) > 0
+
+    @property
+    def actions_left(self) -> int:
+        """Remaining action points for the current player."""
+        return self.remaining_action_points.get(self.current_player, 0)
+
+    def force_end_turn(self):
+        """Force-end the current player's turn (skip remaining AP)."""
+        if self.game_over:
+            return
+        self.remaining_action_points[self.current_player] = 0
+        self._switch_turn()
     
     def get_turn_summary(self) -> Dict[str, Any]:
         """Get summary of current turn."""

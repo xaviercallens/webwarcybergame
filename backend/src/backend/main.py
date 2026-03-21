@@ -1,3 +1,10 @@
+"""
+Neo-Hack Main Application Module.
+
+This module initializes the FastAPI application, mounts WebSocket handlers,
+sets up rate-limiting and CORS middlewares, and defines the core REST API
+endpoints for authentication, diplomacy, actions, and real-time state sync.
+"""
 import os
 from contextlib import asynccontextmanager
 import asyncio
@@ -19,6 +26,7 @@ from backend import database, auth, models, engine
 from backend.engine import epoch_loop
 from backend.services.diplomacy import DiplomacyService
 from backend.websocket import manager
+from backend.demo_logger import DemoLoggerMiddleware, init_demo_log
 from datetime import datetime
 
 WEB_BUILD_DIR = Path(os.getenv("WEB_BUILD_DIR", Path(__file__).parent.parent.parent.parent / "build" / "web"))
@@ -47,16 +55,17 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://neohack-gridlock-212120873430.europe-west1.run.app",
-        "http://localhost:5173",
-        "http://localhost:8000",
-        "http://frontend:5173"
-    ],
+    allow_origins=["*"],  # Allow all origins for development
+    allow_origin_regex=r"^http://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Demo recording logger — logs all /api/* calls to specs/demo_logs/
+if os.environ.get("DEMO_RECORDING", "0") == "1":
+    init_demo_log()
+    app.add_middleware(DemoLoggerMiddleware)
 
 
 @app.get("/api/health")
@@ -64,7 +73,7 @@ def health_check():
     return {"status": "healthy"}
 
 @app.post("/api/auth/register", response_model=models.Token)
-@limiter.limit("5/minute")
+@limiter.limit("10/minute")
 def register_user(request: Request, user_in: models.PlayerCreate, session: Session = Depends(database.get_session)):
     existing = session.exec(select(models.Player).where(models.Player.username == user_in.username)).first()
     if existing:
@@ -80,7 +89,7 @@ def register_user(request: Request, user_in: models.PlayerCreate, session: Sessi
     return {"access_token": access_token, "token_type": "bearer", "player": player}
 
 @app.post("/api/auth/login", response_model=models.Token)
-@limiter.limit("5/minute")
+@limiter.limit("10/minute")
 def login_user(request: Request, user_in: models.PlayerCreate, session: Session = Depends(database.get_session)):
     player = session.exec(select(models.Player).where(models.Player.username == user_in.username)).first()
     if not player or not auth.verify_password(user_in.password, player.hashed_password):
@@ -502,6 +511,14 @@ def mark_notifications_read(
         session.add(n)
     session.commit()
     return {"status": "success"}
+
+# --- v3.2: Turn-based game session routes (RL agent bridge) ---
+try:
+    from backend.game_routes import router as game_v32_router
+    app.include_router(game_v32_router)
+except Exception as e:
+    import logging
+    logging.getLogger(__name__).warning(f"Could not load v3.2 game routes: {e}")
 
 if WEB_BUILD_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_BUILD_DIR, html=True), name="static")

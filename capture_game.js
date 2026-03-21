@@ -1,3 +1,9 @@
+/**
+ * Puppeteer Capture Script
+ * Automates a Chromium browser to navigate to the local Neo-Hack server,
+ * progress past the main menu, and take a screenshot of the main game 
+ * view rendering (with canvas dimensions logged).
+ */
 const puppeteer = require('puppeteer');
 
 (async () => {

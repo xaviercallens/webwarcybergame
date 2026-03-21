@@ -8,4 +8,9 @@ __pycache__/
 .venv/
 *.zip
 build/web/node_modules/
+build/web/test-results/
 .godot/
+*.db
+cloud-sql-proxy
+*.log
+deploy_*.log

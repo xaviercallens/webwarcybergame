@@ -6,6 +6,24 @@ import { audio } from './audio-manager.js';
 import { initUI, initDiplomacyEvents } from './ui-manager.js';
 import { TerminalManager } from './terminal-manager.js';
 
+// v3.2 Modules
+import { events, Events } from './game-events.js';
+import { StateMachine, ViewState } from './state-machine.js';
+import { TurnController } from './turn-controller.js';
+import { FogOfWar } from './fog-of-war.js';
+import { HotkeyManager } from './hotkey-manager.js';
+import { GamepadManager } from './gamepad-manager.js';
+import { AccessibilityManager } from './accessibility.js';
+import { NodeTooltip } from './components/NodeTooltip.js';
+import { ContextMenu } from './components/ContextMenu.js';
+import { LogPanel } from './components/LogPanel.js';
+import { ToastManager } from './components/Toast.js';
+import { Briefing } from './components/Briefing.js';
+import { Debrief } from './components/Debrief.js';
+import { PauseMenu } from './components/PauseMenu.js';
+import { HelpOverlay } from './components/HelpOverlay.js';
+import { TutorialEngine } from './tutorial/tutorial-engine.js';
+
 // --- State ---
 const AppState = {
   currentView: 'login',
@@ -26,7 +44,7 @@ const views = {
       <div class="menu-title-container">
         <h1>NEO-HACK</h1>
         <h1 style="color: #fff">GRIDLOCK</h1>
-        <div class="menu-subtitle">v2.0.0 // AUTHENTICATION REQUIRED</div>
+        <div class="menu-subtitle">v3.2.0 // AUTHENTICATION REQUIRED</div>
       </div>
 
       <div class="login-container" style="width: 380px; margin-top: 2rem;">
@@ -70,7 +88,7 @@ const views = {
       <div class="menu-title-container">
         <h1>NEO-HACK</h1>
         <h1 style="color: #fff">GRIDLOCK</h1>
-        <div class="menu-subtitle">v2.0.0 // SYSTEM ONLINE</div>
+        <div class="menu-subtitle">v3.2.0 // SYSTEM ONLINE</div>
       </div>
       
       <div class="menu-buttons">
@@ -91,6 +109,7 @@ const views = {
             <option value="bank_run">02 : THE BERYLIA BANK RUN</option>
             <option value="heist">03 : SILICON SILK ROAD HEIST</option>
             <option value="blackout">04 : OPERATION BLACKOUT</option>
+            <option value="crimson_tide">05 : OPERATION CRIMSON TIDE</option>
           </select>
           <div id="scenario-tooltip" style="color: #ff9900; font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">Select a guided scenario to learn advanced mechanics.</div>
         </div>
@@ -105,6 +124,61 @@ const views = {
         <span>Player: <input type="text" id="input-username" class="glitch-text" value="${AppState.player.username}" maxlength="16" style="background:transparent; border:none; border-bottom:1px solid var(--color-accent); color:var(--color-player); font-family:var(--font-mono); font-size:1rem; outline:none; text-shadow:0 0 5px var(--color-player); width:auto;"></span>
         <span>Rank: ${AppState.player.rank}</span>
         <span>XP: ${AppState.player.xp} / ${AppState.player.maxXp}</span>
+      </div>
+    </div>
+  `,
+  roleSelect: `
+    <div id="view-role_select" class="view screen-menu" role="region" aria-label="Role Selection">
+      <div class="menu-title-container">
+        <h1>NEO-HACK</h1>
+        <h1 style="color: #fff">GRIDLOCK</h1>
+        <div class="menu-subtitle">v3.2.0 // SELECT ROLE</div>
+      </div>
+
+      <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+        <!-- Attacker Card -->
+        <div class="role-card role-card--attacker" tabindex="0" data-role="attacker" role="button" aria-label="Play as Attacker"
+          style="width: 320px; padding: 2rem; border: 2px solid var(--color-enemy); background: rgba(255,0,85,0.08); cursor: pointer; text-align: center; transition: all 0.2s ease; position: relative;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">&#x1F4BB;</div>
+          <h2 style="color: var(--color-enemy); font-family: var(--font-display); margin: 0 0 0.5rem;">ATTACKER</h2>
+          <div style="color: var(--color-enemy); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem;">[ SCARLET PROTOCOL ]</div>
+          <ul style="text-align: left; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; list-style: none; padding: 0; line-height: 1.8;">
+            <li>&#x25B8; 3 Action Points / turn</li>
+            <li>&#x25B8; 5 Exploit Kits (consumable)</li>
+            <li>&#x25B8; Stealth meter (starts 100%)</li>
+            <li>&#x25B8; Fog of War — discover nodes</li>
+            <li>&#x25B8; Win: Exfiltrate target data</li>
+          </ul>
+          <div style="margin-top: 1rem; padding: 0.5rem; border: 1px dashed var(--color-enemy); color: var(--color-enemy); font-family: var(--font-mono); font-size: 0.75rem;">
+            FAST START | RESOURCE-LIMITED | HIGH RISK
+          </div>
+        </div>
+
+        <!-- Defender Card -->
+        <div class="role-card role-card--defender" tabindex="0" data-role="defender" role="button" aria-label="Play as Defender"
+          style="width: 320px; padding: 2rem; border: 2px solid var(--color-player); background: rgba(0,255,221,0.08); cursor: pointer; text-align: center; transition: all 0.2s ease; position: relative;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">&#x1F6E1;</div>
+          <h2 style="color: var(--color-player); font-family: var(--font-display); margin: 0 0 0.5rem;">DEFENDER</h2>
+          <div style="color: var(--color-player); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem;">[ IRON BASTION ]</div>
+          <ul style="text-align: left; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; list-style: none; padding: 0; line-height: 1.8;">
+            <li>&#x25B8; 2 AP / turn (scales to 3 at alert 50%+)</li>
+            <li>&#x25B8; 8 Incident Response budget</li>
+            <li>&#x25B8; Alert meter — unlocks IR tools</li>
+            <li>&#x25B8; Full map visibility</li>
+            <li>&#x25B8; Win: Survive 20 turns or isolate attacker</li>
+          </ul>
+          <div style="margin-top: 1rem; padding: 0.5rem; border: 1px dashed var(--color-player); color: var(--color-player); font-family: var(--font-mono); font-size: 0.75rem;">
+            SLOW START | SCALING POWER | TIME ADVANTAGE
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <div style="color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 1rem;">
+          SCENARIO: <span id="role-scenario-label" style="color: var(--color-accent);">SANDBOX</span>
+          &nbsp;|&nbsp; DIFFICULTY: <span id="role-diff-label" style="color: var(--color-accent);">INTERMEDIATE</span>
+        </div>
+        <button id="btn-role-back" class="btn" style="min-width: 120px;">&#x25C0; BACK</button>
       </div>
     </div>
   `,
@@ -353,7 +427,7 @@ async function initApp() {
   const appElement = document.getElementById('app');
   
   // Inject HTML — login view is the first screen
-  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal;
+  appElement.innerHTML = views.login + views.menu + views.roleSelect + views.game + views.leaderboard + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal;
 
   // Ensure only the login view is active initially
   navigateTo('login');
@@ -478,23 +552,70 @@ async function initApp() {
     });
   }
 
+  // --- v3.2 Turn-Based Play Flow ---
+  // Store selected settings for the role select screen
+  let pendingScenario = null;
+
   btnPlay.addEventListener('click', () => {
-    navigateTo('game');
-    const selectedDifficulty = selDiff ? selDiff.value : 'INTERMEDIATE';
-    if (window.GameInstance) {
-      if (window.DemoInstance) window.DemoInstance.stop();
-      if (window.PromoInstance) window.PromoInstance.stop();
-      window.GameInstance.init(selectedDifficulty); // Reset game on play with difficulty
-    }
+    pendingScenario = null; // sandbox
+    navigateTo('role_select');
+    const scenarioLabel = document.getElementById('role-scenario-label');
+    const diffLabel = document.getElementById('role-diff-label');
+    if (scenarioLabel) scenarioLabel.textContent = 'SANDBOX';
+    if (diffLabel) diffLabel.textContent = selDiff ? selDiff.value : 'INTERMEDIATE';
   });
 
   document.getElementById('btn-demo').addEventListener('click', () => {
-    const scenarioId = document.getElementById('sel-scenario').value;
-    navigateTo('game');
-    if (window.PromoInstance) window.PromoInstance.stop();
-    if (window.DemoInstance) {
-      window.DemoInstance.start(scenarioId);
-    }
+    pendingScenario = document.getElementById('sel-scenario').value;
+    navigateTo('role_select');
+    const scenarioLabel = document.getElementById('role-scenario-label');
+    const diffLabel = document.getElementById('role-diff-label');
+    if (scenarioLabel) scenarioLabel.textContent = (pendingScenario || 'SANDBOX').toUpperCase().replace(/_/g, ' ');
+    if (diffLabel) diffLabel.textContent = selDiff ? selDiff.value : 'INTERMEDIATE';
+  });
+
+  // Role select card click handlers
+  document.querySelectorAll('.role-card').forEach(card => {
+    const startGame = () => {
+      const role = card.dataset.role;
+      const difficulty = selDiff ? selDiff.value.toLowerCase() : 'intermediate';
+      const scenario = pendingScenario || 'default';
+
+      // Navigate to game view
+      navigateTo('game');
+
+      // Stop any running demo/promo
+      if (window.DemoInstance) window.DemoInstance.stop();
+      if (window.PromoInstance) window.PromoInstance.stop();
+
+      // Init the renderer
+      if (window.GameInstance) window.GameInstance.init(difficulty.toUpperCase());
+
+      // Start turn-based game via V32 controller
+      if (window.V32 && window.V32.turnController) {
+        window.V32.turnController.startGame({ role, difficulty, scenario });
+
+        // Show briefing if available
+        if (window.V32.briefing) {
+          window.V32.briefing.show({ role, scenario, difficulty });
+        }
+
+        // Start tutorial for tutorial scenario
+        if (scenario === 'tutorial' && window.V32.tutorial) {
+          window.V32.tutorial.start();
+        }
+      }
+    };
+
+    card.addEventListener('click', startGame);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startGame(); }
+    });
+  });
+
+  // Role select back button
+  document.getElementById('btn-role-back').addEventListener('click', () => {
+    navigateTo('menu');
   });
 
   document.getElementById('btn-promo').addEventListener('click', () => {
@@ -668,6 +789,113 @@ async function initApp() {
   window.TerminalInstance = new TerminalManager(window.GameInstance);
   window.DemoInstance = new DemoManager(window.GameInstance);
   window.PromoInstance = new PromoManager(window.GameInstance);
+
+  // --- v3.2 Systems Init ---
+  window.V32 = initV32Systems();
+}
+
+/** Initialize all v3.2 turn-based and UI systems */
+function initV32Systems() {
+  const stateMachine = new StateMachine();
+  const turnController = new TurnController();
+  const fogOfWar = new FogOfWar();
+  const hotkeyManager = new HotkeyManager();
+  const gamepadManager = new GamepadManager();
+  const a11y = new AccessibilityManager();
+
+  // UI overlays
+  const tooltip = new NodeTooltip();
+  const contextMenu = new ContextMenu();
+  const toastManager = new ToastManager();
+  const briefing = new Briefing();
+  const debrief = new Debrief();
+  const pauseMenu = new PauseMenu();
+  const helpOverlay = new HelpOverlay(hotkeyManager);
+  const tutorial = new TutorialEngine();
+
+  // Log panel (attach to game UI container)
+  const gameUI = document.querySelector('.game-ui') || document.getElementById('hud-layer');
+  const logPanel = gameUI ? new LogPanel(gameUI) : null;
+
+  // Load saved hotkey bindings
+  hotkeyManager.load();
+  gamepadManager.enable();
+
+  // --- Wire renderer to game state updates ---
+  events.on(Events.GAME_STATE_UPDATE, ({ gameState }) => {
+    if (window.GameInstance && window.GameInstance.renderer) {
+      window.GameInstance.renderer.renderGameState(gameState);
+    }
+  });
+
+  // --- Wire state machine to navigateTo ---
+  events.on(Events.VIEW_CHANGE, ({ to }) => {
+    navigateTo(to);
+  });
+
+  // --- Hotkey routing ---
+  events.on(Events.HOTKEY, ({ action }) => {
+    switch (action) {
+      case 'cancel':
+        if (helpOverlay.isOpen) { helpOverlay.hide(); return; }
+        if (pauseMenu.isOpen) { pauseMenu.hide(); return; }
+        if (stateMachine.current === ViewState.GAME) {
+          stateMachine.transitionTo(ViewState.PAUSE);
+          pauseMenu.show().then(result => {
+            if (result === 'resume') stateMachine.transitionTo(ViewState.GAME);
+            else if (result === 'quit') stateMachine.transitionTo(ViewState.MENU);
+            else if (result === 'help') helpOverlay.show();
+            else if (result === 'settings') {
+              document.getElementById('modal-settings')?.classList.add('active');
+              stateMachine.transitionTo(ViewState.GAME);
+            }
+          });
+        }
+        break;
+      case 'help':
+        helpOverlay.toggle();
+        break;
+      case 'toggle_console':
+        const termPanel = document.getElementById('terminal-panel');
+        if (termPanel) {
+          termPanel.style.display = termPanel.style.display === 'none' ? 'flex' : 'none';
+          events.emit(Events.CONSOLE_TOGGLE, {});
+        }
+        break;
+      case 'toggle_log':
+        if (logPanel) logPanel.toggle();
+        break;
+      case 'toggle_mission':
+        const mp = document.getElementById('mission-panel');
+        if (mp) mp.style.display = mp.style.display === 'none' ? 'block' : 'none';
+        break;
+    }
+  });
+
+  // --- Turn end routing ---
+  events.on(Events.TURN_END, () => {
+    turnController.endTurn();
+  });
+
+  // --- Game over routing ---
+  events.on(Events.GAME_OVER, async (data) => {
+    const choice = await debrief.show(data);
+    if (choice === 'replay') {
+      stateMachine.forceState(ViewState.MENU);
+      stateMachine.transitionTo(ViewState.ROLE_SELECT);
+    } else {
+      stateMachine.forceState(ViewState.DEBRIEF);
+      stateMachine.transitionTo(ViewState.MENU);
+    }
+  });
+
+  // Expose for debugging
+  return {
+    stateMachine, turnController, fogOfWar,
+    hotkeyManager, gamepadManager, a11y,
+    tooltip, contextMenu, toastManager, logPanel,
+    briefing, debrief, pauseMenu, helpOverlay, tutorial,
+  };
 }
 
 // Simple Router

@@ -1,0 +1,1706 @@
+================================================================================
+  NEO-HACK: GRIDLOCK v3.2 — DEMO PLAYTHROUGH LOG
+  User: DEMO_568174
+  Recorded: 2026-03-21T09:07:58.762Z
+================================================================================
+
+── DEMO ACTIONS ──
+[2026-03-21T08:59:29.504Z] [DEBUG] [vite] connecting...
+[2026-03-21T08:59:29.530Z] [DEBUG] [vite] connected.
+[2026-03-21T08:59:30.036Z] [WARNING] THREE.THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[2026-03-21T08:59:30.098Z] [LOG] [SYS] Navigated to login
+[2026-03-21T08:59:33.891Z] [WARNING] The resource https://unpkg.com/three-globe/example/img/earth-water.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T08:59:33.894Z] [WARNING] The resource http://localhost:5173/datasets/ne_110m_admin_0_countries.geojson was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T08:59:36.888Z] [LOG] [SYS] Navigated to menu
+[2026-03-21T08:59:39.488Z] [WARNING] The resource https://unpkg.com/three-globe/example/img/earth-water.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T08:59:39.488Z] [WARNING] The resource http://localhost:5173/datasets/ne_110m_admin_0_countries.geojson was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[DEMO] ✓ Login complete — on MENU
+[DEMO] Selected: INTERMEDIATE / crimson_tide
+[2026-03-21T08:59:52.486Z] [LOG] [SYS] Navigated to role_select
+[DEMO] Clicked PLAY SCENARIO → Role Select
+[2026-03-21T09:00:07.586Z] [LOG] [SYS] Navigated to game
+[2026-03-21T09:00:07.587Z] [LOG] [Renderer] Initializing with container: {width: 1280, height: 720, id: canvas-container}
+[2026-03-21T09:00:07.608Z] [WARNING] [SYS] Software WebGL renderer detected (angle (google, vulkan 1.3.0 (swiftshader device (subzero) (0x0000c0de)), swiftshader driver)). Forcing 2D fallback.
+[2026-03-21T09:00:07.608Z] [WARNING] [SYS] WebGL not supported or hardware acceleration missing. Falling back to 2D Degraded Mode.
+[2026-03-21T09:00:07.635Z] [LOG] [Renderer] 2D Fallback Canvas initialized: 1280 x 720
+[2026-03-21T09:00:07.635Z] [LOG] [Renderer] Fallback mode initialized
+[2026-03-21T09:00:07.743Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:07.768Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:07.768Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:07.768Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:07.784Z] [LOG] [SYS] Global Engine synced with Server.
+[DEMO] ✓ Selected ATTACKER role
+[2026-03-21T09:00:10.878Z] [WARNING] The resource https://unpkg.com/three-globe/example/img/earth-water.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T09:00:10.878Z] [WARNING] The resource http://localhost:5173/datasets/ne_110m_admin_0_countries.geojson was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T09:00:15.810Z] [WARNING] The resource https://unpkg.com/three-globe/example/img/earth-water.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T09:00:15.810Z] [WARNING] The resource http://localhost:5173/datasets/ne_110m_admin_0_countries.geojson was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[DEMO] ✓ GAME VIEW active
+[2026-03-21T09:00:20.810Z] [WARNING] The resource https://unpkg.com/three-globe/example/img/earth-water.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T09:00:20.810Z] [WARNING] The resource http://localhost:5173/datasets/ne_110m_admin_0_countries.geojson was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[DEMO] Dismissed briefing via COMMENCE OPERATION button
+[2026-03-21T09:00:25.848Z] [WARNING] The resource https://unpkg.com/three-globe/example/img/earth-water.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[2026-03-21T09:00:25.848Z] [WARNING] The resource http://localhost:5173/datasets/ne_110m_admin_0_countries.geojson was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[DEMO] Available targets: [{"id":16,"name":"IRO-N000","faction":2},{"id":18,"name":"IRO-N002","faction":2},{"id":19,"name":"IRO-N003","faction":2},{"id":20,"name":"IRO-N004","faction":2},{"id":21,"name":"IRO-N005","faction":2}]
+[DEMO] Selected node #16
+[2026-03-21T09:00:30.388Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:30.389Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SCAN (T1-A1) (#btn-action-scan)
+[2026-03-21T09:00:31.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:31.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:33.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:33.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:34.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:34.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #18
+[2026-03-21T09:00:36.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:36.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:37.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:37.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SCAN (T1-A2) (#btn-action-scan)
+[2026-03-21T09:00:39.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:39.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:40.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:40.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:42.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:42.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:43.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:43.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:45.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:45.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:46.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:46.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:48.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:48.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:49.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:49.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:51.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:51.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:52.955Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:52.955Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:54.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:54.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:55.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:55.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:57.427Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:57.427Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:58.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:00:58.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:00.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:00.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:01.958Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:01.958Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #16
+[2026-03-21T09:01:03.437Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:03.439Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:04.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:04.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T2-A1) (#btn-action-breach)
+[2026-03-21T09:01:06.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:06.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:07.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:07.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:09.453Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:09.453Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #18
+[2026-03-21T09:01:10.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:10.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:12.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:12.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:13.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:13.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T2-A2) (#btn-action-breach)
+[2026-03-21T09:01:15.430Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:15.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:16.961Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:16.961Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:18.496Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:18.497Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:19.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:19.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:21.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:21.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:22.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:22.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:24.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:24.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:25.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:25.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:27.565Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:27.628Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:29.242Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:29.242Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:30.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:30.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:31.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:31.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:33.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:33.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:34.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:34.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:36.428Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:36.429Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #19
+[2026-03-21T09:01:37.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:37.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:39.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:39.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SCAN (T3-A1) (#btn-action-scan)
+[2026-03-21T09:01:40.928Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:40.928Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:42.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:42.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:43.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:43.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:45.440Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:45.440Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #19
+[2026-03-21T09:01:46.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:46.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:48.494Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:48.494Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Not visible: BREACH (T3-A2) (#btn-action-breach)
+[DEMO] Action via event bus: BREACH (T3-A2) on node #19
+[2026-03-21T09:01:49.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:49.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:51.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:51.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:52.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:52.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:54.455Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:54.455Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:55.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:55.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:57.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:57.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:58.930Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:01:58.930Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:00.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:00.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:01.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:01.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:03.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:03.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:04.938Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:04.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:06.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:06.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:07.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:07.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:09.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:09.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:10.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:10.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:12.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:12.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Not visible: DIPLOMACY BTN (#btn-action-diplomacy)
+[DEMO] Not visible: DIPLOMACY ALT ([data-action="diplomacy"])
+[2026-03-21T09:02:13.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:13.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:15.435Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:15.435Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Opened diplomacy via DOM
+[DEMO] Clicked: Silk Road contact ([data-fid="3"])
+[2026-03-21T09:02:16.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:16.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:18.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:18.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:19.929Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:19.929Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:21.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:21.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:22.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:22.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:24.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:24.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SEND CHAT (#btn-dip-send)
+[2026-03-21T09:02:25.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:25.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:27.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:27.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:28.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:28.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:30.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:30.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:31.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:31.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:33.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:33.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:34.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:34.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:36.430Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:36.430Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:37.815Z] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request)
+[2026-03-21T09:02:37.816Z] [ERROR] [API] Treaty Propose Error: Error: Failed to propose treaty
+    at ApiClient.proposeTreaty (http://localhost:5173/scripts/api-client.js:213:26)
+    at async HTMLButtonElement.<anonymous> (http://localhost:5173/scripts/ui-manager.js:395:24)
+[DEMO] Clicked: PROPOSE TRADE (#btn-dip-propose)
+[2026-03-21T09:02:37.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:37.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:39.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:39.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:40.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:40.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:42.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:42.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:43.951Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:43.951Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:45.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:45.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:46.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:46.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:48.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:48.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: Sentinel contact ([data-fid="7"])
+[2026-03-21T09:02:49.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:49.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:51.427Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:51.443Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:52.937Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:52.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:54.447Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:54.447Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:55.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:55.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SEND CHAT (Sentinel) (#btn-dip-send)
+[2026-03-21T09:02:57.439Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:57.439Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:58.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:02:58.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:00.442Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:00.442Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:01.931Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:01.936Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:03.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:03.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:04.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:04.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:06.448Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:06.448Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:07.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:07.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: CLOSE DIPLOMACY (#btn-close-diplomacy)
+[2026-03-21T09:03:09.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:09.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:10.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:10.925Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:12.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:12.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:13.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:13.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:15.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:15.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #20
+[2026-03-21T09:03:16.937Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:16.937Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:18.445Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:18.446Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T4-A1) (#btn-action-breach)
+[2026-03-21T09:03:19.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:19.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:21.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:21.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:22.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:22.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:24.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:24.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #19
+[2026-03-21T09:03:25.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:25.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:27.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:27.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SCAN (T4-A2) (#btn-action-scan)
+[2026-03-21T09:03:28.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:28.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:30.428Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:30.428Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:31.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:31.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:33.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:33.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:34.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:34.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:36.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:36.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:37.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:37.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:39.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:39.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:40.946Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:40.951Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:42.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:42.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:43.933Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:43.933Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:45.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:45.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:46.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:46.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:48.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:48.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:49.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:49.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #21
+[2026-03-21T09:03:51.639Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:51.639Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:52.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:52.941Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:54.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:54.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Not visible: BREACH (T5-A1) (#btn-action-breach)
+[DEMO] Action via event bus: BREACH (T5-A1) on node #21
+[2026-03-21T09:03:55.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:55.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:57.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:57.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:58.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:03:58.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #20
+[2026-03-21T09:04:00.455Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:00.458Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:01.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:01.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Not visible: BREACH (T5-A2) (#btn-action-breach)
+[DEMO] Action via event bus: BREACH (T5-A2) on node #20
+[2026-03-21T09:04:03.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:03.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:04.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:04.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:06.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:06.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:07.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:07.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:09.444Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:09.444Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:10.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:10.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:12.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:12.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:13.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:13.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:15.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:15.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:16.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:16.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:18.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:18.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:19.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:19.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:21.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:21.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:22.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:22.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:24.429Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:24.429Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:25.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:25.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #22
+[2026-03-21T09:04:27.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:27.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:28.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:28.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T6-A1) (#btn-action-breach)
+[2026-03-21T09:04:30.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:30.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:31.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:31.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:33.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:33.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #21
+[2026-03-21T09:04:34.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:34.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:36.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:36.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SCAN (T6-A2) (#btn-action-scan)
+[2026-03-21T09:04:37.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:37.926Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:39.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:39.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:40.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:40.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:42.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:42.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:43.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:43.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:45.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:45.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:46.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:46.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:48.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:48.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:49.933Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:49.933Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:51.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:51.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:52.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:52.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:54.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:54.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:55.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:55.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:57.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:57.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:58.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:04:58.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:00.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:00.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #23
+[2026-03-21T09:05:01.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:01.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:03.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:03.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T7-A1) (#btn-action-breach)
+[2026-03-21T09:05:04.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:04.940Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:06.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:06.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:07.983Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:07.984Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:09.462Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:09.463Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #22
+[2026-03-21T09:05:10.945Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:10.945Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:12.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:12.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T7-A2) (#btn-action-breach)
+[2026-03-21T09:05:13.966Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:13.969Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:15.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:15.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:16.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:16.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:18.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:18.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:19.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:19.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:21.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:21.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:22.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:22.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:24.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:24.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:25.925Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:25.925Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:27.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:27.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:28.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:28.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:30.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:30.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:31.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:31.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:33.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:33.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:34.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:34.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:36.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:36.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: SENTINEL LAB (#btn-lab)
+[2026-03-21T09:05:37.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:37.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:39.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:39.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:40.929Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:40.931Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: CREATE SENTINEL (#btn-snt-create)
+[2026-03-21T09:05:42.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:42.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:43.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:43.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:45.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:45.428Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:46.938Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:46.938Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:48.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:48.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:49.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:49.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:51.486Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:51.486Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: CLOSE SENTINEL (#btn-close-sentinel)
+[2026-03-21T09:05:52.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:52.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:54.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:54.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:55.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:55.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:57.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:57.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #23
+[2026-03-21T09:05:58.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:05:58.922Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:00.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:00.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Not visible: BREACH (T8-A1) (#btn-action-breach)
+[DEMO] Action via event bus: BREACH (T8-A1) on node #23
+[2026-03-21T09:06:01.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:01.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:03.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:03.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:04.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:04.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #22
+[2026-03-21T09:06:06.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:06.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:07.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:07.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:09.454Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:09.454Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T8-A2) (#btn-action-breach)
+[2026-03-21T09:06:10.934Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:10.935Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:12.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:12.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:13.928Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:13.928Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:15.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:15.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:16.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:16.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:18.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:18.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:19.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:19.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:21.437Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:21.440Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:22.934Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:22.935Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:24.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:24.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:25.946Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:25.946Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:27.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:27.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:28.925Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:28.925Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:30.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:30.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:31.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:31.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #24
+[2026-03-21T09:06:33.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:33.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:34.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:34.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:36.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:36.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T9-A1) (#btn-action-breach)
+[2026-03-21T09:06:37.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:37.930Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:39.440Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:39.443Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:40.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:40.925Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #23
+[2026-03-21T09:06:42.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:42.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:43.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:43.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T9-A2) (#btn-action-breach)
+[2026-03-21T09:06:45.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:45.426Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:46.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:46.924Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:48.435Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:48.436Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:49.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:49.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:51.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:51.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:52.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:52.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:54.430Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:54.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:55.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:55.921Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:57.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:57.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:58.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:06:58.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:00.444Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:00.446Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:01.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:01.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:03.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:03.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:04.941Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:04.941Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:06.539Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:06.551Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:07.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:07.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #25
+[2026-03-21T09:07:09.435Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:09.436Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:10.930Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:10.933Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T10-A1) (#btn-action-breach)
+[2026-03-21T09:07:12.420Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:12.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:13.944Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:13.944Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:15.440Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:15.440Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:17.054Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:17.054Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Selected node #24
+[2026-03-21T09:07:18.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:18.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:19.958Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:19.958Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Clicked: BREACH (T10-A2) (#btn-action-breach)
+[2026-03-21T09:07:21.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:21.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:22.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:22.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:24.423Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:24.424Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:25.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:25.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:27.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:27.415Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:28.927Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:28.928Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:30.428Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:30.428Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:31.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:31.916Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:33.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:33.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:34.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:34.919Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:36.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:36.425Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:37.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:37.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:39.427Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:39.427Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:40.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:40.923Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:42.431Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:42.432Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:43.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:43.920Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:45.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:45.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:46.917Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:46.918Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:48.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:48.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:49.957Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:49.957Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:51.421Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:51.422Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Game over screen visible: false
+[2026-03-21T09:07:53.037Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:53.037Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:54.416Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:54.417Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:55.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:55.915Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:57.418Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[2026-03-21T09:07:57.419Z] [LOG] [Renderer] Rendering game state to 2D canvas: {nodes: 10, connections: 18, turn: undefined}
+[DEMO] Screenshot: /home/kalxav/xdev/webwargame/CascadeProjects/windsurf-project/specs/demo_recordings/final_screenshot_2026-03-21T09-07-58.png
+
+── NETWORK REQUESTS ──
+[2026-03-21T08:59:30.107Z] → GET http://localhost:8000/api/health
+[2026-03-21T08:59:30.667Z] ← 200 http://localhost:8000/api/health
+[2026-03-21T08:59:35.973Z] → POST http://localhost:8000/api/auth/register
+[2026-03-21T08:59:36.487Z] ← 200 http://localhost:8000/api/auth/register
+[2026-03-21T09:00:07.676Z] → POST http://localhost:8000/api/game/create
+[2026-03-21T09:00:07.676Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:07.676Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:07.693Z] ← 200 http://localhost:8000/api/game/create
+[2026-03-21T09:00:07.693Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:07.693Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:07.830Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:07.830Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:07.878Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:07.878Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:12.810Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:12.810Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:12.813Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:12.813Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:17.801Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:17.801Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:17.807Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:17.810Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:22.835Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:22.836Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:22.842Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:22.847Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:27.839Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:27.840Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:27.866Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:27.866Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:30.360Z] → POST http://localhost:8000/api/game/action
+[2026-03-21T09:00:30.376Z] ← 200 http://localhost:8000/api/game/action
+[2026-03-21T09:00:31.916Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:31.924Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:32.852Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:32.852Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:32.862Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:32.863Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:33.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:33.420Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:34.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:34.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:36.417Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:36.424Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:37.891Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:37.891Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:37.897Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:37.900Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:37.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:37.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:39.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:39.423Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:40.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:40.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:42.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:42.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:42.909Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:42.909Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:42.919Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:42.921Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:43.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:43.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:45.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:45.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:46.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:46.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:47.932Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:47.932Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:47.943Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:47.944Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:48.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:48.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:49.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:49.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:51.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:51.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:52.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:52.928Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:52.951Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:52.951Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:52.963Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:52.965Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:54.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:54.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:55.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:55.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:57.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:57.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:57.959Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:00:57.959Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:57.966Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:00:57.967Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:00:58.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:00:58.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:00.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:00.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:01.958Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:01.958Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:02.996Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:02.999Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:03.006Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:03.033Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:03.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:03.428Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:04.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:04.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:06.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:06.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:07.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:07.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:07.989Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:07.989Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:07.995Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:08.003Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:09.417Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:09.433Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:10.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:10.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:12.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:12.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:13.007Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:13.007Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:13.026Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:13.026Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:13.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:13.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:15.418Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:15.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:16.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:16.939Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:18.108Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:18.108Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:18.147Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:18.200Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:18.429Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:18.482Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:19.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:19.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:21.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:21.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:22.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:22.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:23.139Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:23.142Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:23.156Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:23.160Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:24.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:24.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:25.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:25.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:27.425Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:27.472Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:28.839Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:28.839Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:28.945Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:28.981Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:29.033Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:29.181Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:30.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:30.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:31.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:31.936Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:33.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:33.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:33.822Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:33.822Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:33.830Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:33.836Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:34.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:34.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:36.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:36.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:37.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:37.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:38.861Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:38.861Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:38.898Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:38.905Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:39.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:39.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:40.918Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:40.921Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:42.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:42.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:43.851Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:43.852Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:43.864Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:43.872Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:43.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:43.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:45.420Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:45.436Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:46.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:46.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:48.485Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:48.490Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:49.373Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:49.373Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:49.373Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:49.373Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:49.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:49.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:51.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:51.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:52.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:52.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:53.890Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:53.890Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:53.899Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:53.915Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:54.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:54.437Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:55.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:55.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:57.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:57.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:58.900Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:01:58.900Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:58.906Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:01:58.906Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:01:58.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:01:58.929Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:00.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:00.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:01.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:01.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:03.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:03.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:03.923Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:03.923Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:03.934Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:03.935Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:04.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:04.930Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:06.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:06.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:07.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:07.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:08.947Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:08.947Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:08.967Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:08.971Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:09.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:09.420Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:10.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:10.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:12.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:12.427Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:13.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:13.926Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:14.066Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:14.066Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:14.082Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:14.092Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:15.422Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:15.425Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:16.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:16.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:18.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:18.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:19.074Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:19.074Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:19.079Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:19.081Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:19.917Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:19.926Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:21.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:21.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:22.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:22.927Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:24.098Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:24.098Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:24.113Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:24.113Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:24.418Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:24.428Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:24.799Z] → POST http://localhost:8000/api/diplomacy/chat
+[2026-03-21T09:02:24.847Z] ← 200 http://localhost:8000/api/diplomacy/chat
+[2026-03-21T09:02:25.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:25.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:27.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:27.422Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:28.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:28.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:29.163Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:29.163Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:29.175Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:29.175Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:30.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:30.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:31.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:31.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:33.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:33.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:34.187Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:34.187Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:34.201Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:34.207Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:34.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:34.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:36.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:36.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:37.766Z] → POST http://localhost:8000/api/diplomacy/propose
+[2026-03-21T09:02:37.815Z] ← 400 http://localhost:8000/api/diplomacy/propose
+[2026-03-21T09:02:37.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:37.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:39.255Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:39.255Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:39.262Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:39.264Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:39.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:39.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:40.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:40.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:42.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:42.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:43.916Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:43.936Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:44.277Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:44.277Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:44.288Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:44.293Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:45.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:45.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:46.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:46.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:48.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:48.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:49.331Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:49.336Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:49.346Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:49.365Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:49.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:49.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:51.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:51.427Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:52.919Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:52.928Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:54.353Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:54.353Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:54.360Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:02:54.364Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:54.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:54.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:55.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:55.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:56.682Z] → POST http://localhost:8000/api/diplomacy/chat
+[2026-03-21T09:02:56.690Z] ← 200 http://localhost:8000/api/diplomacy/chat
+[2026-03-21T09:02:57.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:57.439Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:58.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:58.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:02:59.370Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:02:59.370Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:59.378Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:02:59.391Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:00.421Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:00.436Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:01.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:01.923Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:03.418Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:03.424Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:04.442Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:04.442Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:04.453Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:04.454Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:04.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:04.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:06.421Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:06.444Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:07.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:07.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:09.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:09.423Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:09.475Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:09.475Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:09.488Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:09.491Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:10.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:10.923Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:12.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:12.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:13.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:13.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:14.478Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:14.478Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:14.484Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:14.485Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:15.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:15.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:16.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:16.925Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:18.422Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:18.433Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:19.495Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:19.495Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:19.500Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:19.505Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:19.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:19.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:21.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:21.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:22.917Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:22.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:24.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:24.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:24.533Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:24.533Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:24.544Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:24.551Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:25.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:25.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:27.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:27.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:28.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:28.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:29.545Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:29.545Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:29.555Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:29.555Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:30.417Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:30.425Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:31.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:31.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:33.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:33.419Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:34.561Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:34.562Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:34.567Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:34.569Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:34.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:34.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:36.418Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:36.428Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:37.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:37.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:39.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:39.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:39.631Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:39.631Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:39.643Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:39.644Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:40.916Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:40.944Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:42.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:42.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:43.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:43.925Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:44.641Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:44.642Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:44.655Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:44.662Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:45.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:45.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:46.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:46.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:48.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:48.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:49.643Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:49.643Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:49.650Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:49.654Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:49.916Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:49.921Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:51.429Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:51.636Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:52.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:52.933Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:54.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:54.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:54.660Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:54.660Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:54.669Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:03:54.673Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:55.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:55.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:57.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:57.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:58.918Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:58.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:03:59.684Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:03:59.687Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:59.699Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:03:59.702Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:00.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:00.438Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:01.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:01.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:03.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:03.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:04.708Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:04.709Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:04.716Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:04.717Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:04.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:04.925Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:06.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:06.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:07.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:07.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:09.419Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:09.440Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:09.711Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:09.711Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:09.723Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:09.723Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:10.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:10.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:12.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:12.419Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:13.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:13.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:14.728Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:14.728Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:14.735Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:14.737Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:15.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:15.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:16.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:16.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:18.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:18.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:19.749Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:19.749Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:19.761Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:19.761Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:19.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:19.926Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:21.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:21.420Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:22.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:22.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:24.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:24.425Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:24.759Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:24.760Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:24.773Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:24.775Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:25.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:25.925Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:27.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:27.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:28.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:28.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:29.795Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:29.795Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:29.806Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:29.819Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:30.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:30.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:31.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:31.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:33.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:33.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:34.823Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:34.824Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:34.837Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:34.840Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:34.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:34.923Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:36.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:36.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:37.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:37.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:39.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:39.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:39.828Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:39.829Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:39.834Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:39.851Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:40.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:40.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:42.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:42.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:43.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:43.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:44.887Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:44.887Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:44.895Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:44.900Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:45.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:45.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:46.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:46.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:48.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:48.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:49.891Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:49.892Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:49.902Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:49.911Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:49.916Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:49.923Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:51.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:51.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:52.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:52.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:54.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:54.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:54.925Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:54.925Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:54.939Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:54.939Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:55.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:55.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:57.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:57.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:58.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:58.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:04:59.941Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:04:59.941Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:04:59.946Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:04:59.955Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:00.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:00.419Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:01.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:01.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:03.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:03.422Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:04.920Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:04.935Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:04.949Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:04.949Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:04.955Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:04.960Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:06.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:06.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:07.969Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:07.971Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:09.420Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:09.439Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:09.996Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:09.999Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:10.048Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:10.051Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:10.938Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:10.945Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:12.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:12.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:13.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:13.954Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:14.997Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:14.997Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:15.000Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:15.010Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:15.417Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:15.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:16.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:16.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:18.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:18.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:19.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:19.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:20.017Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:20.020Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:20.031Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:20.049Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:21.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:21.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:22.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:22.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:24.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:24.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:25.033Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:25.034Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:25.050Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:25.055Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:25.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:25.918Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:27.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:27.417Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:28.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:28.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:30.062Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:30.062Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:30.071Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:30.075Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:30.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:30.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:31.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:31.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:33.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:33.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:34.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:34.920Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:35.078Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:35.078Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:35.085Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:35.087Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:36.355Z] → GET http://localhost:8000/api/sentinels
+[2026-03-21T09:05:36.377Z] ← 200 http://localhost:8000/api/sentinels
+[2026-03-21T09:05:36.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:36.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:37.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:37.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:39.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:39.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:40.223Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:40.223Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:40.244Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:40.249Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:40.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:40.921Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:41.677Z] → POST http://localhost:8000/api/sentinels/create
+[2026-03-21T09:05:41.751Z] ← 200 http://localhost:8000/api/sentinels/create
+[2026-03-21T09:05:41.751Z] → GET http://localhost:8000/api/sentinels
+[2026-03-21T09:05:41.765Z] ← 200 http://localhost:8000/api/sentinels
+[2026-03-21T09:05:41.780Z] → GET http://localhost:8000/api/sentinels/6/logs
+[2026-03-21T09:05:41.803Z] ← 200 http://localhost:8000/api/sentinels/6/logs
+[2026-03-21T09:05:42.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:42.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:43.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:43.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:45.302Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:45.303Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:45.377Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:45.383Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:45.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:45.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:46.918Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:46.938Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:48.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:48.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:49.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:49.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:50.348Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:50.348Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:50.369Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:50.369Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:51.475Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:51.481Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:52.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:52.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:54.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:54.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:55.415Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:05:55.415Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:55.626Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:05:55.627Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:05:55.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:55.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:57.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:57.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:58.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:05:58.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:00.376Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:00.376Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:00.381Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:00.382Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:00.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:00.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:01.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:01.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:03.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:03.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:04.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:04.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:05.388Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:05.388Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:05.391Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:05.393Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:06.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:06.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:07.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:07.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:09.441Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:09.454Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:10.421Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:10.425Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:10.437Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:10.442Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:10.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:10.927Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:12.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:12.427Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:13.916Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:13.923Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:15.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:15.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:15.421Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:15.421Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:15.435Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:15.437Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:16.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:16.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:18.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:18.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:19.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:19.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:20.446Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:20.447Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:20.464Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:20.479Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:21.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:21.429Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:22.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:22.925Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:24.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:24.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:25.456Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:25.456Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:25.460Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:25.467Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:25.938Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:25.943Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:27.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:27.415Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:28.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:28.922Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:30.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:30.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:30.470Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:30.470Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:30.490Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:30.490Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:31.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:31.917Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:33.418Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:33.419Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:34.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:34.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:35.511Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:35.511Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:35.516Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:35.519Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:36.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:36.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:37.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:37.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:39.416Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:39.432Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:40.503Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:40.503Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:40.506Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:40.510Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:40.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:40.921Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:42.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:42.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:43.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:43.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:45.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:45.420Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:45.530Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:45.531Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:45.546Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:45.557Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:46.913Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:46.919Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:48.417Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:48.429Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:49.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:49.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:50.538Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:50.538Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:50.541Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:50.548Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:51.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:51.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:52.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:52.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:54.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:54.425Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:55.552Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:06:55.552Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:55.562Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:06:55.563Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:06:55.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:55.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:57.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:57.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:58.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:06:58.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:00.416Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:00.432Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:00.569Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:00.569Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:00.583Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:00.583Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:01.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:01.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:03.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:03.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:04.923Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:04.938Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:05.607Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:05.608Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:05.614Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:05.639Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:06.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:06.511Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:07.915Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:07.920Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:09.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:09.430Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:10.641Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:10.642Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:10.642Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:10.644Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:10.917Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:10.930Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:12.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:12.419Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:13.917Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:13.940Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:15.427Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:15.440Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:15.685Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:15.685Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:15.718Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:15.777Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:17.001Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:17.030Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:18.422Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:18.422Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:19.927Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:19.947Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:20.688Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:20.688Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:20.701Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:20.701Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:21.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:21.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:22.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:22.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:24.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:24.420Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:25.728Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:25.728Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:25.738Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:25.741Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:25.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:25.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:27.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:27.413Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:28.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:28.921Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:30.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:30.424Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:30.734Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:30.734Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:30.741Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:30.742Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:31.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:31.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:33.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:33.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:34.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:34.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:35.758Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:35.758Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:35.759Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:35.769Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:36.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:36.418Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:37.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:37.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:39.416Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:39.423Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:40.802Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:40.802Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:40.820Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:40.831Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:40.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:40.922Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:42.414Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:42.427Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:43.912Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:43.916Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:45.412Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:45.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:45.827Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:45.827Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:45.840Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:45.842Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:46.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:46.915Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:48.415Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:48.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:49.920Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:49.946Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:50.838Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:50.838Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:50.936Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:50.940Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:51.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:51.421Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:52.914Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:53.037Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:54.411Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:54.414Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:55.851Z] → GET http://localhost:8000/api/world/state
+[2026-03-21T09:07:55.851Z] → GET http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:55.861Z] ← 200 http://localhost:8000/api/world/state
+[2026-03-21T09:07:55.865Z] ← 200 http://localhost:8000/api/epoch/current
+[2026-03-21T09:07:55.911Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:55.914Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:57.413Z] → GET http://localhost:8000/api/game/state/gs-40372
+[2026-03-21T09:07:57.416Z] ← 200 http://localhost:8000/api/game/state/gs-40372
+
+Total demo actions: 694
+Total API calls: 998

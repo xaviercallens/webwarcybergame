@@ -60,6 +60,13 @@ def main():
         print("Programmatically clicking 'PLAY' button...")
         driver.execute_script("arguments[0].click();", btn_play)
 
+        print("Waiting for Role Select view...")
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#view-role_select.active")))
+        
+        print("Clicking Attacker Role...")
+        attacker_card = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".role-card--attacker")))
+        driver.execute_script("arguments[0].click();", attacker_card)
+
         print("Waiting for game view transition...")
         wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#view-game.active")))
 
@@ -84,6 +91,9 @@ def main():
 
         print("Clicking 'PLAY' again to simulate multiple sessions...")
         driver.execute_script("arguments[0].click();", btn_play)
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#view-role_select.active")))
+        attacker_card_2 = driver.find_element(By.CSS_SELECTOR, ".role-card--attacker")
+        driver.execute_script("arguments[0].click();", attacker_card_2)
         wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#view-game.active")))
         time.sleep(2)
         

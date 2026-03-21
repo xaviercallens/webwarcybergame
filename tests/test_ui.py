@@ -62,6 +62,13 @@ def test_login_flow():
         print("Clicking PLAY...")
         driver.execute_script("arguments[0].click();", play_btn)
         
+        print("Waiting for role selection...")
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#view-role_select.active")))
+        role_card = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".role-card--attacker")))
+        
+        print("Clicking ATTACKER role...")
+        driver.execute_script("arguments[0].click();", role_card)
+        
         # Wait for game view
         game_canvas = wait.until(EC.presence_of_element_located((By.ID, "canvas-container")))
         print("Game canvas loaded successfully!")
