@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .edge { fill: none; stroke: rgba(0, 204, 214, 0.6); stroke-width: 2; }
+      .corner { fill: none; stroke: #00FFDD; stroke-width: 4; }
+      .accent { fill: #00FFDD; }
+      .bg { fill: rgba(13, 21, 32, 0.95); }
+    </style>
+  </defs>
+
+  <!-- Background Panel -->
+  <rect x="2" y="2" width="96" height="96" class="bg" rx="2" ry="2"/>
+
+  <!-- Top Left Corner -->
+  <path d="M 20 2 L 2 2 L 2 20" class="corner"/>
+  <rect x="0" y="8" width="6" height="6" class="accent"/>
+
+  <!-- Top Right Corner -->
+  <path d="M 80 2 L 98 2 L 98 20" class="corner"/>
+  <rect x="94" y="8" width="6" height="6" class="accent"/>
+
+  <!-- Bottom Left Corner -->
+  <path d="M 2 80 L 2 98 L 20 98" class="corner"/>
+  <rect x="0" y="86" width="6" height="6" class="accent"/>
+
+  <!-- Bottom Right Corner -->
+  <path d="M 98 80 L 98 98 L 80 98" class="corner"/>
+  <rect x="94" y="86" width="6" height="6" class="accent"/>
+
+  <!-- Outer Lines connecting corners -->
+  <line x1="20" y1="2" x2="80" y2="2" class="edge" />
+  <line x1="20" y1="98" x2="80" y2="98" class="edge" />
+  <line x1="2" y1="20" x2="2" y2="80" class="edge" />
+  <line x1="98" y1="20" x2="98" y2="80" class="edge" />
+
+  <!-- Circuit Traces Top -->
+  <line x1="30" y1="2" x2="35" y2="6" class="edge" stroke-width="1"/>
+  <line x1="35" y1="6" x2="50" y2="6" class="edge" stroke-width="1"/>
+  <circle cx="50" cy="6" r="1.5" class="accent"/>
+</svg>
