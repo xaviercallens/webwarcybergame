@@ -3,12 +3,10 @@ Command-line interface for backend testing and interaction.
 Provides tools to test and interact with the backend API.
 """
 
-import sys
 import json
 import time
 import argparse
 from typing import Optional, Dict, Any
-from pathlib import Path
 
 import httpx
 
