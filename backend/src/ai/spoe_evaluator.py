@@ -6,7 +6,7 @@ Blueprint Alignment: Section 3.6 (Logging & Analytics), Spec v3 Section II
 """
 
 import logging
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any, List
 
 import numpy as np
 

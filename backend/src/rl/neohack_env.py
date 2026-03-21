@@ -11,7 +11,7 @@ import random
 
 from .action_space import (
     AttackerAction, DefenderAction, ATTACKER_ACTIONS, DEFENDER_ACTIONS,
-    ACTION_COSTS, STEALTH_COSTS, BASE_SUCCESS_RATES, DETECTION_CHANCES,
+    STEALTH_COSTS, BASE_SUCCESS_RATES, DETECTION_CHANCES,
     get_attacker_action_name, get_defender_action_name
 )
 from .observation_space import (

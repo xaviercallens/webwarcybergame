@@ -1,8 +1,5 @@
-import asyncio
-import os
 import random
 from sqlmodel import Session, select
-from sqlalchemy.ext.asyncio import create_async_engine
 
 from backend.database import get_engine
 from backend.models import Faction, Node, NodeClass

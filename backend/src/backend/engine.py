@@ -218,7 +218,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             # Notify affected players
             affected = session.exec(select(Player).where(Player.faction_id.in_([fa.id, fb.id]))).all()
             for p in affected:
-                notif = Notification(player_id=p.id, message=f"ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
+                notif = Notification(player_id=p.id, message="ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
                 session.add(notif)
                 asyncio.create_task(manager.send_personal_message({"type": "NOTIFICATION", "message": notif.message, "severity": "warning"}, p.id))
                 

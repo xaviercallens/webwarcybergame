@@ -6,7 +6,6 @@ All 7 defender actions with probabilistic outcomes per blueprint Section 1.
 import random
 from typing import Dict, Any
 
-import numpy as np
 
 from src.rl.action_space import DefenderAction
 from src.rl.observation_space import GameState

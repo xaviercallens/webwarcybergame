@@ -1,4 +1,3 @@
-import os
 import sys
 
 # Ensure we can import from backend

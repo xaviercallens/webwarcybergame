@@ -5,7 +5,6 @@ Manages game session state in Firestore for real-time updates.
 Blueprint Alignment: Section 5.3 (Firestore Integration)
 """
 
-import json
 import time
 import logging
 from typing import Dict, Any, Optional, Callable

@@ -3,7 +3,7 @@ Scenario loader for Neo-Hack v3.1.
 Loads and validates game scenario configurations.
 """
 
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 from pathlib import Path
 import json
 

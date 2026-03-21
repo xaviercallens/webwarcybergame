@@ -2,20 +2,19 @@ import os
 from contextlib import asynccontextmanager
 import asyncio
 from pathlib import Path
-from typing import Annotated, List, Optional
+from typing import Annotated, List
 
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Query, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
 from pydantic import BaseModel
-from sqlalchemy.orm import joinedload
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
-from backend import database, auth, models, engine
+from backend import database, auth, models
 from backend.engine import epoch_loop
 from backend.services.diplomacy import DiplomacyService
 from backend.websocket import manager
