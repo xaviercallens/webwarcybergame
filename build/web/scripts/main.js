@@ -628,6 +628,231 @@ const views = {
         <div style="text-align:right;"><div style="color:var(--color-scarlet);letter-spacing:1px;">EMERGENCY_OVERRIDE</div><div style="color:var(--color-accent);">STRIKE_CONFIRMED_01</div></div>
       </div>
     </div>
+  `,
+
+  dataSiphon: `
+    <div id="view-data-siphon" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">PHANTOM_OS</div>
+        <div class="pm-topbar__center"><span class="pm-topbar__alert">ALERT_LVL: 0%</span> <span>STEALTH: NOMINAL</span> <span>AP: 100/100</span></div>
+        <div class="pm-topbar__right"><span>⠿</span><span>⊡</span><span>◈</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><span>🔒</span><div><strong>NODE_REDACTED</strong><br/><span style="font-size:0.7rem;color:var(--color-text-muted)">STATUS: ENCRYPTED</span></div></div>
+        <div class="pm-sidebar__nav"><a class="active">⬡ BREACH_TOOLS</a><a>◎ PHANTOM_MONITOR</a><a>⟨⟩ DATA_STREAMS</a><a>📡 EXFIL_LOGS</a><a>⚙ SYSTEM_VOID</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-danger" style="width:100%">INITIATE_BREACH</button><a class="pm-sidebar__logout">⏎ LOGOUT</a></div>
+      </div>
+      <div class="pm-main"><div class="data-siphon">
+        <div class="data-siphon__left">
+          <div class="data-siphon__metrics-title">MISSION_CRITICAL_METRICS</div>
+          <div class="data-siphon__metric"><div class="label">TRANSFER_RATE</div><div class="value">1.4 <span class="unit">PB/s</span></div></div>
+          <div class="data-siphon__metric"><div class="label">TOTAL_EXFIL</div><div class="value">12.8 <span class="unit">TB</span></div></div>
+          <div class="data-siphon__conn-status"><div class="status-text">▲ CONNECTION_UNSTABLE</div><div style="font-size:var(--text-xs);color:var(--color-text-muted);">LATENCY_JITTER: 450ms | PACKET_LOSS: 12%</div></div>
+          <div style="margin-top:2rem;"><div class="data-siphon__triggers-title">OPERATIONAL_TRIGGERS</div>
+            <button class="data-siphon__trigger-btn" id="btn-execute-siphon" style="margin-top:1rem;">EXECUTE_SIPHON <span>⚡</span></button>
+            <button class="data-siphon__trigger-btn" id="btn-decoy-signal" style="margin-top:0.5rem;border-color:var(--color-text-muted);color:var(--color-text-primary);">DECOY_SIGNAL <span>🛡</span></button>
+          </div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:auto;">>_ SYSTEM_READY ———</div>
+        </div>
+        <div class="data-siphon__center">
+          <div class="radial-gauge"><svg viewBox="0 0 280 280"><circle class="radial-gauge__bg" cx="140" cy="140" r="120"/><circle class="radial-gauge__ring" id="siphon-ring" cx="140" cy="140" r="120" stroke-dasharray="${2*Math.PI*120}" stroke-dashoffset="${2*Math.PI*120*0.32}"/></svg>
+            <div class="radial-gauge__text"><div class="radial-gauge__label">S I P H O N _ S T A T U S</div><div class="radial-gauge__value" id="siphon-gauge-value">68%</div><div class="radial-gauge__status" id="siphon-status-label">● ACTIVE_DRAIN</div></div></div>
+          <div class="data-siphon__target-info"><div><div class="label">TARGET_NODE</div><div class="value">CENTRAL_BANK_CORE_01</div></div><div style="text-align:right;"><div class="label">TIME_TO_COMPLETE</div><div class="value" style="color:var(--color-accent);">00:14:28:02</div></div></div>
+        </div>
+        <div class="data-siphon__right">
+          <div class="siphon-log__header"><span class="siphon-log__title">SIPHON_LOG_VIRTUAL</span><span style="color:var(--color-scarlet);">⊘</span></div>
+          <div class="siphon-log__entries" id="siphon-log-entries"></div>
+          <div class="siphon-log__input"><span>></span><input placeholder="INJECT_COMMAND..." /></div>
+        </div>
+      </div></div></div>
+    </div>
+  `,
+
+  factions: `
+    <div id="view-factions" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">CYBER_WARFARE_OS</div>
+        <div class="pm-topbar__center"><a>SYSTEM_LOG</a><a>NETWORK_MAP</a><a>THREAT_INTEL</a></div>
+        <div class="pm-topbar__right"><span>⚙</span><span>⏻</span><span>👤</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><span>◈</span><div><strong style="color:var(--color-accent);">NODE_01</strong><br/><span style="font-size:0.7rem;color:var(--color-text-muted)">SECTOR_7_G</span></div></div>
+        <div class="pm-sidebar__nav"><a>⊞ COMMAND</a><a>⚙ ARSENAL</a><a>🔓 BREACH</a><a class="active">☰ SQUAD</a><a>⟁ INTEL</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-danger" style="width:100%">INITIATE_BREACH</button><a class="pm-sidebar__logout">⏎ LOGOUT</a></div>
+      </div>
+      <div class="pm-main"><div class="factions">
+        <div class="factions__list"><div class="factions__list-title">FACTION_INTEL <span style="float:right;font-size:var(--text-xs);color:var(--color-text-muted);">V4.1_GRIDLOCK</span></div><div id="faction-list"></div></div>
+        <div class="factions__detail" id="faction-detail"></div>
+      </div></div></div>
+    </div>
+  `,
+
+  phantomReentry: `
+    <div id="view-phantom-reentry" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">NEO-HACK: GRIDLOCK V4.1</div>
+        <div class="pm-topbar__center"><a class="active" style="border-bottom:2px solid var(--color-accent);">PHANTOM_RE_ENTRY</a><a>NETWORK_MAPPING</a></div>
+        <div class="pm-topbar__right"><span style="border:1px solid var(--color-text-muted);padding:0.2rem 0.5rem;font-size:var(--text-xs);">PHANTOM_ID: 0x41B</span><span>◈</span><span>⊡</span><span>⚙</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><span>🔒</span><div><strong>OPERATOR_ID_01</strong><br/><span style="font-size:0.7rem;color:var(--color-text-muted)">SYSTEM_RE_ENTRY</span></div></div>
+        <div class="pm-sidebar__nav"><a class="active">◎ ATTACK_VECTOR</a><a>🛡 PHANTOM_AUDIT</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-danger" id="btn-recompromise-all" style="width:100%">RE_COMPROMISE_ALL</button><a class="pm-sidebar__logout">⏎ LOGOUT</a></div>
+      </div>
+      <div class="pm-main"><div class="phantom-reentry">
+        <div class="phantom-reentry__main">
+          <div class="phantom-reentry__header"><div><h2 class="phantom-reentry__title">PHANTOM_RE_ENTRY</h2><div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-left:1rem;">STATUS: BYPASS PROTOCOL ACTIVE</div></div>
+            <div class="phantom-reentry__breach-prob"><div class="label">BREACH PROBABILITY</div><div class="value">94.2%</div></div></div>
+          <div class="phantom-reentry__stats"><div class="phantom-reentry__stat"><div class="label">PERSISTENCE LEVEL</div><div class="value">ALPHA-9</div></div><div class="phantom-reentry__stat"><div class="label">LATENCY DRIFT</div><div class="value">0.002ms</div></div></div>
+          <div style="display:flex;align-items:center;justify-content:center;flex:1;">
+            <div class="radial-gauge"><svg viewBox="0 0 280 280"><circle class="radial-gauge__bg" cx="140" cy="140" r="120"/><circle class="radial-gauge__ring" cx="140" cy="140" r="120" stroke-dasharray="${2*Math.PI*120}" stroke-dashoffset="${2*Math.PI*120*0.12}"/></svg>
+              <div class="radial-gauge__text"><div class="radial-gauge__label">R E _ E N T R Y  S T A T U S</div><div class="radial-gauge__value">88%</div><div class="radial-gauge__status">EXECUTING_PHANTOM_MESH</div></div></div>
+          </div>
+          <div style="display:flex;gap:2rem;justify-content:flex-end;"><div style="text-align:right;"><div style="font-size:var(--text-xs);color:var(--color-text-muted);">EXFILTRATION VOLUME</div><div style="font-family:var(--font-title);font-size:var(--text-xl);">1.4 TB/S</div></div><div style="text-align:right;"><div style="font-size:var(--text-xs);color:var(--color-text-muted);">DETECTION RISK</div><div style="font-family:var(--font-title);font-size:var(--text-xl);color:var(--color-stable);">LOW</div></div></div>
+          <div class="phantom-reentry__bottom"><div class="phantom-reentry__bottom-stat">ACTIVE MESH NODES<span class="value">—</span></div><div class="phantom-reentry__bottom-stat">DORMANT THREADS<span class="value">—</span></div><div class="phantom-reentry__bottom-stat">FIREWALL EVASION<span class="value">ACTIVE</span></div><div class="phantom-reentry__bottom-stat">SYSTEM ENTROPY<span class="value">STABLE</span></div></div>
+          <div style="display:flex;gap:1rem;padding:0.5rem 0;"><button class="btn btn-primary" id="btn-rapid-execute">⚡ RAPID_EXECUTE</button><button class="btn" id="btn-stealth-veil" style="border-color:var(--color-text-muted);">🔒 STEALTH_VEIL</button></div>
+        </div>
+        <div class="phantom-reentry__right">
+          <div class="phantom-reentry__tracker-title">⚙ PHANTOM_DORMANCY_TRACKER</div>
+          <div id="dormancy-tracker-list"></div>
+          <div style="margin-top:auto;"><div style="font-size:var(--text-xs);color:var(--color-text-muted);display:flex;justify-content:space-between;margin-bottom:0.5rem;">RE_ENTRY FEED <span style="color:var(--color-accent);">LIVE</span></div><div class="phantom-reentry__feed" id="reentry-feed"></div></div>
+        </div>
+      </div></div></div>
+    </div>
+  `,
+
+  systemLockdown: `
+    <div id="view-system-lockdown" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar" style="border-color:var(--color-scarlet);"><div class="pm-topbar__brand" style="color:var(--color-scarlet);font-style:italic;">SYSTEM_LOCKDOWN_v2.0</div>
+        <div class="pm-topbar__center"><a>BREACH_LOGS</a><a>SQUAD_COMMS</a></div>
+        <div class="pm-topbar__right"><span>⊗</span><span>⬇</span><button class="btn btn-danger" id="btn-terminate-all" style="font-size:var(--text-xs);padding:0.3rem 1rem;">TERMINATE_ALL</button></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><div><strong style="color:var(--color-accent);">SECTOR_7_VOID</strong><br/><span style="font-size:0.7rem;color:var(--color-scarlet);">THREAT_LEVEL_CRITICAL</span></div></div>
+        <div class="pm-sidebar__nav"><a class="active" style="border-left-color:var(--color-scarlet);">🔒 OVERRIDE_01</a><a style="color:var(--color-text-muted);opacity:0.4;">🛡 FIREWALL_X</a><a style="color:var(--color-text-muted);opacity:0.4;">⟁ NODE_MAP</a><a style="color:var(--color-text-muted);opacity:0.4;">🔑 CRYPT_KEY</a><a style="color:var(--color-text-muted);opacity:0.4;">⊞ CORE_OS</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-danger" id="btn-force-reboot" style="width:100%">FORCE_REBOOT</button><div style="display:flex;gap:1rem;margin-top:0.5rem;"><span style="font-size:0.8rem;">⚙</span><span style="font-size:0.8rem;">⏎</span></div></div>
+      </div>
+      <div class="pm-main"><div class="lockdown">
+        <div class="lockdown__banner"><h1>SYSTEM_LOCKDOWN_ACTIVE</h1><div class="subtitle">U N A U T H O R I Z E D   I N T R U S I O N   D E T E C T E D  //  P R O T O C O L _ V O I D _ I N I T I A T E D</div></div>
+        <div class="lockdown__cards">
+          <div class="lockdown__card"><div class="lockdown__card-label scarlet">STATUS_MODULE <span style="float:right;">✸</span></div><div class="lockdown__card-value">REVOKED</div><div class="lockdown__card-sub">OPERATIVE_ACCESS</div><div class="lockdown__card-bar" style="background:var(--color-scarlet);"></div></div>
+          <div class="lockdown__card"><div class="lockdown__card-label cyan">NETWORK_STATE <span style="float:right;">❊</span></div><div class="lockdown__card-value">100%</div><div class="lockdown__card-sub">NETWORK_FREEZE</div><div class="lockdown__card-bar" style="background:var(--color-accent);"></div></div>
+          <div class="lockdown__card"><div class="lockdown__card-label amber">THREAT_LEVEL <span style="float:right;">▲</span></div><div class="lockdown__card-value">CRITICAL</div><div class="lockdown__card-sub">SYSTEM_INTEGRITY</div><div class="lockdown__card-bar" style="background:var(--color-scarlet);width:80%;"></div></div>
+        </div>
+        <div class="lockdown__actions">
+          <button class="btn" style="border-color:var(--color-accent);min-width:200px;padding:1rem;" onclick="document.getElementById('btn-force-reboot').click()">↻ FORCE_REBOOT</button>
+          <div class="lockdown__log" id="lockdown-log">
+            <div class="error">>_ SEC_ERR: [MEMORY_CORRUPTION_DETECTED]</div>
+            <div>>_ NODE_ISOLATION: SUCCESSFUL</div>
+            <div>>_ DATAGRAM_PURGE: 44% COMPLETE</div>
+            <div>>_ WAITING FOR ADMINISTRATOR BIOMETRIC OVERRIDE...</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:2rem;padding:1rem 2rem;border-top:1px solid rgba(0,255,221,0.1);margin-top:auto;font-size:var(--text-xs);"><div><span style="color:var(--color-accent);">LATENCY_S7</span><br/><strong>0.0004ms</strong></div><div><span style="color:var(--color-scarlet);">PACKET_LOSS</span><br/><strong>99.9%</strong></div></div>
+      </div></div></div>
+    </div>
+  `,
+
+  gatewayCapture: `
+    <div id="view-gateway-capture" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">GRIDLOCK_V4.1</div>
+        <div class="pm-topbar__center"><a>MISSION_LOGS</a><a>MESH_STATUS</a><a class="active" style="border-bottom:2px solid var(--color-accent);">NODE_CAPTURE</a></div>
+        <div class="pm-topbar__right"><span>⠿</span><span>⊡</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><span>🔒</span><div><strong>NODE_GATEWAY</strong><br/><span style="font-size:0.7rem;color:var(--color-text-muted)">STATUS: CAPTURING</span></div></div>
+        <div class="pm-sidebar__nav"><a>◎ NEURAL_LINK</a><a>🔒 ENCRYPTION</a><a class="active">⚙ BREACH_TOOLS</a><a>🗺 VOID_MAP</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-primary" id="btn-initiate-override" style="width:100%">INITIATE_OVERRIDE</button><a class="pm-sidebar__logout">⏻ DISCONNECT</a></div>
+      </div>
+      <div class="pm-main"><div class="gateway-capture">
+        <div class="gateway-capture__main">
+          <div class="gateway-capture__badge">CAPTURE_PROGRESS <span id="capture-gauge-value" style="font-family:var(--font-title);font-size:var(--text-xl);margin-left:0.5rem;">84%</span></div>
+          <div class="radial-gauge" style="width:320px;height:320px;"><svg viewBox="0 0 280 280"><circle class="radial-gauge__bg" cx="140" cy="140" r="120"/><circle class="radial-gauge__ring" id="capture-ring" cx="140" cy="140" r="120" stroke-dasharray="${2*Math.PI*120}" stroke-dashoffset="${2*Math.PI*120*0.16}"/></svg>
+            <div class="radial-gauge__text"><div style="font-size:3rem;color:var(--color-text-muted);">⬡</div><div style="font-size:var(--text-sm);color:var(--color-accent);margin-top:0.5rem;">GATEWAY_NODE</div></div></div>
+          <div class="gateway-capture__virus-load"><div class="label">BREACH_VIRUS_LOAD</div><div class="value">SIG_INJECT: STABLE</div></div>
+        </div>
+        <div class="gateway-capture__right">
+          <div class="gateway-capture__data-panel"><h3>DATA_TRANSFER_STREAM</h3>
+            <div class="gateway-capture__data-row"><span class="label">UP_LINK</span><span class="value">1.2 PB/s</span></div>
+            <div class="gateway-capture__data-row"><span class="label">LATENCY</span><span class="value">0.02 MS</span></div>
+            <div class="gateway-capture__data-row"><span class="label">PACKET_LOSS</span><span class="value" style="color:var(--color-scarlet);">0.00%</span></div>
+          </div>
+          <div class="gateway-capture__signal-map"><h3>REALTIME_SIGNAL_MAP</h3><div style="text-align:right;font-size:var(--text-xs);color:var(--color-text-muted);margin-top:auto;">LOC: [34.0522, -118.2437]</div></div>
+        </div>
+      </div></div></div>
+      <div style="display:flex;justify-content:space-between;padding:0.5rem 1.5rem;border-top:1px solid rgba(0,255,221,0.1);font-size:var(--text-xs);color:var(--color-text-muted);">
+        <div><span style="color:var(--color-scarlet);">PHANTOM_SIG_DETECTION_RISK</span> <strong style="color:var(--color-scarlet);">HIGH_ALERT</strong></div>
+        <div>[14:22:01] ATTEMPTING_B</div>
+        <div style="border:1px solid var(--color-text-muted);padding:0.15rem 0.5rem;">CRYPTO_STRENGTH: 2048-BIT</div>
+        <div style="border:1px solid var(--color-accent);padding:0.15rem 0.5rem;">TRACER_DISTANCE: 4.2 KM</div>
+      </div>
+    </div>
+  `,
+
+  attackerVictory: `
+    <div id="view-attacker-victory" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">SYSTEM_BREACH_COMPLETE</div>
+        <div class="pm-topbar__center"><a>MISSION_LOGS</a><a>NODE_MAP</a><a>NETWORK_TRAFFIC</a></div>
+        <div class="pm-topbar__right"><span>⚙</span><span>⊡</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><span>🔒</span><div><span style="font-size:0.65rem;color:var(--color-text-muted);">OPERATOR_ID_001</span><br/><strong style="color:var(--color-accent);">ARCHITECT_CORE</strong><br/><span style="font-size:0.65rem;color:var(--color-accent);">STATUS: UNYIELDING</span></div></div>
+        <div class="pm-sidebar__nav"><a>⊙ OPERATIONS</a><a>⚙ ARSENAL</a><a>⊘ BREACH_HISTORY</a><a>🏆 RANKING</a><a>🏪 BLACK_MARKET</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-primary" style="width:100%">INITIATE_NEXT_PHASE</button><div style="display:flex;justify-content:space-between;margin-top:0.5rem;font-size:var(--text-xs);"><a>⏻ DISCONNECT</a><a>☰ SYSTEM_SETTINGS</a></div></div>
+      </div>
+      <div class="pm-main"><div class="attacker-victory">
+        <div class="attacker-victory__main">
+          <div class="attacker-victory__rank"><span class="attacker-victory__rank-badge">ELITE_STATUS</span><div class="attacker-victory__rank-letter glitch-text" id="victory-rank-letter">S</div></div>
+          <div class="attacker-victory__scrolling-text">TOTAL_DATA_BREACH_COMPLETE</div>
+          <div class="attacker-victory__metrics">
+            <div class="attacker-victory__metric-col">
+              <div class="attacker-victory__metric-card"><div class="sub">SECURE_SYPHON</div><div class="label">DATA_SYPHONED</div><div class="value">50.0 / 50.0 TB</div><div style="color:var(--color-stable);font-size:var(--text-xs);margin-top:0.25rem;">100% SUCCESS</div><div class="progress-track" style="margin-top:0.5rem;"><div class="progress-fill" style="width:100%"></div></div></div>
+              <div class="attacker-victory__metric-card"><div class="sub">NODE_MAP_SYNC</div><div class="label">MESH_COVERAGE</div><div class="value">100%</div><div style="color:var(--color-accent);font-size:var(--text-xs);margin-top:0.25rem;">TOTAL DOMINANCE</div></div>
+              <div class="attacker-victory__metric-card" style="border-left-color:var(--color-scarlet);"><div class="sub">STEALTH_LOG</div><div class="label" style="color:var(--color-scarlet);">STEALTH_RATING</div><div class="value">92%</div><div style="color:var(--color-accent);font-size:var(--text-xs);margin-top:0.25rem;">GHOST_OPERATIVE</div></div>
+            </div>
+            <div class="attacker-victory__metric-col">
+              <div class="attacker-victory__xp-box">
+                <div class="attacker-victory__level-jump"><span class="from">LVL 24</span><span class="arrow">»</span><span class="to">LVL 25</span></div>
+                <div class="attacker-victory__xp-bar"><div class="attacker-victory__xp-bar-fill" id="victory-xp-bar"></div></div>
+                <div style="font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:2px;">OPERATIVE_EVOLUTION_CORE</div>
+                <div class="attacker-victory__xp-earned" style="margin-top:1rem;">+15,400 <span style="font-size:var(--text-base);">XP</span></div>
+                <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:0.25rem;">BONUS: CLEAN_EXIT_MULTIPLIER_X1.5</div>
+              </div>
+            </div>
+            <div class="attacker-victory__metric-col">
+              <div class="attacker-victory__unlocks"><div class="attacker-victory__unlocks-title">🔒 ELITE_UNLOCKS</div>
+                <div class="attacker-victory__unlock-item"><div class="attacker-victory__unlock-icon">◎</div><div><div class="attacker-victory__unlock-label">NEW TOOL</div><div class="attacker-victory__unlock-name">PHANTOM_DECRYPTOR_V2</div></div></div>
+                <div class="attacker-victory__unlock-item"><div class="attacker-victory__unlock-icon">👤</div><div><div class="attacker-victory__unlock-label">NEW FACTION CONTACT</div><div class="attacker-victory__unlock-name">THE_ARCHITECT (UNLOCKED)</div></div></div>
+                <div class="attacker-victory__unlock-item"><div class="attacker-victory__unlock-icon">✸</div><div><div class="attacker-victory__unlock-label">NEW PAYLOAD</div><div class="attacker-victory__unlock-name">QUANTUM_WORM</div></div></div>
+              </div>
+              <button class="btn" style="width:100%;margin-top:1rem;border-color:var(--color-text-muted);">⤴ ENCRYPT_LOG_AND_SHARE →</button>
+            </div>
+          </div>
+        </div>
+      </div></div></div>
+      <div style="display:flex;justify-content:flex-end;gap:2rem;padding:0.5rem 1.5rem;border-top:1px solid rgba(0,255,221,0.1);font-size:var(--text-xs);color:var(--color-text-muted);">
+        <div>SYSTEM_TICK <strong>0.00042ms</strong></div><div>PACKET_LOSS <strong style="color:var(--color-accent);">0.00%</strong></div><div>ENCRYPTION <strong>AES_256_V_CORE</strong></div>
+      </div>
+    </div>
+  `,
+
+  topologyMap: `
+    <div id="view-topology-map" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">PHANTOM_OS</div>
+        <div class="pm-topbar__center"><a class="active" style="border-bottom:2px solid var(--color-accent);">STRAT_MAP</a><a>NODE_INTEL</a><a>BREACH_LOGS</a><a>SYSTEM_CMD</a></div>
+        <div class="pm-topbar__right"><span>⠿</span><span>⊡</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><div><strong style="color:var(--color-accent);">COMMAND_NODE_ALPHA</strong><br/><span style="font-size:0.7rem;color:var(--color-text-muted)">V.2.0.4_STABLE</span></div></div>
+        <div class="pm-sidebar__nav"><a class="active">⊕ TACTICAL_OVERLAY</a><a>⊙ NODE_INSPECTOR</a><a>⟁ TRAFFIC_ANALYTICS</a><a>⊗ THREAT_DETECTION</a><a>⊕ SYSTEM_RESOURCES</a></div>
+        <div class="pm-sidebar__footer"><button class="btn btn-primary" style="width:100%">INITIATE_BREACH</button><a class="pm-sidebar__logout">⏻ LOGOUT</a></div>
+      </div>
+      <div class="pm-main"><div class="topology-map">
+        <div class="topology-map__main"><div id="topo-node-overlay"></div>
+          <div class="topology-map__coords">LAT: 40.7128° N<br/>LNG: 74.0060° W<br/>ALT: 2,400M<br/><br/><span class="topology-map__status">STATUS: INTERCEPT_MODE_ACTIVE</span></div>
+        </div>
+        <div class="topology-map__right">
+          <div class="topology-map__alert-panel"><div class="label">SYSTEM_ALERT_LEVEL</div><div class="value">85/100</div><div class="sub">CRITICAL_BREACH_DETECTED_IN_SECTOR_7</div></div>
+          <div class="topology-map__ap-panel"><div class="label">AVAILABLE_AP</div><div class="value">12/20</div><div class="topology-map__ap-bars">${Array(12).fill('<div class="topology-map__ap-bar"></div>').join('')}${Array(8).fill('<div class="topology-map__ap-bar empty"></div>').join('')}</div></div>
+          <div class="topology-map__heatmap"><h3>❊ TOPOLOGY_HEATMAP</h3>
+            <div class="topology-map__heatmap-row"><span class="label">TRAFFIC_DENSITY</span><span class="value" id="topo-heatmap-density">HIGH_VOL_DETECTED</span></div>
+            <div class="topology-map__heatmap-row"><span class="label">ACTIVE_SUBNETS</span><span class="value">1,402_ONLINE</span></div>
+            <div class="topology-map__heatmap-row"><span class="label">DATA_FLOW_RATE</span><span class="value">4.2 PB/S</span></div>
+            <div style="display:flex;gap:1rem;margin-top:1rem;"><button class="btn" id="btn-topo-refresh" style="flex:1;font-size:var(--text-xs);">>_ DOWNLOAD_SCHEMA</button><button class="btn" style="flex:1;font-size:var(--text-xs);">>_ REFRESH</button></div>
+          </div>
+        </div>
+      </div></div></div>
+    </div>
   `
 };
 
@@ -669,7 +894,7 @@ async function initApp() {
   const appElement = document.getElementById('app');
   
   // Inject HTML — login view is the first screen
-  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.meshHub + views.campaign + views.reactPhase + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal;
+  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.meshHub + views.campaign + views.reactPhase + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal + views.dataSiphon + views.factions + views.phantomReentry + views.systemLockdown + views.gatewayCapture + views.attackerVictory + views.topologyMap;
 
   // Ensure only the login view is active initially
   navigateTo('login');
