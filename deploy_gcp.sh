@@ -63,7 +63,7 @@ gcloud run deploy $SERVICE_NAME \
   --service-account=$SERVICE_ACCOUNT \
   --add-cloudsql-instances=$DB_INSTANCE \
   --set-env-vars="WEB_BUILD_DIR=/app/static" \
-  --set-secrets="DATABASE_URL=db-connection-string:latest,JWT_SECRET=jwt-secret:latest" \
+  --set-secrets="DATABASE_URL=db-connection-string:latest,JWT_SECRET=jwt-secret:latest,GOOGLE_API_KEY=google-api-key:latest" \
   --allow-unauthenticated
 
 echo "======================================================="

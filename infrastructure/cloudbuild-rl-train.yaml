@@ -1,0 +1,23 @@
+steps:
+  # Build RL training image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-train:$SHORT_SHA'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-train:latest'
+      - '-f'
+      - 'backend/Dockerfile.rl_train'
+      - 'backend/'
+
+  # Push image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '--all-tags', 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-train']
+
+images:
+  - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-train:$SHORT_SHA'
+  - 'europe-west1-docker.pkg.dev/webwar-490207/neohack-repo/rl-train:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
