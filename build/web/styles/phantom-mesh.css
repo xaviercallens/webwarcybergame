@@ -1898,3 +1898,39 @@
 .sub-features-table td { padding: 0.5rem 1rem; font-size: var(--text-sm); color: var(--color-text-primary); border-bottom: 1px solid rgba(0,255,221,0.05); }
 .sub-features-table td.check { color: var(--color-stable); text-align: center; }
 .sub-features-table td.no { color: var(--color-text-muted); text-align: center; opacity: 0.3; }
+
+/* ========================================================
+   V4.1: OPERATIVE INDUCTION TUTORIAL OVERLAY
+   ======================================================== */
+.tutorial-overlay {
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.tutorial-coach__speech {
+  animation: glitch-anim-1 4s infinite linear alternate-reverse;
+}
+
+.tutorial-coach__speech::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 2px;
+  height: 100%;
+  background: var(--color-accent);
+}
+
+.tutorial-highlight {
+  position: relative;
+  z-index: 2001 !important;
+  box-shadow: 0 0 15px rgba(0,255,221,0.8), inset 0 0 10px rgba(0,255,221,0.5) !important;
+  animation: pulse-high 1.5s infinite !important;
+  pointer-events: auto !important;
+}
+
+@keyframes pulse-high {
+  0% { box-shadow: 0 0 10px rgba(0,255,221,0.5), inset 0 0 5px rgba(0,255,221,0.3); transform: scale(1); }
+  50% { box-shadow: 0 0 25px rgba(0,255,221,1), inset 0 0 15px rgba(0,255,221,0.8); transform: scale(1.02); }
+  100% { box-shadow: 0 0 10px rgba(0,255,221,0.5), inset 0 0 5px rgba(0,255,221,0.3); transform: scale(1); }
+}

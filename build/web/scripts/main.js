@@ -12,6 +12,7 @@ import { ReactPhase } from './components/react-phase.js';
 import { LeaderboardHub } from './components/leaderboard.js';
 import { GhostDeploy } from './components/ghost-deploy.js';
 import { Campaign } from './components/campaign.js';
+import { TutorialOverlay } from './components/tutorial.js';
 
 // --- State ---
 const AppState = {
@@ -504,6 +505,7 @@ const views = {
           </div>
         </div>
         <div class="campaign__card active">
+          <img src="/assets/missions/berylia_bank_run.png" alt="Mission 2" style="width:100%;height:100px;object-fit:cover;border-bottom:1px solid rgba(0,255,221,0.2);margin-bottom:0.5rem;"/>
           <span class="campaign__card-status active">ACTIVE</span>
           <div class="campaign__card-mission">MISSION 2:</div>
           <div class="campaign__card-title">THE BERYLIA BANK RUN</div>
@@ -528,6 +530,7 @@ const views = {
           </div>
         </div>
         <div class="campaign__card locked">
+          <img src="/assets/missions/operation_blackout.png" alt="Mission 4" style="width:100%;height:100px;object-fit:cover;border-bottom:1px solid rgba(255,0,85,0.2);margin-bottom:0.5rem;filter:grayscale(1) opacity(0.5);"/>
           <span class="campaign__card-status locked">🔒 LOCKED</span>
           <div class="campaign__card-mission">MISSION 4:</div>
           <div class="campaign__card-title">OPERATION BLACKOUT</div>
@@ -902,6 +905,32 @@ const views = {
           </tbody>
         </table>
       </div></div></div>
+    </div>
+  `,
+
+  tutorialOverlay: `
+    <div id="view-tutorial-overlay" class="tutorial-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,10,20,0.85); z-index:var(--z-tutorial, 2000); pointer-events:none;">
+      <!-- COACH Hologram -->
+      <div class="tutorial-coach" style="position:absolute; bottom:2rem; right:2rem; width:250px; text-align:right; pointer-events:auto;">
+        <div class="tutorial-coach__speech" id="tut-speech" style="background:rgba(0,255,221,0.1); border:1px solid var(--color-accent); padding:1rem; color:var(--color-text-primary); font-family:var(--font-mono); font-size:var(--text-sm); margin-bottom:1rem; box-shadow:var(--shadow-neon); position:relative;">
+          <span style="display:block; color:var(--color-accent); font-size:var(--text-xs); margin-bottom:0.5rem; font-weight:bold;">[ COACH_SYS // V3.3 ]</span>
+          <span id="tut-text">Operative, we've detected an intrusion. Select NODE-04 on the map to begin analysis.</span>
+          <div style="position:absolute; bottom:-10px; right:30px; border-width:10px 10px 0 0; border-style:solid; border-color:var(--color-accent) transparent transparent transparent;"></div>
+        </div>
+        <div class="tutorial-coach__avatar" style="width:80px; height:80px; background:rgba(0,255,221,0.2); border:2px solid var(--color-accent); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0 15px rgba(0,255,221,0.5); animation:pulse 2s infinite;">
+          <span style="font-size:2rem;">👁‍🗨</span>
+        </div>
+      </div>
+      <!-- Progress & Skip -->
+      <div class="tutorial-footer" style="position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); text-align:center; pointer-events:auto; display:flex; flex-direction:column; align-items:center; gap:1rem;">
+        <div id="tut-progress" style="color:var(--color-accent); font-family:var(--font-heading); letter-spacing:2px;">STEP 1 / 5</div>
+        <button id="btn-tut-skip" class="btn" style="border-color:var(--color-text-muted); color:var(--color-text-muted); padding:0.4rem 1.5rem; font-size:var(--text-xs);">SKIP TUTORIAL</button>
+      </div>
+      <!-- Tooltip Container -->
+      <div id="tut-tooltip" style="display:none; position:absolute; background:var(--color-bg); border:1px solid var(--color-stable); padding:0.5rem 1rem; color:var(--color-stable); font-family:var(--font-body); font-size:var(--text-xs); box-shadow:0 0 10px rgba(0,255,0,0.2);">
+        <strong style="display:block; margin-bottom:0.25rem;">RECON TIP</strong>
+        <span id="tut-tooltip-text">Always check adjacent nodes.</span>
+      </div>
     </div>
   `
 };
@@ -1286,7 +1315,15 @@ async function initApp() {
   window.ReactPhaseInstance = new ReactPhase();
   window.LeaderboardInstance = new LeaderboardHub();
   window.GhostDeployInstance = new GhostDeploy();
-  window.CampaignInstance = new Campaign();
+  const campaign = new Campaign();
+  const tutorial = new TutorialOverlay();
+
+  // Initialize components
+  window.ReactPhaseInstance.init();
+  window.LeaderboardInstance.init();
+  window.GhostDeployInstance.init();
+  campaign.init();
+  tutorial.init();
 
   // Start/stop mesh canvas based on view navigation
   window.addEventListener('viewChanged', (e) => {
