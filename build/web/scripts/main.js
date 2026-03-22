@@ -853,6 +853,50 @@ const views = {
         </div>
       </div></div></div>
     </div>
+  `,
+
+  subscription: `
+    <div id="view-subscription" class="view pm-layout" style="display:none;">
+      <div class="pm-topbar"><div class="pm-topbar__brand">GRIDLOCK_v5.0</div>
+        <div class="pm-topbar__center"><a>SYSTEM_LOG</a><a class="active" style="border-bottom:2px solid var(--color-accent);">SUBSCRIPTION</a><a>ACCOUNT</a></div>
+        <div class="pm-topbar__right"><span>⚙</span><span>⊡</span></div></div>
+      <div class="pm-body"><div class="pm-sidebar">
+        <div class="pm-sidebar__profile"><span>👤</span><div><strong style="color:var(--color-accent);">OPERATIVE</strong><br/><span style="font-size:0.7rem;color:var(--color-text-muted)">BILLING_MANAGEMENT</span></div></div>
+        <div class="pm-sidebar__nav"><a class="active">💳 SUBSCRIPTION</a><a>🔑 API_TOKENS</a><a>⚙ PREFERENCES</a><a>📊 USAGE</a></div>
+        <div class="pm-sidebar__footer"><a class="pm-sidebar__logout">⏎ BACK_TO_GAME</a></div>
+      </div>
+      <div class="pm-main"><div class="subscription">
+        <div class="subscription__header">
+          <h1 class="subscription__title">OPERATIVE_CLEARANCE_LEVELS</h1>
+          <div class="subscription__subtitle">SELECT YOUR TIER // UNLOCK PREMIUM CAPABILITIES</div>
+        </div>
+        <div class="sub-current">
+          <div class="sub-current__badge" id="sub-current-badge"><span style="color:var(--color-accent);">●</span> Operative (Free)</div>
+          <div class="sub-current__detail" id="sub-status-detail">STATUS: ACTIVE</div>
+          <div class="sub-current__actions">
+            <button class="btn" id="btn-manage-billing" style="font-size:var(--text-xs);padding:0.4rem 1rem;">MANAGE_BILLING</button>
+            <button class="btn btn-danger" id="btn-cancel-sub" style="font-size:var(--text-xs);padding:0.4rem 1rem;">CANCEL</button>
+          </div>
+        </div>
+        <div class="sub-plans-grid" id="sub-plans-grid"></div>
+        <table class="sub-features-table">
+          <thead><tr><th>FEATURE</th><th>FREE</th><th>CYBER_PASS</th><th>DEV_API</th><th>ENTERPRISE</th></tr></thead>
+          <tbody>
+            <tr><td>Core Gameplay</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Standard Matchmaking</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Premium UI Themes</td><td class="no">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Custom Audio Packs</td><td class="no">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>CLI Terminal Fonts</td><td class="no">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>OAuth API Tokens</td><td class="no">—</td><td class="no">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>WebSocket Direct Access</td><td class="no">—</td><td class="no">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Automated Scripts</td><td class="no">—</td><td class="no">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Private Sandbox Shards</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="check">✓</td></tr>
+            <tr><td>Admin Instructor Tools</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="check">✓</td></tr>
+            <tr><td>Cohort Management</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="check">✓</td></tr>
+          </tbody>
+        </table>
+      </div></div></div>
+    </div>
   `
 };
 
@@ -894,7 +938,7 @@ async function initApp() {
   const appElement = document.getElementById('app');
   
   // Inject HTML — login view is the first screen
-  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.meshHub + views.campaign + views.reactPhase + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal + views.dataSiphon + views.factions + views.phantomReentry + views.systemLockdown + views.gatewayCapture + views.attackerVictory + views.topologyMap;
+  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.meshHub + views.campaign + views.reactPhase + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal + views.dataSiphon + views.factions + views.phantomReentry + views.systemLockdown + views.gatewayCapture + views.attackerVictory + views.topologyMap + views.subscription;
 
   // Ensure only the login view is active initially
   navigateTo('login');

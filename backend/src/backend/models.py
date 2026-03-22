@@ -62,6 +62,18 @@ class EpochAction(SQLModel, table=True):
     cu_committed: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+class SubscriptionTier(str, enum.Enum):
+    FREE = "FREE"
+    CYBER_PASS = "CYBER_PASS"
+    DEV_API = "DEV_API"
+    ENTERPRISE = "ENTERPRISE"
+
+class SubscriptionStatus(str, enum.Enum):
+    ACTIVE = "ACTIVE"
+    CANCELLED = "CANCELLED"
+    EXPIRED = "EXPIRED"
+    PAST_DUE = "PAST_DUE"
+
 class PlayerBase(SQLModel):
     username: str = Field(index=True, unique=True)
     xp: int = Field(default=0)
@@ -71,6 +83,7 @@ class PlayerBase(SQLModel):
     win_streak: int = Field(default=0)
     best_streak: int = Field(default=0)
     faction_id: Optional[int] = Field(default=None, foreign_key="faction.id")
+    subscription_tier: SubscriptionTier = Field(default=SubscriptionTier.FREE)
 
 class Player(PlayerBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -220,3 +233,32 @@ class GameReplay(SQLModel, table=True):
     replay_data: str = Field(default="[]")  # JSON string of turn actions
     duration_seconds: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+# ============================================
+# v5.0 Subscription & Monetization Models
+# ============================================
+
+class Subscription(SQLModel, table=True):
+    """Tracks a player's subscription lifecycle with Stripe."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id", index=True)
+    tier: SubscriptionTier = Field(default=SubscriptionTier.FREE)
+    status: SubscriptionStatus = Field(default=SubscriptionStatus.ACTIVE)
+    stripe_subscription_id: Optional[str] = Field(default=None, index=True)
+    stripe_customer_id: Optional[str] = Field(default=None, index=True)
+    current_period_start: Optional[datetime] = None
+    current_period_end: Optional[datetime] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    cancelled_at: Optional[datetime] = None
+
+class ApiToken(SQLModel, table=True):
+    """Developer API tokens for DEV_API tier subscribers."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id", index=True)
+    token_hash: str = Field(index=True)
+    name: str = Field(default="default")
+    scopes: str = Field(default="read,write")  # comma-separated
+    is_active: bool = Field(default=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    expires_at: Optional[datetime] = None

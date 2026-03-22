@@ -1857,3 +1857,44 @@
 
 .topology-map__coords { position: absolute; bottom: 1rem; left: 1.5rem; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); z-index: 2; }
 .topology-map__status { color: var(--color-accent); font-weight: bold; }
+
+/* ============================================
+   SUBSCRIPTION MANAGEMENT (v5.0 Monetization)
+   ============================================ */
+
+.subscription { display: flex; flex-direction: column; flex: 1; overflow-y: auto; padding: 2rem; }
+.subscription__header { text-align: center; margin-bottom: 2rem; }
+.subscription__title { font-family: var(--font-title); font-size: var(--text-3xl); color: var(--color-accent); letter-spacing: 4px; }
+.subscription__subtitle { color: var(--color-text-muted); font-size: var(--text-sm); letter-spacing: 2px; margin-top: 0.5rem; }
+
+.sub-current { display: flex; justify-content: center; gap: 2rem; align-items: center; padding: 1rem 2rem; border: 1px solid rgba(0,255,221,0.2); margin-bottom: 2rem; background: var(--panel-bg); }
+.sub-current__badge { font-family: var(--font-heading); font-size: var(--text-lg); color: var(--color-text-primary); display: flex; align-items: center; gap: 0.5rem; }
+.sub-current__detail { font-size: var(--text-xs); color: var(--color-text-muted); letter-spacing: 1px; }
+.sub-current__actions { display: flex; gap: 0.75rem; margin-left: auto; }
+
+.sub-plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+@media (max-width: 1200px) { .sub-plans-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .sub-plans-grid { grid-template-columns: 1fr; } }
+
+.sub-card { background: var(--panel-bg); border: 1px solid rgba(0,255,221,0.1); border-top: 3px solid var(--color-text-muted); padding: 1.5rem; display: flex; flex-direction: column; transition: all var(--transition-fast); }
+.sub-card:hover { border-color: rgba(0,255,221,0.3); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.sub-card--active { border-top-color: var(--color-accent); border-color: rgba(0,255,221,0.3); background: rgba(0,255,221,0.03); }
+
+.sub-card__icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.sub-card__tier { font-family: var(--font-heading); font-size: var(--text-xs); letter-spacing: 3px; color: var(--color-text-muted); margin-bottom: 0.25rem; }
+.sub-card__name { font-family: var(--font-heading); font-size: var(--text-base); color: var(--color-text-primary); margin-bottom: 0.75rem; }
+.sub-card__price { font-family: var(--font-title); font-size: var(--text-3xl); color: var(--color-accent); }
+.sub-card__interval { font-size: var(--text-sm); color: var(--color-text-muted); font-family: var(--font-body); }
+
+.sub-card__features { list-style: none; padding: 0; margin: 1rem 0; flex: 1; }
+.sub-card__features li { color: var(--color-text-primary); font-size: var(--text-sm); padding: 0.3rem 0; border-bottom: 1px solid rgba(0,255,221,0.05); }
+
+.sub-card__btn { width: 100%; padding: 0.75rem; border: 1px solid var(--color-accent); background: transparent; color: var(--color-accent); font-family: var(--font-heading); font-size: var(--text-sm); letter-spacing: 2px; cursor: pointer; transition: all var(--transition-fast); margin-top: auto; }
+.sub-card__btn:hover { background: rgba(0,255,221,0.15); box-shadow: var(--shadow-neon); }
+.sub-card__btn--current { border-color: var(--color-stable); color: var(--color-stable); cursor: default; opacity: 0.7; }
+
+.sub-features-table { width: 100%; margin-top: 2rem; border-collapse: collapse; }
+.sub-features-table th { text-align: left; padding: 0.75rem 1rem; font-size: var(--text-xs); color: var(--color-accent); letter-spacing: 2px; border-bottom: 1px solid rgba(0,255,221,0.2); }
+.sub-features-table td { padding: 0.5rem 1rem; font-size: var(--text-sm); color: var(--color-text-primary); border-bottom: 1px solid rgba(0,255,221,0.05); }
+.sub-features-table td.check { color: var(--color-stable); text-align: center; }
+.sub-features-table td.no { color: var(--color-text-muted); text-align: center; opacity: 0.3; }

@@ -694,5 +694,250 @@ def mark_notifications_read(
     session.commit()
     return {"status": "success"}
 
+# --- v5.0 SUBSCRIPTION & MONETIZATION API ---
+
+from backend import stripe_service
+from backend.tier_guard import require_tier
+
+class CheckoutRequest(BaseModel):
+    tier: models.SubscriptionTier
+
+@app.get("/api/subscription/plans")
+def get_subscription_plans():
+    """List all available subscription tiers and their prices."""
+    plans = []
+    for tier in models.SubscriptionTier:
+        plan = {
+            "tier": tier.value,
+            "name": stripe_service.TIER_NAMES.get(tier, tier.value),
+            "price_id": stripe_service.PRICE_MAP.get(tier),
+        }
+        if tier == models.SubscriptionTier.FREE:
+            plan["price"] = "$0"
+            plan["interval"] = "forever"
+            plan["features"] = ["Core gameplay", "Basic UI", "Standard matchmaking"]
+        elif tier == models.SubscriptionTier.CYBER_PASS:
+            plan["price"] = "$9.99"
+            plan["interval"] = "season"
+            plan["features"] = ["Premium UI themes", "Custom audio packs", "CLI terminal fonts", "3D corruption animations", "All FREE features"]
+        elif tier == models.SubscriptionTier.DEV_API:
+            plan["price"] = "$4.99"
+            plan["interval"] = "month"
+            plan["features"] = ["OAuth API tokens", "WebSocket direct access", "Automated script integration", "All CYBER_PASS features"]
+        elif tier == models.SubscriptionTier.ENTERPRISE:
+            plan["price"] = "$500"
+            plan["interval"] = "month"
+            plan["features"] = ["Private sandbox shards", "Admin instructor tools", "Cohort management", "Priority support", "All DEV_API features"]
+        plans.append(plan)
+    return {"plans": plans}
+
+
+@app.post("/api/subscription/checkout")
+def create_checkout(
+    req: CheckoutRequest,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+):
+    """Create a Stripe Checkout Session and return the URL."""
+    if req.tier == models.SubscriptionTier.FREE:
+        raise HTTPException(status_code=400, detail="Cannot checkout for FREE tier")
+    try:
+        url = stripe_service.create_checkout_session(req.tier, current_user.id)
+        return {"checkout_url": url}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Payment service error: {str(e)}")
+
+
+@app.get("/api/subscription/status")
+def get_subscription_status(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session),
+):
+    """Get current player's subscription status."""
+    sub = session.exec(
+        select(models.Subscription)
+        .where(models.Subscription.player_id == current_user.id)
+        .where(models.Subscription.status == models.SubscriptionStatus.ACTIVE)
+        .order_by(models.Subscription.created_at.desc())
+    ).first()
+
+    return {
+        "tier": current_user.subscription_tier.value,
+        "tier_name": stripe_service.TIER_NAMES.get(current_user.subscription_tier, "Unknown"),
+        "subscription": {
+            "id": sub.id,
+            "status": sub.status.value,
+            "stripe_subscription_id": sub.stripe_subscription_id,
+            "current_period_start": sub.current_period_start,
+            "current_period_end": sub.current_period_end,
+        } if sub else None,
+    }
+
+
+@app.post("/api/subscription/cancel")
+def cancel_subscription(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session),
+):
+    """Cancel subscription at end of current billing period."""
+    sub = session.exec(
+        select(models.Subscription)
+        .where(models.Subscription.player_id == current_user.id)
+        .where(models.Subscription.status == models.SubscriptionStatus.ACTIVE)
+    ).first()
+    if not sub or not sub.stripe_subscription_id:
+        raise HTTPException(status_code=404, detail="No active subscription found")
+
+    result = stripe_service.cancel_subscription(sub.stripe_subscription_id)
+    sub.status = models.SubscriptionStatus.CANCELLED
+    sub.cancelled_at = datetime.utcnow()
+    session.add(sub)
+    session.commit()
+    return {"status": "cancelled", "effective_end": sub.current_period_end}
+
+
+@app.get("/api/subscription/portal")
+def get_customer_portal(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session),
+):
+    """Get a Stripe Customer Portal link for self-service billing management."""
+    sub = session.exec(
+        select(models.Subscription)
+        .where(models.Subscription.player_id == current_user.id)
+    ).first()
+    if not sub or not sub.stripe_customer_id:
+        raise HTTPException(status_code=404, detail="No billing record found")
+
+    url = stripe_service.get_portal_url(sub.stripe_customer_id)
+    return {"portal_url": url}
+
+
+@app.post("/api/subscription/webhook")
+async def stripe_webhook(request: Request):
+    """Handle Stripe webhook events for subscription lifecycle."""
+    payload = await request.body()
+    sig_header = request.headers.get("stripe-signature", "")
+
+    try:
+        event = stripe_service.construct_webhook_event(payload, sig_header)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid webhook signature")
+
+    with Session(database.engine) as session:
+        if event["type"] == "checkout.session.completed":
+            data = event["data"]["object"]
+            player_id = int(data["metadata"]["player_id"])
+            tier_str = data["metadata"]["tier"]
+            tier = models.SubscriptionTier(tier_str)
+
+            sub = models.Subscription(
+                player_id=player_id,
+                tier=tier,
+                status=models.SubscriptionStatus.ACTIVE,
+                stripe_subscription_id=data.get("subscription"),
+                stripe_customer_id=data.get("customer"),
+            )
+            session.add(sub)
+
+            player = session.get(models.Player, player_id)
+            if player:
+                player.subscription_tier = tier
+                session.add(player)
+
+            session.commit()
+
+        elif event["type"] == "customer.subscription.deleted":
+            data = event["data"]["object"]
+            stripe_sub_id = data["id"]
+            sub = session.exec(
+                select(models.Subscription)
+                .where(models.Subscription.stripe_subscription_id == stripe_sub_id)
+            ).first()
+            if sub:
+                sub.status = models.SubscriptionStatus.EXPIRED
+                session.add(sub)
+                player = session.get(models.Player, sub.player_id)
+                if player:
+                    player.subscription_tier = models.SubscriptionTier.FREE
+                    session.add(player)
+                session.commit()
+
+        elif event["type"] == "invoice.payment_failed":
+            data = event["data"]["object"]
+            stripe_sub_id = data.get("subscription")
+            sub = session.exec(
+                select(models.Subscription)
+                .where(models.Subscription.stripe_subscription_id == stripe_sub_id)
+            ).first()
+            if sub:
+                sub.status = models.SubscriptionStatus.PAST_DUE
+                session.add(sub)
+                session.commit()
+
+    return {"status": "ok"}
+
+
+# --- Developer API Token Management (DEV_API+ tier) ---
+
+class TokenCreateRequest(BaseModel):
+    name: str = "default"
+
+@app.get("/api/tokens")
+def list_api_tokens(
+    current_user: Annotated[models.Player, Depends(require_tier(models.SubscriptionTier.DEV_API))],
+    session: Session = Depends(database.get_session),
+):
+    """List all API tokens for the current developer."""
+    tokens = session.exec(
+        select(models.ApiToken)
+        .where(models.ApiToken.player_id == current_user.id)
+        .where(models.ApiToken.is_active == True)
+    ).all()
+    return {"tokens": [{"id": t.id, "name": t.name, "scopes": t.scopes, "created_at": t.created_at} for t in tokens]}
+
+
+@app.post("/api/tokens")
+def create_api_token(
+    req: TokenCreateRequest,
+    current_user: Annotated[models.Player, Depends(require_tier(models.SubscriptionTier.DEV_API))],
+    session: Session = Depends(database.get_session),
+):
+    """Generate a new developer API token. The raw token is shown only once."""
+    existing = session.exec(
+        select(models.ApiToken)
+        .where(models.ApiToken.player_id == current_user.id)
+        .where(models.ApiToken.is_active == True)
+    ).all()
+    if len(existing) >= 5:
+        raise HTTPException(status_code=400, detail="Maximum 5 active tokens allowed")
+
+    raw_token, hashed = stripe_service.generate_api_token()
+    token = models.ApiToken(
+        player_id=current_user.id,
+        token_hash=hashed,
+        name=req.name,
+    )
+    session.add(token)
+    session.commit()
+    session.refresh(token)
+    return {"token_id": token.id, "raw_token": raw_token, "name": token.name, "warning": "Store this token securely — it cannot be retrieved again."}
+
+
+@app.delete("/api/tokens/{token_id}")
+def revoke_api_token(
+    token_id: int,
+    current_user: Annotated[models.Player, Depends(require_tier(models.SubscriptionTier.DEV_API))],
+    session: Session = Depends(database.get_session),
+):
+    """Revoke (deactivate) a developer API token."""
+    token = session.get(models.ApiToken, token_id)
+    if not token or token.player_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Token not found")
+    token.is_active = False
+    session.add(token)
+    session.commit()
+    return {"status": "revoked"}
+
+
 if WEB_BUILD_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_BUILD_DIR, html=True), name="static")
