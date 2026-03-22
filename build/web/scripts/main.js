@@ -6,6 +6,13 @@ import { audio } from './audio-manager.js';
 import { initUI, initDiplomacyEvents } from './ui-manager.js';
 import { TerminalManager } from './terminal-manager.js';
 
+// v4.1 Phantom Mesh Components
+import { MeshHub } from './components/mesh-hub.js';
+import { ReactPhase } from './components/react-phase.js';
+import { LeaderboardHub } from './components/leaderboard.js';
+import { GhostDeploy } from './components/ghost-deploy.js';
+import { Campaign } from './components/campaign.js';
+
 // --- State ---
 const AppState = {
   currentView: 'login',
@@ -26,7 +33,7 @@ const views = {
       <div class="menu-title-container">
         <h1>NEO-HACK</h1>
         <h1 style="color: #fff">GRIDLOCK</h1>
-        <div class="menu-subtitle">v2.0.0 // AUTHENTICATION REQUIRED</div>
+        <div class="menu-subtitle">v4.1.0 // AUTHENTICATION REQUIRED</div>
       </div>
 
       <div class="login-container" style="width: 380px; margin-top: 2rem;">
@@ -70,7 +77,7 @@ const views = {
       <div class="menu-title-container">
         <h1>NEO-HACK</h1>
         <h1 style="color: #fff">GRIDLOCK</h1>
-        <div class="menu-subtitle">v2.0.0 // SYSTEM ONLINE</div>
+        <div class="menu-subtitle">v4.1.0 // SYSTEM ONLINE</div>
       </div>
       
       <div class="menu-buttons">
@@ -126,12 +133,31 @@ const views = {
           </div>
         </div>
         
-        <!-- Tutorial Overlay -->
-        <div id="tutorial-panel" class="panel" style="display:none; position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); width: 500px; text-align: center; border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0,255,221,0.15); z-index: 100;">
-          <h3 id="tut-title" style="color: var(--color-accent); margin-top: 0; font-family: var(--font-display); letter-spacing: 2px;">[ TUTORIAL : STEP 1 ]</h3>
-          <p id="tut-text" style="font-family: var(--font-mono); color: #fff; line-height: 1.5; margin: 1.5rem 0;"></p>
-          <div>
-              <button id="btn-tut-next" class="btn btn-primary">NEXT >></button>
+        <!-- Operative Induction Tutorial Overlay -->
+        <div id="tutorial-overlay" class="tutorial-overlay hidden">
+          <div class="tutorial-bottom-bar">
+            <div class="tutorial-progress">
+              <span class="tutorial-progress-text" id="tut-progress-text">STEP 1 / 5</span>
+              <div class="tutorial-progress-bars" id="tut-progress-bars">
+                 <div class="tut-bar active"></div>
+                 <div class="tut-bar"></div>
+                 <div class="tut-bar"></div>
+                 <div class="tut-bar"></div>
+                 <div class="tut-bar"></div>
+              </div>
+            </div>
+            <button id="btn-tut-skip" class="btn btn-danger" style="min-width: 150px;">SKIP TUTORIAL</button>
+          </div>
+          <div class="coach-container">
+            <div class="coach-bubble" id="tut-bubble">
+              <div class="coach-bubble-name">COACH <span>AI ADVISOR</span></div>
+              <h3 id="tut-title" style="color: var(--color-accent); margin: 0.5rem 0; font-family: var(--font-display); letter-spacing: 2px; font-size: var(--text-base);">[ TUTORIAL : STEP 1 ]</h3>
+              <div class="coach-bubble-text" id="tut-text">Operative, we've detected an intrusion. Select NODE-04 on the map to begin analysis.</div>
+              <div style="margin-top: 1rem; text-align: right;">
+                <button id="btn-tut-next" class="btn btn-primary" style="min-width:120px; font-size:var(--text-xs); padding: 0.5rem 1rem;">ACKNOWLEDGE >></button>
+              </div>
+            </div>
+            <div class="coach-drone-img">❖</div>
           </div>
         </div>
 
@@ -146,7 +172,7 @@ const views = {
         <!-- Terminal Overlay -->
         <div id="terminal-panel" style="display:none; position: absolute; inset: 0; background: rgba(0,20,30,0.95); z-index: 200; font-family: var(--font-mono); color: var(--color-player); padding: 2rem; flex-direction: column;">
           <div style="flex: 1; overflow-y: auto; margin-bottom: 1rem; padding-right: 1rem;" id="terminal-output">
-            <div style="color: var(--color-accent); margin-bottom: 1rem;">Neo-Hack OS v2.0.1 - Terminal Access Granted. Type /help for commands.</div>
+            <div style="color: var(--color-accent); margin-bottom: 1rem;">Neo-Hack OS v4.1.0 - Terminal Access Granted. Type /help for commands.</div>
           </div>
           <div style="display: flex; gap: 0.5rem; border-top: 1px solid var(--color-accent); padding-top: 1rem;">
             <span style="color: var(--color-accent);">root@gridlock:~$</span>
@@ -183,27 +209,7 @@ const views = {
       </div>
     </div>
   `,
-  leaderboard: `
-    <div id="view-leaderboard" class="view screen-leaderboard">
-      <div class="panel" style="width: 600px; margin: 4rem auto; pointer-events: auto;">
-        <div class="panel-header" style="justify-content: center; font-size: 1.5rem; text-shadow: 0 0 10px var(--color-player);">
-          [ GLOBAL RANKINGS ]
-        </div>
-        <table style="width: 100%; margin-top: 2rem; color: #fff; text-align: left; font-family: var(--font-mono);">
-          <tr style="color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
-            <th>RANK</th><th>OPERATIVE</th><th>TIER</th><th>XP</th>
-          </tr>
-          <tr><td>#1</td><td style="color:var(--color-player);">N30_LUNAR</td><td>ARCHITECT</td><td>9,450</td></tr>
-          <tr><td>#2</td><td>ZERO_SUM</td><td>ELITE</td><td>8,120</td></tr>
-          <tr><td>#3</td><td>${AppState.player.username}</td><td>${AppState.player.rank}</td><td>${AppState.player.xp}</td></tr>
-          <tr><td>#4</td><td>GL1TCH</td><td>HACKER</td><td>145</td></tr>
-        </table>
-        <div style="text-align: center; margin-top: 2rem;">
-          <button id="btn-lb-back" class="btn">RETURN</button>
-        </div>
-      </div>
-    </div>
-  `,
+
   gameover: `
     <div id="view-gameover" class="view screen-gameover" style="display:none; justify-content: center; align-items: center; background: rgba(0,0,0,0.8); z-index: 1000; position: absolute; inset: 0;">
       <div class="panel" style="text-align: center; max-width: 400px; animation: glitch-anim-1 0.3s linear; pointer-events: auto;">
@@ -282,7 +288,7 @@ const views = {
     </div>
   `,
   sentinelModal: `
-    <div id="modal-sentinel" class="modal-overlay" style="display:none; position: fixed; inset: 0; background: rgba(0,20,30,0.95); z-index: 1000; justify-content: center; align-items: center; font-family: var(--font-mono);">
+    <div id="modal-sentinel" class="modal-overlay" style="display:none; position: fixed; inset: 0; background: rgba(0,20,30,0.95); z-index: var(--z-modal, 1200); justify-content: center; align-items: center; font-family: var(--font-mono);">
       <div class="panel" style="width: 800px; max-height: 80vh; display: flex; flex-direction: column; background: rgba(10,14,23,0.9); border: 2px solid var(--color-accent); pointer-events: auto;">
         
         <div class="panel-header" style="justify-content: space-between; border-bottom: 1px solid var(--color-accent); padding-bottom: 0.5rem;">
@@ -344,15 +350,326 @@ const views = {
         </div>
       </div>
     </div>
+  `,
+  // ===== V4.1 PHANTOM MESH VIEWS =====
+  leaderboard: `
+    <div id="view-leaderboard" class="view v41-screen">
+      <div class="v41-topbar">
+        <span class="v41-topbar__brand">GRIDLOCK_V4.1</span>
+        <div class="v41-topbar__actions">
+          <button title="Settings">⚙</button>
+        </div>
+      </div>
+      <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column;">
+        <div class="leaderboard-hub">
+          <h1 class="leaderboard-hub__title">GLOBAL OPERATIVE LEADERBOARD HUB</h1>
+          <div class="leaderboard-hub__controls">
+            <div class="leaderboard-hub__tabs">
+              <button class="leaderboard-hub__tab active" id="tab-rankings">GLOBAL RANKINGS</button>
+              <button class="leaderboard-hub__tab" id="tab-hof">HALL OF FAME</button>
+            </div>
+            <div class="leaderboard-hub__search">
+              <input type="text" id="lb-search" placeholder="SEARCH OPERATIVE" />
+              <span class="icon">🔍</span>
+            </div>
+          </div>
+          <table class="leaderboard-hub__table">
+            <thead>
+              <tr><th>RANK</th><th>OPERATIVE_ID</th><th>MISSION_XP</th><th>TIER</th><th>ACCORD_RATING</th><th></th></tr>
+            </thead>
+            <tbody id="lb-tbody"></tbody>
+          </table>
+          <div class="leaderboard-hub__footer">
+            <button id="btn-lb-refresh" class="btn-v41">↻ REFRESH DATA</button>
+            <button id="btn-lb-back" class="btn-v41">← RETURN TO COMMAND</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  meshHub: `
+    <div id="view-mesh-hub" class="view v41-screen">
+      <div class="v41-topbar">
+        <span class="v41-topbar__brand">GRIDLOCK_V4.1</span>
+        <div class="v41-topbar__nav">
+          <span class="active">MISSION_LOGS</span>
+          <span>MESH_NODES</span>
+          <span>PHANTOM_SIG</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <div class="v41-react-timer">
+            <span class="v41-react-timer__label">REACT_PHASE</span>
+            <span class="v41-react-timer__value" id="mesh-react-timer">00:15</span>
+          </div>
+          <div class="v41-topbar__actions">
+            <button title="Globe">🌐</button>
+            <button title="Map">🗺</button>
+            <button title="Settings">⚙</button>
+          </div>
+        </div>
+      </div>
+      <div class="mesh-hub">
+        <div class="v41-sidebar">
+          <div class="v41-sidebar__profile">
+            <div style="display:flex;gap:0.75rem;align-items:center;margin-bottom:0.5rem;">
+              <div style="width:36px;height:36px;background:var(--panel-bg);border:1px solid var(--color-text-muted);display:flex;align-items:center;justify-content:center;">👤</div>
+              <div>
+                <div class="v41-sidebar__profile-name">PHANTOM_STRIKE</div>
+                <div class="v41-sidebar__profile-rank">LEVEL_9_BREACHER</div>
+              </div>
+            </div>
+          </div>
+          <div class="v41-sidebar__nav">
+            <button class="v41-sidebar__item active">⊕ ATTACK_VECTOR</button>
+            <button class="v41-sidebar__item">🛡 DEFENSE_GRID</button>
+            <button class="v41-sidebar__item">📡 VOID_SCAN</button>
+            <button class="v41-sidebar__item">🔐 NULL_ROOT</button>
+            <button class="v41-sidebar__item" style="margin-top:auto;">⏻ EXIT_NODE</button>
+          </div>
+          <div class="v41-sidebar__bottom">
+            <button class="btn-init-ghost" id="btn-init-ghost">INITIALIZE_GHOST</button>
+            <div style="display:flex;gap:1rem;font-size:var(--text-xs);color:var(--color-text-muted);">
+              <span>⊕ SYS_OK</span>
+              <span>🔒 ENC_ON</span>
+            </div>
+          </div>
+        </div>
+        <div class="mesh-hub__main">
+          <div class="mesh-hub__status-bar">
+            <div class="mesh-hub__mesh-status">
+              <h2>MESH_STATUS: <span class="stable" id="mesh-status-val">STABLE</span></h2>
+              <div class="mesh-hub__metrics">
+                <div><span>PACKET EFFICIENCY</span><span class="value" id="mesh-pkt-eff">99.2%</span></div>
+                <div><span>GHOST NODES</span><span class="value" id="mesh-ghost-count" style="color:var(--color-amber)">04</span></div>
+                <div><span>BANDWIDTH CONSUMPTION</span><span class="value" id="mesh-bw">2.4 TB/S</span></div>
+              </div>
+            </div>
+            <div class="mesh-hub__latency-box">
+              <div class="metric"><div class="label">LATENCY</div><div class="value" id="mesh-latency">14MS</div></div>
+              <div class="metric"><div class="label">THREATS</div><div class="value" id="mesh-threats" style="color:var(--color-stable)">LOW</div></div>
+            </div>
+          </div>
+          <div class="mesh-hub__canvas"><canvas id="mesh-topology-canvas"></canvas></div>
+          <div class="mesh-hub__terminal">
+            <div class="mesh-hub__terminal-header">
+              <span>TER NODE_SEC_A</span>
+              <span class="close-indicator"></span>
+            </div>
+            <div class="mesh-hub__terminal-log" id="mesh-term-log">
+              <div class="log-sys">>> INITIALIZING_SEQUENCE_V4.1...</div>
+              <div class="log-info">[INFO] SCANNING_SUBNET_NODES... OK</div>
+              <div class="log-info">[INFO] DECRYPTION_KEYS_LOADED</div>
+              <div class="log-warn">[WARN] PHANTOM_SIG_DETECTED_0x88X</div>
+              <div class="log-auth">[AUTH] PENDING_HANDSHAKE_NODE_C</div>
+              <div class="log-sys">>> _</div>
+            </div>
+            <div class="mesh-hub__terminal-input">
+              <span>>_</span>
+              <input type="text" placeholder="ENTER_COMMAND..." id="mesh-term-input" />
+            </div>
+          </div>
+          <div class="mesh-hub__footer">
+            <span>LOC: [40.7128, -74.0060]</span>
+            <span>TZ: UTC-5_PHANTOM</span>
+            <span class="phantom-mode">GHOST_MODE_ENABLED: YES</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  campaign: `
+    <div id="view-campaign" class="view v41-screen">
+      <div class="v41-topbar">
+        <span class="v41-topbar__brand">GRIDLOCK_V4.1</span>
+        <div class="v41-topbar__actions"><button>⚙</button></div>
+      </div>
+      <div class="campaign__player-bar">
+        <div class="campaign__player-stat">PLAYER RANK: <span class="value">SENIOR OPERATIVE</span></div>
+        <div class="campaign__player-stat" style="border-color:var(--color-stable);">CURRENT LEVEL: <span class="value">4</span></div>
+        <div class="campaign__player-stat" style="border-color:var(--color-amber);">TOTAL XP: <span class="value">45,200/50,000</span></div>
+      </div>
+      <h1 class="campaign__title">CAMPAIGN MISSION CONTROL BOARD</h1>
+      <div class="campaign__subtitle">Neo-Hack: Gridlock v4.1.0</div>
+      <div class="campaign__cards" id="campaign-cards">
+        <div class="campaign__card completed">
+          <span class="campaign__card-status completed">COMPLETED</span>
+          <div class="campaign__card-mission">MISSION 1:</div>
+          <div class="campaign__card-title">CORE SYSTEMS TUTORIAL</div>
+          <div style="font-family:var(--font-title);font-size:var(--text-xl);color:var(--color-stable);margin:0.5rem 0;">RANK: A ✓</div>
+          <div class="campaign__card-brief">Infiltrate Berylia Central... Learn the basics of neural hacking, node manipulation, and system breaches.</div>
+          <div class="campaign__card-rewards">
+            <div>REWARDS:</div>
+            <div class="xp">XP: +1500</div>
+            <div class="kits">NEW EXPLOIT KITS: Basic Data Tap</div>
+          </div>
+        </div>
+        <div class="campaign__card active">
+          <span class="campaign__card-status active">ACTIVE</span>
+          <div class="campaign__card-mission">MISSION 2:</div>
+          <div class="campaign__card-title">THE BERYLIA BANK RUN</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin:0.25rem 0;">DIFFICULTY: NORMAL</div>
+          <div class="campaign__card-brief">Breach the central vault of the Berylia Corporation. Extract encrypted financial data before the security grid locks down.</div>
+          <div class="campaign__card-rewards">
+            <div>REWARDS:</div>
+            <div class="xp">XP: +4500</div>
+            <div class="kits">NEW EXPLOIT KITS: Encryption Bypass, Decoy Signal</div>
+          </div>
+        </div>
+        <div class="campaign__card locked">
+          <span class="campaign__card-status locked">🔒 LOCKED</span>
+          <div class="campaign__card-mission">MISSION 3:</div>
+          <div class="campaign__card-title">SILICON SILK ROAD HEIST</div>
+          <div style="font-size:var(--text-xs);color:var(--color-scarlet);margin:0.25rem 0;">REQUIREMENT: LEVEL 5</div>
+          <div class="campaign__card-brief">Intercept a high value data convoy on the Silicon Silk Road. Secure exotic hardware prototypes.</div>
+          <div class="campaign__card-rewards">
+            <div>REWARDS:</div>
+            <div class="xp">XP: +6000</div>
+            <div class="kits">NEW EXPLOIT KITS: Advanced Network Scanner, Virus Injector</div>
+          </div>
+        </div>
+        <div class="campaign__card locked">
+          <span class="campaign__card-status locked">🔒 LOCKED</span>
+          <div class="campaign__card-mission">MISSION 4:</div>
+          <div class="campaign__card-title">OPERATION BLACKOUT</div>
+          <div style="font-size:var(--text-xs);color:var(--color-scarlet);margin:0.25rem 0;">REQUIREMENT: LEVEL 8</div>
+          <div class="campaign__card-brief">Execute a coordinated strike on the city's main power grid. Create chaos and disrupt corporate operations.</div>
+          <div class="campaign__card-rewards">
+            <div>REWARDS:</div>
+            <div class="xp">XP: +8500</div>
+            <div class="kits">NEW EXPLOIT KITS: EMP Disruptor, Stealth Protocol</div>
+          </div>
+        </div>
+        <div class="campaign__card locked">
+          <span class="campaign__card-status locked">🔒 LOCKED</span>
+          <div class="campaign__card-mission">MISSION 5:</div>
+          <div class="campaign__card-title">OPERATION CRIMSON TIDE</div>
+          <div style="font-size:var(--text-xs);color:var(--color-scarlet);margin:0.25rem 0;">REQUIREMENT: LEVEL 12</div>
+          <div class="campaign__card-brief">Infiltrate the highest security tier of the Neo-Tokyo Corporate Tower. Access the mainframe and initiate the Crimson Tide data wipe.</div>
+          <div class="campaign__card-rewards">
+            <div>REWARDS:</div>
+            <div class="xp">XP: +12000</div>
+            <div class="kits">NEW EXPLOIT KITS: Master Key, AI Override</div>
+          </div>
+        </div>
+      </div>
+      <div class="campaign__footer">
+        <button id="btn-camp-back" class="btn-v41">← BACK</button>
+        <button class="btn-v41 primary">LAUNCH MISSION</button>
+      </div>
+    </div>
+  `,
+  reactPhase: `
+    <div id="view-react-phase" class="react-phase">
+      <div class="v41-topbar" style="border-bottom-color:rgba(255,0,85,0.3);">
+        <span class="v41-topbar__brand">GRIDLOCK_V4.1</span>
+        <div class="v41-topbar__nav">
+          <span>SEC_LEVEL_OMEGA</span>
+          <span style="color:var(--color-scarlet);">BREACH_DETECTED</span>
+        </div>
+        <div class="v41-topbar__actions"><button>🗺</button><button>🌐</button></div>
+      </div>
+      <div class="react-phase__banner">
+        <h1>REACT NOW</h1>
+        <div class="subtitle">S Y S T E M _ I N T E G R I T Y _ C O M P R O M I S E D</div>
+      </div>
+      <div class="react-phase__body">
+        <div>
+          <div class="react-phase__logs" id="rp-logs">
+            <div class="header"><span>LOGS_041</span><span style="color:var(--color-accent);">●</span></div>
+            <div class="entry warn">> ENCRYPT_FAIL: BLOCK_77</div>
+            <div class="entry">> HANDSHAKE_TIMEOUT</div>
+            <div class="entry info">> RE-ROUTING_NODE_01</div>
+            <div class="entry">> BUFFER_OVERFLOW_NULL</div>
+            <div class="entry warn">> ROOT_CA_REVOKED</div>
+            <div class="entry">> INJECTING_PHANTOM_SIG</div>
+            <div class="entry">> BYPASSING_FIREWALL_3</div>
+            <div class="entry warn">> CRITICAL_FAILURE_SEC</div>
+          </div>
+          <div class="react-phase__stability">
+            <div class="label">SYSTEM_STABILITY</div>
+            <div class="value" id="rp-stability">14%</div>
+          </div>
+        </div>
+        <div class="react-phase__countdown">
+          <div class="timer">
+            <div class="timer-value" id="rp-timer">15</div>
+          </div>
+          <div class="timer-label">M I L L I S E C O N D S _ R E M A I N I N G</div>
+          <div class="react-phase__qte" id="rp-qte-keys">
+            <div class="react-phase__qte-key" data-key="w">W</div>
+            <div class="react-phase__qte-key" data-key="a">A</div>
+            <div class="react-phase__qte-key pressed" data-key="s">S</div>
+            <div class="react-phase__qte-key" data-key="d">D</div>
+          </div>
+          <div class="react-phase__qte-label">EXECUTE COUNTER-PATTERN SEQUENCE</div>
+        </div>
+        <div class="react-phase__intel">
+          <div class="react-phase__success">
+            <div class="label">ATTACKER_SUCCESS</div>
+            <div class="value" id="rp-atk-pct">84%</div>
+            <div class="bar"><div class="bar-fill" id="rp-atk-bar" style="width:84%;"></div></div>
+          </div>
+          <div style="border:1px solid var(--color-amber);border-top:4px dashed var(--color-amber);padding:1rem;font-size:var(--text-xs);">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>NODE_ADDR</span><span style="color:var(--color-accent);">0x88.92.11.4</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>PACKET_SIZE</span><span style="color:var(--color-accent);">4.8 GB/S</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>THREAT_ORIGIN</span><span style="color:var(--color-scarlet);">VOID_NULL</span></div>
+          </div>
+          <div style="text-align:center;margin-top:1rem;">
+            <div style="font-size:3rem;color:var(--color-scarlet);">⚠</div>
+            <div style="color:var(--color-scarlet);letter-spacing:2px;font-size:var(--text-xs);">FIREWALL_CRITICAL</div>
+          </div>
+        </div>
+      </div>
+      <div class="react-phase__cta"><button id="btn-counter-measure">I N I T I A L I Z E _ C O U N T E R _ M E A S U R E</button></div>
+      <div style="display:flex;justify-content:space-between;padding:0.75rem 1.5rem;border-top:1px solid rgba(0,255,221,0.1);font-size:var(--text-xs);color:var(--color-text-muted);">
+        <div><span>ACTIVE VECTOR</span> <span style="color:var(--color-accent);">MESH_NODE_SIGMA_7</span></div>
+        <div><span>LATENCY</span> <span style="color:var(--color-accent);">0.002 MS</span></div>
+        <div><span>PROTOCOL</span> <span style="color:var(--color-accent);">GHOST_SHELL_V2</span></div>
+        <div style="text-align:right;"><div style="color:var(--color-scarlet);letter-spacing:1px;">EMERGENCY_OVERRIDE</div><div style="color:var(--color-accent);">STRIKE_CONFIRMED_01</div></div>
+      </div>
+    </div>
   `
 };
+
+// --- Leaderboard Data ---
+const LEADERBOARD_DATA = [
+  { rank: 1, id: 'VIXEN-01', faction: 'Cyber-Syndicate', xp: 1250000, tier: 'Master Specialist', rating: '99.8%', badge: 'gold' },
+  { rank: 2, id: 'CYPHER_KAI', faction: 'Cyber-Syndicate', xp: 1180500, tier: 'Elite Agent', rating: '99.5%', badge: 'silver' },
+  { rank: 3, id: 'NEO_STALKER', faction: 'Cyber-Syndicate', xp: 1100200, tier: 'Elite Agent', rating: '99.2%', badge: 'bronze' },
+  { rank: 4, id: 'GHOST_RIDER', faction: '', xp: 980000, tier: 'Advanced Operative', rating: '98.9%' },
+  { rank: 5, id: 'BLADE_RUNNER', faction: '', xp: 950100, tier: 'Advanced Operative', rating: '98.5%' },
+  { rank: 6, id: 'PHANTOM_X', faction: '', xp: 925000, tier: 'Operative', rating: '98.0%' },
+];
+
+function populateLeaderboard() {
+  const tbody = document.getElementById('lb-tbody');
+  if (!tbody) return;
+  const currentPlayer = AppState.player.username || 'PLAYER_ID: NOCTURNE';
+  let html = '';
+  LEADERBOARD_DATA.forEach(p => {
+    const isTop3 = p.rank <= 3;
+    html += `<tr class="${isTop3 ? 'top-3' : ''}">
+      <td>${isTop3 ? `<div class="leaderboard-hub__rank-badge ${p.badge}">${p.rank}</div>` : p.rank}</td>
+      <td><strong>${p.id}</strong>${p.faction ? `<br/><span style="font-size:0.7rem;color:var(--color-text-muted);">▪ ${p.faction}</span>` : ''}</td>
+      <td>${p.xp.toLocaleString()}</td><td>${p.tier}</td><td>${p.rating}</td>
+      <td>${isTop3 ? '<button class="btn-v41" style="font-size:0.7rem;padding:0.3rem 0.75rem;">VIEW PROFILE ></button>' : ''}</td>
+    </tr>`;
+  });
+  // Current player row
+  html += `<tr class="current-player">
+    <td>7</td><td><strong style="color:var(--color-accent);">${currentPlayer}</strong></td>
+    <td>890,000</td><td>Operative</td><td>97.5%</td>
+    <td><button class="btn-v41" style="font-size:0.7rem;padding:0.3rem 0.75rem;">VIEW PROFILE ></button></td>
+  </tr>`;
+  tbody.innerHTML = html;
+}
 
 // --- Core App Logic ---
 async function initApp() {
   const appElement = document.getElementById('app');
   
   // Inject HTML — login view is the first screen
-  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal;
+  appElement.innerHTML = views.login + views.menu + views.game + views.leaderboard + views.meshHub + views.campaign + views.reactPhase + views.gameover + views.settingsModal + views.diplomacyModal + views.sentinelModal;
 
   // Ensure only the login view is active initially
   navigateTo('login');
@@ -447,13 +764,13 @@ async function initApp() {
 
   // Check Backend Status
   const subtitle = document.querySelector('.menu-subtitle');
-  subtitle.innerHTML = 'v2.0.0 // CONTACTING SERVER...';
+  subtitle.innerHTML = 'v4.1.0 // CONTACTING SERVER...';
 
   const health = await api.health();
   if (health.status === 'healthy') {
-    subtitle.innerHTML = 'v2.0.0 // SYSTEM <span style="color:var(--color-player)">ONLINE</span>';
+    subtitle.innerHTML = 'v4.1.0 // SYSTEM <span style="color:var(--color-player)">ONLINE</span>';
   } else {
-    subtitle.innerHTML = 'v2.0.0 // SYSTEM <span style="color:var(--color-enemy)">OFFLINE</span> (GUEST MODE)';
+    subtitle.innerHTML = 'v4.1.0 // SYSTEM <span style="color:var(--color-enemy)">OFFLINE</span> (GUEST MODE)';
   }
   
   const btnPlay = document.getElementById('btn-play');
@@ -506,11 +823,26 @@ async function initApp() {
     }
   });
   
-  // Add Leaderboard button to menu dynamically
+  // Add v4.1 menu buttons dynamically
   const menuButtons = document.querySelector('.menu-buttons');
+
+  const meshBtn = document.createElement('button');
+  meshBtn.className = 'btn';
+  meshBtn.innerText = '◈ MESH COMMAND HUB';
+  meshBtn.id = 'btn-mesh-hub';
+  meshBtn.style.cssText = 'color: var(--color-accent); border-color: var(--color-accent);';
+  menuButtons.appendChild(meshBtn);
+
+  const campBtn = document.createElement('button');
+  campBtn.className = 'btn';
+  campBtn.innerText = '⊞ CAMPAIGN';
+  campBtn.id = 'btn-campaign';
+  campBtn.style.cssText = 'color: var(--color-warning); border-color: var(--color-warning);';
+  menuButtons.appendChild(campBtn);
+
   const lbBtn = document.createElement('button');
   lbBtn.className = 'btn';
-  lbBtn.innerText = 'LEADERBOARD';
+  lbBtn.innerText = '⊟ LEADERBOARD';
   lbBtn.id = 'btn-leaderboard';
   menuButtons.appendChild(lbBtn);
 
@@ -528,9 +860,16 @@ async function initApp() {
     AppState.isAuthenticated = false;
     navigateTo('login');
   });
-  
+
+  // v4.1 Navigation handlers
+  document.getElementById('btn-mesh-hub').addEventListener('click', () => navigateTo('mesh-hub'));
+  document.getElementById('btn-campaign').addEventListener('click', () => navigateTo('campaign'));
   document.getElementById('btn-leaderboard').addEventListener('click', () => navigateTo('leaderboard'));
   document.getElementById('btn-lb-back').addEventListener('click', () => navigateTo('menu'));
+  document.getElementById('btn-camp-back').addEventListener('click', () => navigateTo('menu'));
+
+  // Initialize v4.1 leaderboard with placeholder data
+  populateLeaderboard();
   
   document.getElementById('btn-quit').addEventListener('click', () => navigateTo('menu'));
   
@@ -666,6 +1005,22 @@ async function initApp() {
   window.TerminalInstance = new TerminalManager(window.GameInstance);
   window.DemoInstance = new DemoManager(window.GameInstance);
   window.PromoInstance = new PromoManager(window.GameInstance);
+
+  // Init v4.1 Components
+  window.MeshHubInstance = new MeshHub('mesh-topology-canvas');
+  window.ReactPhaseInstance = new ReactPhase();
+  window.LeaderboardInstance = new LeaderboardHub();
+  window.GhostDeployInstance = new GhostDeploy();
+  window.CampaignInstance = new Campaign();
+
+  // Start/stop mesh canvas based on view navigation
+  window.addEventListener('viewChanged', (e) => {
+    if (e.detail.view === 'mesh-hub') {
+      window.MeshHubInstance?.start();
+    } else {
+      window.MeshHubInstance?.stop();
+    }
+  });
 }
 
 // Simple Router

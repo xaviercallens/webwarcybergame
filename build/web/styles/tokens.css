@@ -1,10 +1,13 @@
 /**
- * Neo-Hack: Gridlock — Design Tokens
+ * Neo-Hack: Gridlock v4.1 — Design Tokens
+ * Codename: "Phantom Mesh"
  */
 :root {
   /* Core Palette */
   --bg-color: #0A0E17;
+  --bg-deep: #060a12;
   --panel-bg: rgba(13, 21, 32, 0.95);
+  --panel-bg-alt: rgba(18, 28, 42, 0.9);
   
   /* Faction Colors */
   --color-player: #00FF88;
@@ -18,6 +21,37 @@
   --color-glow: rgba(0, 204, 214, 0.6);
   --color-text-primary: #E0F0FF;
   --color-text-muted: #667788;
+  
+  /* v4.1 Phantom Mesh Colors */
+  --color-scarlet: #FF0055;
+  --color-amber: #FFCC00;
+  --color-phantom: rgba(0, 255, 221, 0.15);
+  --color-phantom-solid: #00FFDD;
+  --color-ghost-dim: rgba(0, 255, 221, 0.08);
+  --color-critical: #FF0055;
+  --color-compromised: #FF4444;
+  --color-vulnerable: #FFCC00;
+  --color-stable: #00FF88;
+  
+  /* Ghost / Phantom State Tokens */
+  --ghost-opacity: 0.35;
+  --ghost-opacity-hover: 0.65;
+  --phantom-glow: 0 0 15px rgba(0, 255, 221, 0.4), 0 0 30px rgba(0, 255, 221, 0.15);
+  --phantom-glow-strong: 0 0 20px rgba(0, 255, 221, 0.6), 0 0 40px rgba(0, 255, 221, 0.25);
+  --chromatic-aberration: 2px;
+  --scanline-opacity: 0.04;
+  
+  /* Z-Axis Depth Layers */
+  --z-canvas: 1;
+  --z-sidebar: 10;
+  --z-panel: 20;
+  --z-terminal: 50;
+  --z-hud: 1000;
+  --z-overlay: 1100;
+  --z-modal: 1200;
+  --z-react-phase: 1300;
+  --z-tutorial: 1400;
+  --z-system-critical: 1500;
   
   /* Typography */
   --font-title: 'Orbitron', sans-serif;
@@ -35,6 +69,8 @@
   --text-2xl: 2rem;
   --text-3xl: 3rem;
   --text-4xl: 4rem;
+  --text-5xl: 6rem;
+  --text-6xl: 8rem;
   
   /* Spacing */
   --spacing-1: 0.25rem;
@@ -44,6 +80,7 @@
   --spacing-6: 1.5rem;
   --spacing-8: 2rem;
   --spacing-12: 3rem;
+  --spacing-16: 4rem;
   
   /* Borders & Effects */
   --border-radius-sm: 2px;
@@ -52,11 +89,14 @@
   
   --shadow-neon: 0 0 10px var(--color-glow), inset 0 0 10px rgba(0, 204, 214, 0.2);
   --shadow-text-neon: 0 0 8px currentColor;
+  --shadow-scarlet: 0 0 10px rgba(255, 0, 85, 0.4), inset 0 0 10px rgba(255, 0, 85, 0.15);
+  --shadow-amber: 0 0 10px rgba(255, 204, 0, 0.4);
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-normal: 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-slow: 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-glitch: 80ms steps(4);
 }
 
 /* Colorblind Mode Override */
@@ -64,4 +104,6 @@
   --color-player: #3380FF;
   --color-enemy: #FF8000;
   --color-ally: #E6CC33;
+  --color-scarlet: #FF8000;
+  --color-critical: #FF8000;
 }

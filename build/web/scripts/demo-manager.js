@@ -5,10 +5,17 @@ export class DemoManager {
     this.game = gameEngine;
     this.step = 0;
     this.isActive = false;
-    this.tutorialPanel = document.getElementById('tutorial-panel');
+    this.tutorialPanel = document.getElementById('tutorial-overlay');
     this.titleEl = document.getElementById('tut-title');
     this.textEl = document.getElementById('tut-text');
     this.nextBtn = document.getElementById('btn-tut-next');
+    this.skipBtn = document.getElementById('btn-tut-skip');
+    this.progText = document.getElementById('tut-progress-text');
+    this.progBars = document.getElementById('tut-progress-bars');
+    
+    if (this.skipBtn) {
+        this.skipBtn.addEventListener('click', () => this.stop());
+    }
     
     if (this.nextBtn) {
         this.nextBtn.addEventListener('click', () => {
@@ -35,7 +42,7 @@ export class DemoManager {
     // Force reset game to ensure a clean slate
     this.game.init();
     
-    this.tutorialPanel.style.display = 'block';
+    if (this.tutorialPanel) this.tutorialPanel.classList.remove('hidden');
     
     // Disable AI so the user doesn't get overwhelmed instantly during tutorials
     this.game.disableAI = true; 
@@ -45,7 +52,7 @@ export class DemoManager {
   
   stop() {
     this.isActive = false;
-    if (this.tutorialPanel) this.tutorialPanel.style.display = 'none';
+    if (this.tutorialPanel) this.tutorialPanel.classList.add('hidden');
     this.game.disableAI = false;
   }
   
@@ -54,6 +61,18 @@ export class DemoManager {
     audio.playSelect();
     
     if (!this.titleEl || !this.textEl) return;
+    
+    // Update progress tracker
+    if (this.progText && this.progBars) {
+        const totalSteps = 6;
+        let pStep = Math.min(this.step, totalSteps);
+        this.progText.innerText = `STEP ${pStep} / ${totalSteps}`;
+        const bars = this.progBars.children;
+        for (let i = 0; i < bars.length; i++) {
+            if (i < pStep) bars[i].classList.add('active');
+            else bars[i].classList.remove('active');
+        }
+    }
     
     if (this.currentScenario === 'tutorial') {
         switch(this.step) {

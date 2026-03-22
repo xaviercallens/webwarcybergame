@@ -116,3 +116,158 @@
 /* Modifier classes for bars */
 .progress-fill.player { background: var(--color-player); box-shadow: 0 0 8px var(--color-player); }
 .progress-fill.enemy { background: var(--color-enemy); box-shadow: 0 0 8px var(--color-enemy); }
+
+/* ─── Tutorial Overlay (V4.1) ─── */
+.tutorial-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 8, 15, 0.85);
+  backdrop-filter: blur(2px);
+  z-index: var(--z-tutorial, 1400);
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-overlay.hidden {
+  display: none;
+}
+
+.tutorial-highlight {
+  position: absolute;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 15px var(--color-accent), inset 0 0 15px rgba(0,255,221,0.3);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+  pointer-events: none;
+  z-index: calc(var(--z-tutorial) + 1);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.6; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+.coach-container {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  z-index: calc(var(--z-tutorial) + 2);
+}
+
+.coach-drone-img {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at center, rgba(0,255,221,0.2) 0%, transparent 70%);
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color: var(--color-accent);
+  box-shadow: var(--shadow-neon);
+  animation: hover-drone 4s ease-in-out infinite;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+@keyframes hover-drone {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.coach-bubble {
+  background: var(--panel-bg);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--border-radius-lg);
+  border-bottom-right-radius: 0;
+  padding: 1.5rem;
+  max-width: 400px;
+  box-shadow: var(--shadow-neon);
+  position: relative;
+  font-family: var(--font-body);
+}
+
+.coach-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -15px;
+  border-width: 15px 0 0 15px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--color-accent);
+}
+
+.coach-bubble-name {
+  font-family: var(--font-heading);
+  color: var(--color-accent);
+  font-size: var(--text-lg);
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.coach-bubble-name span {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-text-muted);
+  padding: 0.1rem 0.3rem;
+}
+
+.coach-bubble-text {
+  color: #fff;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  font-family: var(--font-mono);
+}
+
+.tutorial-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  z-index: calc(var(--z-tutorial) + 2);
+}
+
+.tutorial-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tutorial-progress-text {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 2px;
+}
+
+.tutorial-progress-bars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tut-bar {
+  width: 30px;
+  height: 6px;
+  background: rgba(0, 255, 221, 0.2);
+  border: 1px solid rgba(0, 255, 221, 0.4);
+}
+.tut-bar.active {
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+
