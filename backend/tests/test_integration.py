@@ -134,7 +134,7 @@ class TestConfigurationIntegration:
         # App should be initialized
         assert app is not None
         assert app.title == "Backend"
-        assert app.version == "0.1.0"
+        assert app.version == "4.0.0"
 
 
 class TestEndToEndIntegration:

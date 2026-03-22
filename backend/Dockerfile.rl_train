@@ -1,0 +1,26 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install uv for fast dependency management
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+# Copy dependency files
+COPY pyproject.toml .
+
+# Install dependencies including SB3 and GCS
+RUN uv pip install --system --no-cache \
+    gymnasium>=0.29.0 \
+    pettingzoo>=1.24.0 \
+    numpy>=1.24.0 \
+    stable-baselines3[extra]>=2.3.0 \
+    google-cloud-storage>=2.14.0 \
+    tqdm>=4.66.0
+
+# Copy RL source code
+COPY src/rl/ src/rl/
+
+# Copy pretrained models
+COPY src/rl/models/ src/rl/models/
+
+ENTRYPOINT ["python", "-m", "src.rl.train_ppo"]

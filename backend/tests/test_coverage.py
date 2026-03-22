@@ -191,7 +191,7 @@ class TestAppInitializationEdgeCases:
         """Test that app has correct metadata."""
         assert app.title == "Backend"
         assert app.description == "Backend API"
-        assert app.version == "0.1.0"
+        assert app.version == "4.0.0"
 
     def test_app_openapi_metadata(self, client: TestClient):
         """Test that OpenAPI metadata is correct."""
@@ -201,7 +201,7 @@ class TestAppInitializationEdgeCases:
         schema = response.json()
         assert "info" in schema
         assert schema["info"]["title"] == "Backend"
-        assert schema["info"]["version"] == "0.1.0"
+        assert schema["info"]["version"] == "4.0.0"
 
     def test_app_routes_count(self):
         """Test that app has expected number of routes."""

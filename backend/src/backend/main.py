@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Backend",
     description="Backend API",
-    version="0.1.0",
+    version="4.1.0",
     lifespan=lifespan,
 )
 
@@ -436,6 +436,196 @@ def get_sentinel_logs(
         
     logs = session.exec(select(models.SentinelLog).where(models.SentinelLog.sentinel_id == id).order_by(models.SentinelLog.created_at.desc()).limit(limit)).all()
     return {"logs": logs}
+
+# --- v4.1 PHANTOM MESH API ---
+
+class GhostNodeDeploy(BaseModel):
+    target_node_id: int
+    bait_telemetry: str = ""
+
+@app.post("/api/ghost-nodes/deploy")
+def deploy_ghost_node(
+    req: GhostNodeDeploy,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    """Deploy a decoy ghost node to bait attackers."""
+    node = session.get(models.Node, req.target_node_id)
+    if not node:
+        raise HTTPException(status_code=404, detail="Target node not found")
+
+    current_epoch = session.exec(select(models.Epoch).where(models.Epoch.ended_at == None).order_by(models.Epoch.id.desc())).first()
+    epoch_id = current_epoch.id if current_epoch else 0
+
+    active_ghosts = session.exec(select(models.GhostNode).where(
+        (models.GhostNode.player_id == current_user.id) &
+        (models.GhostNode.status == models.GhostNodeStatus.ACTIVE)
+    )).all()
+    if len(active_ghosts) >= 10:
+        raise HTTPException(status_code=400, detail="Max ghost nodes reached (10)")
+
+    ghost = models.GhostNode(
+        player_id=current_user.id,
+        target_node_id=req.target_node_id,
+        epoch_id=epoch_id,
+        bait_telemetry=req.bait_telemetry
+    )
+    session.add(ghost)
+    session.commit()
+    session.refresh(ghost)
+    return {"status": "deployed", "ghost_id": ghost.id}
+
+@app.get("/api/ghost-nodes")
+def get_ghost_nodes(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    ghosts = session.exec(select(models.GhostNode).where(
+        models.GhostNode.player_id == current_user.id
+    ).order_by(models.GhostNode.deployed_at.desc())).all()
+    return {"ghost_nodes": ghosts}
+
+@app.delete("/api/ghost-nodes/{ghost_id}")
+def destroy_ghost_node(
+    ghost_id: int,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    ghost = session.get(models.GhostNode, ghost_id)
+    if not ghost or ghost.player_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Ghost node not found")
+    ghost.status = models.GhostNodeStatus.DESTROYED
+    ghost.expired_at = datetime.utcnow()
+    session.add(ghost)
+    session.commit()
+    return {"status": "destroyed"}
+
+@app.get("/api/phantom-presences")
+def get_phantom_presences(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    """Get all phantom presences owned by this attacker."""
+    phantoms = session.exec(select(models.PhantomPresence).where(
+        models.PhantomPresence.attacker_id == current_user.id
+    )).all()
+    return {"phantoms": phantoms}
+
+class PhantomRecompromise(BaseModel):
+    phantom_id: int
+
+@app.post("/api/phantom-presences/recompromise")
+def recompromise_phantom(
+    req: PhantomRecompromise,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    """Re-activate a dormant phantom presence."""
+    phantom = session.get(models.PhantomPresence, req.phantom_id)
+    if not phantom or phantom.attacker_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Phantom not found")
+    if phantom.turns_remaining <= 0:
+        raise HTTPException(status_code=400, detail="Phantom expired")
+    phantom.is_dormant = False
+    phantom.re_compromised_at = datetime.utcnow()
+    phantom.detection_risk = min(1.0, phantom.detection_risk + 0.25)
+    session.add(phantom)
+    session.commit()
+    return {"status": "recompromised", "detection_risk": phantom.detection_risk}
+
+class ReactPhaseResolve(BaseModel):
+    node_id: int
+    attacker_success_pct: float
+    defender_inputs: str
+    time_remaining: int
+    defender_won: bool
+
+@app.post("/api/react-phase/resolve")
+def resolve_react_phase(
+    req: ReactPhaseResolve,
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    """Record the outcome of a React Phase QTE event."""
+    current_epoch = session.exec(select(models.Epoch).where(models.Epoch.ended_at == None).order_by(models.Epoch.id.desc())).first()
+    epoch_id = current_epoch.id if current_epoch else 0
+
+    event = models.ReactPhaseEvent(
+        attacker_id=current_user.id,
+        defender_id=current_user.id,
+        node_id=req.node_id,
+        epoch_id=epoch_id,
+        attacker_success_pct=req.attacker_success_pct,
+        defender_inputs=req.defender_inputs,
+        time_remaining=req.time_remaining,
+        defender_won=req.defender_won
+    )
+    session.add(event)
+    session.commit()
+    session.refresh(event)
+    return {"status": "resolved", "event_id": event.id, "defender_won": event.defender_won}
+
+@app.get("/api/leaderboard/search")
+def search_leaderboard(
+    q: str = Query("", min_length=0),
+    limit: int = Query(default=20, ge=1, le=100),
+    session: Session = Depends(database.get_session)
+):
+    """Search leaderboard by operative username."""
+    query = select(models.Player).order_by(models.Player.xp.desc())
+    if q:
+        query = query.where(models.Player.username.contains(q.upper()))
+    players = session.exec(query.limit(limit)).all()
+    return {"results": [{"rank": i+1, "username": p.username, "xp": p.xp, "tier": p.rank} for i, p in enumerate(players)]}
+
+@app.get("/api/campaign/missions")
+def get_campaign_missions(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    """Get all campaign missions with player progress."""
+    missions = session.exec(select(models.Mission).order_by(models.Mission.order)).all()
+    player_missions = session.exec(select(models.PlayerMission).where(
+        models.PlayerMission.player_id == current_user.id
+    )).all()
+    pm_map = {pm.mission_id: pm for pm in player_missions}
+    result = []
+    for m in missions:
+        pm = pm_map.get(m.id)
+        result.append({
+            "mission": m,
+            "status": pm.status if pm else "LOCKED",
+            "rank": pm.rank if pm else None
+        })
+    return {"missions": result}
+
+@app.post("/api/replays")
+def save_replay(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    session: Session = Depends(database.get_session)
+):
+    """Save a game replay for later viewing."""
+    replay = models.GameReplay(
+        player_id=current_user.id,
+        epoch_count=0,
+        outcome="PENDING",
+        replay_data="[]"
+    )
+    session.add(replay)
+    session.commit()
+    session.refresh(replay)
+    return {"replay_id": replay.id}
+
+@app.get("/api/replays")
+def get_replays(
+    current_user: Annotated[models.Player, Depends(auth.get_current_user)],
+    limit: int = 10,
+    session: Session = Depends(database.get_session)
+):
+    replays = session.exec(select(models.GameReplay).where(
+        models.GameReplay.player_id == current_user.id
+    ).order_by(models.GameReplay.created_at.desc()).limit(limit)).all()
+    return {"replays": replays}
 
 # --- Phase 5: Real-time Sync & WebSockets ---
 

@@ -27,7 +27,7 @@ class TestAppInitialization:
 
     def test_app_version(self):
         """Test that app has correct version."""
-        assert app.version == "0.1.0"
+        assert app.version == "4.0.0"
 
     def test_app_has_lifespan(self):
         """Test that app is configured with lifespan."""

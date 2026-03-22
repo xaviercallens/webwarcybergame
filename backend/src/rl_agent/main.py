@@ -5,8 +5,10 @@ FastAPI service that serves RL agent decisions.
 Blueprint Alignment: Section 3.1 (Architecture) - Separate Cloud Run microservice.
 """
 
+import os
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import Dict, Any, List, Optional
 
 import numpy as np
@@ -39,15 +41,30 @@ def _load_agents() -> Dict[str, Any]:
     agents["defender_normal"] = RuleBasedDefender()
     agents["defender_expert"] = RuleBasedDefender()
 
-    # TODO: Load SB3 models when trained .zip files are available
-    # from stable_baselines3 import PPO
-    # for difficulty in ("novice", "normal", "expert"):
-    #     for role in ("attacker", "defender"):
-    #         path = f"models/{role}_{difficulty}.zip"
-    #         if Path(path).exists():
-    #             agents[f"{role}_{difficulty}"] = PPO.load(path)
+    # Load SB3 PPO models when available, overriding rule-based fallbacks
+    try:
+        from stable_baselines3 import PPO
+        model_dirs = [
+            Path(os.environ.get("RL_MODEL_DIR", "")),
+            Path(__file__).parent.parent / "rl" / "models",
+            Path("src/rl/models"),
+        ]
+        sb3_loaded = 0
+        for difficulty in ("novice", "normal", "expert"):
+            for role in ("attacker", "defender"):
+                for model_dir in model_dirs:
+                    path = model_dir / difficulty / f"ppo_{role}_latest.zip"
+                    if path.exists():
+                        key = f"{role}_{difficulty}"
+                        agents[key] = PPO.load(str(path))
+                        sb3_loaded += 1
+                        logger.info(f"Loaded SB3 model: {key} from {path}")
+                        break
+        logger.info(f"Loaded {sb3_loaded} SB3 models, {len(agents) - sb3_loaded} rule-based fallbacks")
+    except ImportError:
+        logger.warning("stable-baselines3 not installed, using rule-based agents only")
 
-    logger.info(f"Loaded {len(agents)} agents")
+    logger.info(f"Loaded {len(agents)} agents total")
     return agents
 
 
@@ -63,7 +80,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Neo-Hack RL Agent Service",
     description="RL agent decision service for Neo-Hack v3.1 turn-based cyber warfare",
-    version="3.1.0",
+    version="4.0.0",
     lifespan=lifespan,
 )
 

@@ -133,3 +133,90 @@ class Notification(SQLModel, table=True):
     type: NotificationType = Field(default=NotificationType.SYSTEM)
     is_read: bool = Field(default=False)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+# ============================================
+# v4.1 Phantom Mesh Models
+# ============================================
+
+class GhostNodeStatus(str, enum.Enum):
+    ACTIVE = "ACTIVE"
+    TRIGGERED = "TRIGGERED"
+    EXPIRED = "EXPIRED"
+    DESTROYED = "DESTROYED"
+
+class GhostNode(SQLModel, table=True):
+    """Decoy node deployed by defenders to bait attackers."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id", index=True)
+    target_node_id: int = Field(foreign_key="node.id")
+    epoch_id: int = Field(foreign_key="epoch.id")
+    status: GhostNodeStatus = Field(default=GhostNodeStatus.ACTIVE)
+    traps_triggered: int = Field(default=0)
+    bait_telemetry: str = Field(default="")
+    deployed_at: datetime = Field(default_factory=datetime.utcnow)
+    expired_at: Optional[datetime] = None
+
+class PhantomPresence(SQLModel, table=True):
+    """Dormant attacker presence on a compromised node."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    attacker_id: int = Field(foreign_key="player.id", index=True)
+    node_id: int = Field(foreign_key="node.id", index=True)
+    epoch_id: int = Field(foreign_key="epoch.id")
+    encryption_level: int = Field(default=3, ge=0, le=5)
+    turns_remaining: int = Field(default=4)
+    is_dormant: bool = Field(default=True)
+    detection_risk: float = Field(default=0.15)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    re_compromised_at: Optional[datetime] = None
+
+class ReactPhaseEvent(SQLModel, table=True):
+    """Records a React Phase QTE outcome."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    game_id: Optional[int] = None
+    attacker_id: int = Field(foreign_key="player.id")
+    defender_id: int = Field(foreign_key="player.id")
+    node_id: int = Field(foreign_key="node.id")
+    epoch_id: int = Field(foreign_key="epoch.id")
+    attacker_success_pct: float = Field(default=0.0)
+    defender_inputs: str = Field(default="")
+    time_remaining: int = Field(default=0)
+    defender_won: bool = Field(default=False)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class MissionStatus(str, enum.Enum):
+    LOCKED = "LOCKED"
+    AVAILABLE = "AVAILABLE"
+    ACTIVE = "ACTIVE"
+    COMPLETED = "COMPLETED"
+
+class Mission(SQLModel, table=True):
+    """Campaign mission template."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    order: int = Field(default=0)
+    title: str
+    briefing: str = Field(default="")
+    difficulty: str = Field(default="NORMAL")
+    required_level: int = Field(default=1)
+    xp_reward: int = Field(default=1000)
+    reward_description: str = Field(default="")
+
+class PlayerMission(SQLModel, table=True):
+    """Tracks a player's progress on a campaign mission."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id", index=True)
+    mission_id: int = Field(foreign_key="mission.id")
+    status: MissionStatus = Field(default=MissionStatus.LOCKED)
+    rank: Optional[str] = None
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+
+class GameReplay(SQLModel, table=True):
+    """Stores complete game replay data for the Replay Viewer."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    player_id: int = Field(foreign_key="player.id", index=True)
+    epoch_count: int = Field(default=0)
+    outcome: str = Field(default="UNKNOWN")
+    replay_data: str = Field(default="[]")  # JSON string of turn actions
+    duration_seconds: int = Field(default=0)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
