@@ -5,12 +5,16 @@ export class FactionsOverview {
   constructor() {
     this.factions = [
       { id: 1, name: 'SILICON VALLEY', leader: 'THE ARCHITECT', affiliation: 'GRID_CORE', status: 'NO ACCORD', statusColor: 'var(--color-accent)', agg: 78, stl: 92, per: 65, eff: 88, affinity: 42,
+        portrait: '/assets/operatives/the_architect.png',
         dossier: "The Silicon Valley collective, led by the enigmatic 'Architect', seeks total digital hegemony through the implementation of a decentralized neural lattice." },
       { id: 2, name: 'IRON GRID', leader: 'GENERAL VOLKOV', affiliation: 'MILITARY_OPS', status: 'HOSTILE', statusColor: 'var(--color-scarlet)', agg: 95, stl: 30, per: 88, eff: 72, affinity: 12,
+        portrait: '/assets/operatives/general_volkov.png',
         dossier: "A militarized cyber-state governed by General Volkov. They favor brute-force intrusion and maintain the largest standing botnet in the digital theatre." },
       { id: 3, name: 'SILK ROAD COALITION', leader: 'CHAIRMAN WEI', affiliation: 'TRADE_NET', status: 'ACTIVE', statusColor: 'var(--color-amber)', agg: 45, stl: 80, per: 70, eff: 90, affinity: 65,
+        portrait: null,
         dossier: "A decentralized trade consortium that prefers subtle manipulation of market protocols and high-frequency trading disruptions over direct confrontation." },
       { id: 4, name: 'EURO NEXUS', leader: 'DIRECTOR VANCE', affiliation: 'INFRA_CORE', status: 'NEUTRAL', statusColor: 'var(--color-text-muted)', agg: 55, stl: 70, per: 80, eff: 85, affinity: 50,
+        portrait: null,
         dossier: "A consortium of European cyber-defense agencies focused on infrastructure protection. They maintain strict neutrality but can be swayed by strategic alliances." }
     ];
     this.selectedFaction = null;
@@ -40,7 +44,7 @@ export class FactionsOverview {
     if (!list) return;
     list.innerHTML = this.factions.map(f => `
       <div class="factions__card ${f.id === 1 ? 'active' : ''}" data-fid="${f.id}" style="border-left-color: ${f.statusColor}">
-        <div class="factions__card-portrait">👤</div>
+        <div class="factions__card-portrait">${f.portrait ? `<img src="${f.portrait}" alt="${f.leader}" style="width:48px;height:48px;border-radius:4px;object-fit:cover;"/>` : '👤'}</div>
         <div>
           <div class="factions__card-name">${f.name}</div>
           <div class="factions__card-leader">${f.leader}</div>

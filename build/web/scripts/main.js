@@ -867,8 +867,14 @@ const views = {
       </div>
       <div class="pm-main"><div class="subscription">
         <div class="subscription__header">
+          <img src="/assets/logos/phantom_mesh_logo.png" alt="Phantom Mesh" style="width:64px;height:64px;margin-bottom:0.75rem;filter:drop-shadow(0 0 8px rgba(0,255,221,0.4));"/>
           <h1 class="subscription__title">OPERATIVE_CLEARANCE_LEVELS</h1>
           <div class="subscription__subtitle">SELECT YOUR TIER // UNLOCK PREMIUM CAPABILITIES</div>
+          <div style="display:flex;gap:1rem;justify-content:center;margin-top:1rem;align-items:center;">
+            <span style="border:1px solid rgba(0,255,221,0.3);padding:0.3rem 0.8rem;font-size:var(--text-xs);color:var(--color-accent);letter-spacing:1px;">💳 STRIPE_SECURE</span>
+            <span style="border:1px solid rgba(0,255,221,0.3);padding:0.3rem 0.8rem;font-size:var(--text-xs);color:var(--color-text-primary);letter-spacing:1px;">G PAY_ENABLED</span>
+            <span style="border:1px solid rgba(0,255,221,0.3);padding:0.3rem 0.8rem;font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:1px;">☁ GCP_HOSTED</span>
+          </div>
         </div>
         <div class="sub-current">
           <div class="sub-current__badge" id="sub-current-badge"><span style="color:var(--color-accent);">●</span> Operative (Free)</div>

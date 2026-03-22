@@ -939,5 +939,25 @@ def revoke_api_token(
     return {"status": "revoked"}
 
 
+# --- Google Pay Configuration ---
+
+@app.get("/api/payment/google-pay-config")
+def get_google_pay_config():
+    """Return Google Pay client configuration for frontend integration."""
+    return stripe_service.get_google_pay_config()
+
+
+# --- Asset Manifest ---
+
+@app.get("/api/assets/manifest")
+def get_asset_manifest():
+    """Return the game asset manifest for the frontend."""
+    import json
+    manifest_path = WEB_BUILD_DIR / "public" / "assets" / "manifest.json"
+    if manifest_path.exists():
+        return json.loads(manifest_path.read_text())
+    return {"error": "Manifest not found"}
+
+
 if WEB_BUILD_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_BUILD_DIR, html=True), name="static")

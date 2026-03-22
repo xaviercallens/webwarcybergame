@@ -1,0 +1,46 @@
+{
+  "version": "4.1.0",
+  "description": "Neo-Hack: Gridlock v4.1 — Game Asset Manifest",
+  "assets": {
+    "logos": {
+      "phantom_mesh": {
+        "path": "/assets/logos/phantom_mesh_logo.png",
+        "description": "Phantom Mesh v4.1 system logo — geometric glitched network mesh",
+        "dimensions": "1024x1024",
+        "usage": ["topbar", "loading_screen", "splash"]
+      }
+    },
+    "missions": {
+      "berylia_bank_run": {
+        "path": "/assets/missions/berylia_bank_run.png",
+        "description": "Operation Berylia Bank Run — high-tech vault with neon cyan security lasers",
+        "dimensions": "1024x1024",
+        "campaign_order": 1,
+        "difficulty": "HARD"
+      },
+      "operation_blackout": {
+        "path": "/assets/missions/operation_blackout.png",
+        "description": "Operation Blackout — futuristic city skyline with scarlet emergency power grids",
+        "dimensions": "1024x1024",
+        "campaign_order": 2,
+        "difficulty": "EXTREME"
+      }
+    },
+    "operatives": {
+      "the_architect": {
+        "path": "/assets/operatives/the_architect.png",
+        "description": "The Architect — hooded hacker with glowing neon cyan visor and circuitry patterns",
+        "dimensions": "1024x1024",
+        "faction": "SHADOW_COLLECTIVE",
+        "role": "ATTACKER"
+      },
+      "general_volkov": {
+        "path": "/assets/operatives/general_volkov.png",
+        "description": "General Volkov — stern military figure with cybernetic scarlet eye",
+        "dimensions": "1024x1024",
+        "faction": "IRON_GUARD",
+        "role": "DEFENDER"
+      }
+    }
+  }
+}
