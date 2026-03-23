@@ -164,13 +164,60 @@ class TestFullEvaluation:
 class TestBenchmarkGenerators:
 
     def test_generate_scenarios(self):
-        scenarios = generate_benchmark_scenarios(num_scenarios=10, num_nodes=8)
+        scenarios = generate_benchmark_scenarios(num_scenarios=10)
         assert len(scenarios) == 10
         for s in scenarios:
+            assert "difficulty" in s
             assert "compromised_nodes" in s
             assert "attack_paths" in s
             assert "next_target" in s
-            assert s["num_nodes"] == 8
+            assert s["num_nodes"] in (5, 10, 20)
+
+    def test_generate_scenarios_zero(self):
+        scenarios = generate_benchmark_scenarios(num_scenarios=0)
+        assert len(scenarios) == 0
+
+    def test_generate_scenarios_negative(self):
+        with pytest.raises(ValueError, match="num_scenarios cannot be negative"):
+            generate_benchmark_scenarios(num_scenarios=-1)
+
+    def test_generate_scenarios_empty_difficulty(self):
+        with pytest.raises(ValueError, match="difficulty_levels cannot be empty"):
+            generate_benchmark_scenarios(difficulty_levels=[])
+
+    def test_generate_scenarios_invalid_difficulty(self):
+        with pytest.raises(ValueError, match="Invalid difficulty level: 'impossible'"):
+            generate_benchmark_scenarios(difficulty_levels=["impossible"])
+
+    def test_generate_scenarios_difficulty_mapping(self):
+        scenarios = generate_benchmark_scenarios(num_scenarios=1, difficulty_levels=["easy"])
+        assert len(scenarios) == 1
+        assert scenarios[0]["difficulty"] == "easy"
+        assert scenarios[0]["num_nodes"] == 5
+
+        scenarios = generate_benchmark_scenarios(num_scenarios=1, difficulty_levels=["medium"])
+        assert scenarios[0]["difficulty"] == "medium"
+        assert scenarios[0]["num_nodes"] == 10
+
+        scenarios = generate_benchmark_scenarios(num_scenarios=1, difficulty_levels=["hard"])
+        assert scenarios[0]["difficulty"] == "hard"
+        assert scenarios[0]["num_nodes"] == 20
+
+    def test_generate_scenarios_constraints(self):
+        scenarios = generate_benchmark_scenarios(num_scenarios=50)
+        for s in scenarios:
+            comp_nodes = s["compromised_nodes"]
+            next_target = s["next_target"]
+            attack_paths = s["attack_paths"]
+
+            # Target must not be in compromised nodes
+            if next_target is not None:
+                assert next_target not in comp_nodes
+
+            # Attack paths must not be self-loops
+            for path in attack_paths:
+                assert len(path) == 2
+                assert path[0] != path[1]
 
     def test_generate_matches(self):
         matches = generate_benchmark_matches(num_matches=15)

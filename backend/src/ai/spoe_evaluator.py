@@ -228,23 +228,46 @@ class SPOEEvaluator:
 
 
 def generate_benchmark_scenarios(
-    num_scenarios: int = 20,
-    num_nodes: int = 10,
+    num_scenarios: int = 10,
+    difficulty_levels: List[str] = None
 ) -> List[Dict[str, Any]]:
     """
     Generate benchmark scenarios for S-POE evaluation.
 
     Args:
         num_scenarios: Number of scenarios to generate
-        num_nodes: Nodes per scenario
+        difficulty_levels: List of difficulties to sample from (e.g., ["easy", "medium", "hard"])
 
     Returns:
         List of scenario dicts
     """
+    if difficulty_levels is None:
+        difficulty_levels = ["easy", "medium", "hard"]
+
+    if num_scenarios < 0:
+        raise ValueError("num_scenarios cannot be negative")
+
+    if not difficulty_levels:
+        raise ValueError("difficulty_levels cannot be empty")
+
+    valid_difficulties = {"easy", "medium", "hard"}
+    for diff in difficulty_levels:
+        if diff not in valid_difficulties:
+            raise ValueError(f"Invalid difficulty level: '{diff}'. Must be one of {valid_difficulties}")
+
+    difficulty_to_nodes = {
+        "easy": 5,
+        "medium": 10,
+        "hard": 20
+    }
+
     scenarios = []
 
     for i in range(num_scenarios):
         rng = np.random.RandomState(seed=i)
+
+        difficulty = rng.choice(difficulty_levels)
+        num_nodes = difficulty_to_nodes[difficulty]
 
         # Random compromised nodes
         n_compromised = rng.randint(1, max(2, num_nodes // 3))
@@ -265,6 +288,7 @@ def generate_benchmark_scenarios(
 
         scenarios.append({
             "id": i,
+            "difficulty": difficulty,
             "num_nodes": num_nodes,
             "compromised_nodes": compromised,
             "attack_paths": paths,
