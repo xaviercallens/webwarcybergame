@@ -5,6 +5,7 @@ Rate limiting, input validation, and action authorization.
 Blueprint Alignment: Section 3.5 (Security)
 """
 
+import os
 import time
 import logging
 from typing import Dict, Any, Optional, Set
@@ -60,6 +61,13 @@ class RateLimiter:
 # Default rate limiters
 game_action_limiter = RateLimiter(max_requests=100, window_seconds=60)
 ai_decide_limiter = RateLimiter(max_requests=200, window_seconds=60)
+
+# Security Configuration
+# IPs of trusted proxies (e.g., Cloudflare, Nginx, etc.)
+# Can be configured via TRUSTED_PROXIES environment variable (comma-separated)
+TRUSTED_PROXIES: Set[str] = set(
+    ip.strip() for ip in os.getenv("TRUSTED_PROXIES", "").split(",") if ip.strip()
+)
 
 
 # --- Input Validation ---
@@ -147,8 +155,14 @@ class ActionAuthorizer:
 
 
 def get_client_ip(request: Request) -> str:
-    """Extract client IP from request."""
+    """
+    Extract client IP from request.
+    Only trusts X-Forwarded-For if the request comes from a trusted proxy.
+    """
+    client_host = request.client.host if request.client else "unknown"
     forwarded = request.headers.get("X-Forwarded-For")
-    if forwarded:
+
+    if forwarded and client_host in TRUSTED_PROXIES:
         return forwarded.split(",")[0].strip()
-    return request.client.host if request.client else "unknown"
+
+    return client_host
