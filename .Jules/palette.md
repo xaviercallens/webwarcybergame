@@ -1,0 +1,3 @@
+## 2024-05-24 - Missing ARIA Labels on Close Buttons
+**Learning:** This application has a recurring pattern of using icon-only (e.g., '×' or Unicode equivalent) close buttons for modals and panels without any `aria-label` attribute, making them inaccessible to screen readers.
+**Action:** When working on new modals or reviewing existing ones, ensure all icon-only buttons, especially close buttons, have a descriptive `aria-label` attribute.
