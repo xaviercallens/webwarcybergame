@@ -15,12 +15,18 @@ def inject_sentinel_actions(session: Session, epoch_id: int):
     all_nodes = session.exec(select(Node)).all()
     if not all_nodes: return
     
+    # ⚡ Bolt: Bulk fetch players and factions to prevent N+1 queries
+    all_players = session.exec(select(Player)).all()
+    player_map = {p.id: p for p in all_players}
+    all_factions = session.exec(select(Faction)).all()
+    faction_map = {f.id: f for f in all_factions}
+
     for s in sentinels:
-        player = session.get(Player, s.player_id)
+        player = player_map.get(s.player_id)
         if not player or not player.faction_id:
             continue
             
-        faction = session.get(Faction, player.faction_id)
+        faction = faction_map.get(player.faction_id)
         if not faction or faction.compute_reserves < 50:
             log = SentinelLog(sentinel_id=s.id, epoch_id=epoch_id, description="Skipped action due to low Faction CU reserves (<50).")
             session.add(log)
@@ -77,6 +83,14 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     inject_sentinel_actions(session, epoch.id)
     actions = session.exec(select(EpochAction).where(EpochAction.epoch_id == epoch.id)).all()
     
+    # ⚡ Bolt: Bulk fetch core models to eliminate N+1 queries during resolution
+    all_nodes = session.exec(select(Node)).all()
+    node_map = {n.id: n for n in all_nodes}
+    all_players = session.exec(select(Player)).all()
+    player_map = {p.id: p for p in all_players}
+    all_factions = session.exec(select(Faction)).all()
+    faction_map = {f.id: f for f in all_factions}
+
     # Pre-fetch and parse active Accords for CNSA Buffs
     accords = session.exec(select(Accord).where(Accord.status == "ACTIVE")).all()
     mercenary_allies = set()
@@ -99,14 +113,14 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
 
     # 1. Resolve combat interactions
     for node_id, node_acts in node_actions.items():
-        node = session.get(Node, node_id)
+        node = node_map.get(node_id)
         if not node: continue
         
         attackers = {}
         defenders = 0
         
         for act in node_acts:
-            player = session.get(Player, act.player_id)
+            player = player_map.get(act.player_id)
             if not player or not player.faction_id:
                 continue
                 
@@ -148,7 +162,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
                 
                 # Notify original owner if player-controlled
                 old_owner_id = node.faction_id
-                old_players = session.exec(select(Player).where(Player.faction_id == old_owner_id)).all()
+                old_players = [p for p in all_players if p.faction_id == old_owner_id]
                 for p in old_players:
                     notif = Notification(player_id=p.id, message=f"CRITICAL: Node {node.name} was captured by an enemy!", type=NotificationType.COMBAT)
                     session.add(notif)
@@ -169,14 +183,14 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
                 }))
                 
     # 1b. Heal all nodes slightly (capped at 150 to keep captures viable)
-    for node in session.exec(select(Node)).all():
+    for node in all_nodes:
         if node.defense_level < 150:
             node.defense_level = min(150, node.defense_level + 3)
             session.add(node)
 
     # 1c. Award XP to players who submitted actions
     for action in actions:
-        player = session.get(Player, action.player_id)
+        player = player_map.get(action.player_id)
         if not player:
             continue
         xp_gain = 15 if action.action_type == ActionType.BREACH else 10
@@ -194,12 +208,10 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     session.commit()
 
     # 2. Update economy (Compute Units) and global influence
-    factions = session.exec(select(Faction)).all()
-    total_nodes = session.exec(select(Node)).all()
-    total_count = len(total_nodes)
+    total_count = len(all_nodes)
     
-    for faction in factions:
-        owned_nodes = [n for n in total_nodes if n.faction_id == faction.id]
+    for faction in all_factions:
+        owned_nodes = [n for n in all_nodes if n.faction_id == faction.id]
         
         if faction.compute_reserves is None:
             faction.compute_reserves = 0
@@ -212,20 +224,20 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     events_log = []
     
     for a in accords:
-        fa = session.get(Faction, a.faction_a_id)
-        fb = session.get(Faction, a.faction_b_id)
+        fa = faction_map.get(a.faction_a_id)
+        fb = faction_map.get(a.faction_b_id)
         if not fa or not fb: continue
         
         # Check for violations (Did A attack B this epoch?)
         # Simple check: were there any BREACH actions by A on B's nodes?
         violation = False
         for node_id, node_acts in node_actions.items():
-            node = session.get(Node, node_id)
+            node = node_map.get(node_id)
             if not node: continue
             
             for act in node_acts:
                 if act.action_type == ActionType.BREACH:
-                    player = session.get(Player, act.player_id)
+                    player = player_map.get(act.player_id)
                     if not player: continue
                     # A attacked B
                     if player.faction_id == fa.id and node.faction_id == fb.id:
@@ -241,7 +253,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             print(f"[ENGINE] Treaty {a.id} BROKEN due to hostilities.")
             
             # Notify affected players
-            affected = session.exec(select(Player).where(Player.faction_id.in_([fa.id, fb.id]))).all()
+            affected = [p for p in all_players if p.faction_id in (fa.id, fb.id)]
             for p in affected:
                 notif = Notification(player_id=p.id, message=f"ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
                 session.add(notif)
@@ -281,7 +293,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     # Collect generic combat events for the prompt
     combat_summaries = []
     for node_id, node_acts in node_actions.items():
-        node = session.get(Node, node_id)
+        node = node_map.get(node_id)
         if node:
             combat_summaries.append(f"Activity at Node {node.name} (Owned by Faction {node.faction_id})")
             
