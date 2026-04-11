@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing ARIA Labels on Standard UI Overlays
+**Learning:** Found a recurring accessibility issue where icon-only buttons on standard UI overlays, specifically the toggle button in `MissionPanel.js` and the close button in `HelpOverlay.js`, were missing `aria-label` attributes. This pattern suggests a potential blind spot when creating custom overlay components that don't rely on standard text-based buttons.
+**Action:** Added appropriate `aria-label`s to these buttons (`"Toggle mission panel"` and `"Close help overlay"`). In the future, I will proactively check for missing ARIA labels on any new or existing custom UI components, especially those utilizing icon-only buttons for actions like closing, toggling, or minimizing.
