@@ -194,18 +194,28 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     session.commit()
 
     # 2. Update economy (Compute Units) and global influence
+    from sqlmodel import func
     factions = session.exec(select(Faction)).all()
-    total_nodes = session.exec(select(Node)).all()
-    total_count = len(total_nodes)
+    total_count = session.exec(select(func.count(Node.id))).first() or 1
+
+    # Calculate compute sum and count per faction efficiently using group_by
+    node_stats = session.exec(
+        select(Node.faction_id, func.sum(Node.compute_output), func.count(Node.id))
+        .where(Node.faction_id != None)
+        .group_by(Node.faction_id)
+    ).all()
+
+    # Pre-populate a fast lookup dictionary (O(1)) instead of an O(F * N) loop search
+    stats_map = {f_id: (c_sum or 0, count) for f_id, c_sum, count in node_stats}
     
     for faction in factions:
-        owned_nodes = [n for n in total_nodes if n.faction_id == faction.id]
+        c_sum, count = stats_map.get(faction.id, (0, 0))
         
         if faction.compute_reserves is None:
             faction.compute_reserves = 0
-        faction.compute_reserves += sum(n.compute_output for n in owned_nodes if n.compute_output)
+        faction.compute_reserves += c_sum
         
-        faction.global_influence_pct = (len(owned_nodes) / max(1, total_count)) * 100.0
+        faction.global_influence_pct = (count / max(1, total_count)) * 100.0
         session.add(faction)
         
     # 3. Process Accords (Treaties)
@@ -243,7 +253,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             # Notify affected players
             affected = session.exec(select(Player).where(Player.faction_id.in_([fa.id, fb.id]))).all()
             for p in affected:
-                notif = Notification(player_id=p.id, message=f"ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
+                notif = Notification(player_id=p.id, message="ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
                 session.add(notif)
                 asyncio.create_task(manager.send_personal_message({"type": "NOTIFICATION", "message": notif.message, "severity": "warning"}, p.id))
                 
