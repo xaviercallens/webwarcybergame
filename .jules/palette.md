@@ -1,0 +1,3 @@
+## 2026-05-09 - [Accessibility] Icon-only Close/Toggle Buttons Missing aria-label
+**Learning:** Found a recurring accessibility issue pattern specifically in this app's overlay and modal components (`HelpOverlay`, `MissionPanel`, Settings, Diplomacy, and Sentinel Lab overlays in `main.js`). The close and toggle buttons were using icon-only characters (e.g., `×`, `\u2715`) without explicit `aria-label`s, rendering them inaccessible to screen readers.
+**Action:** When adding new overlays or modals, or reviewing existing UI components, explicitly check all icon-only interactive elements and ensure they include descriptive `aria-label` attributes to maintain accessibility standards.
