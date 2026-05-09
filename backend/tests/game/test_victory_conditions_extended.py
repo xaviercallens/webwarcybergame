@@ -4,7 +4,6 @@ Covers uncovered branches: attacker/defender specific wins, edge cases.
 """
 
 import pytest
-import numpy as np
 
 from src.rl.observation_space import GameState
 from src.game.victory_conditions import (

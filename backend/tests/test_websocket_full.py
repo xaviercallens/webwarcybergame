@@ -1,6 +1,7 @@
 """Tests for backend.websocket — ConnectionManager connect, disconnect, send, broadcast."""
-import os, pytest
-from unittest.mock import AsyncMock, MagicMock
+import os
+import pytest
+from unittest.mock import AsyncMock
 
 os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")
 os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")

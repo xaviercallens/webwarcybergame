@@ -7,7 +7,7 @@ import pytest
 import numpy as np
 
 from src.rl.neohack_env import NeoHackEnv
-from src.rl.action_space import AttackerAction, DefenderAction
+from src.rl.action_space import AttackerAction
 
 
 @pytest.fixture

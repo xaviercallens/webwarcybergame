@@ -1,0 +1,3 @@
+## YYYY-MM-DD - [Pre-calculate Hostility Map for Treaty Violations]
+**Learning:** In `backend/src/backend/engine.py`, the accord violation detection loop currently iterates over all actions for all accords. The memory instructions noted: "To optimize accord violation detection, pre-calculate a hostility map (attacker faction ID to set of victim faction IDs) from current epoch breach actions; this enables O(1) lookup during the accord loop instead of nested iterations." This represents an O(N*M) check that can be optimized to O(N + M).
+**Action:** Extract breach actions into a `hostility_map` before the accords loop, then query it during the treaty loop.

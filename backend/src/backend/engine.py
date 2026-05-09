@@ -211,28 +211,26 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     # 3. Process Accords (Treaties)
     events_log = []
     
+    # Pre-calculate hostility map for O(1) accord violation lookups
+    hostility_map = set()
+    for node_id, node_acts in node_actions.items():
+        node = session.get(Node, node_id)
+        if not node: continue
+        for act in node_acts:
+            if act.action_type == ActionType.BREACH:
+                player = session.get(Player, act.player_id)
+                if not player: continue
+                # Add tuple (attacker_faction_id, victim_faction_id)
+                hostility_map.add((player.faction_id, node.faction_id))
+
     for a in accords:
         fa = session.get(Faction, a.faction_a_id)
         fb = session.get(Faction, a.faction_b_id)
         if not fa or not fb: continue
         
         # Check for violations (Did A attack B this epoch?)
-        # Simple check: were there any BREACH actions by A on B's nodes?
-        violation = False
-        for node_id, node_acts in node_actions.items():
-            node = session.get(Node, node_id)
-            if not node: continue
-            
-            for act in node_acts:
-                if act.action_type == ActionType.BREACH:
-                    player = session.get(Player, act.player_id)
-                    if not player: continue
-                    # A attacked B
-                    if player.faction_id == fa.id and node.faction_id == fb.id:
-                        violation = True
-                    # B attacked A
-                    if player.faction_id == fb.id and node.faction_id == fa.id:
-                        violation = True
+        # Simple O(1) check using hostility_map
+        violation = (fa.id, fb.id) in hostility_map or (fb.id, fa.id) in hostility_map
                         
         if violation:
             a.status = "BROKEN"
@@ -243,7 +241,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             # Notify affected players
             affected = session.exec(select(Player).where(Player.faction_id.in_([fa.id, fb.id]))).all()
             for p in affected:
-                notif = Notification(player_id=p.id, message=f"ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
+                notif = Notification(player_id=p.id, message="ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
                 session.add(notif)
                 asyncio.create_task(manager.send_personal_message({"type": "NOTIFICATION", "message": notif.message, "severity": "warning"}, p.id))
                 

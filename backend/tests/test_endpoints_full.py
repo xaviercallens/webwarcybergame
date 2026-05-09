@@ -1,10 +1,10 @@
 """
 Comprehensive endpoint tests for main.py — Part 1: Auth, GameOver, Leaderboard, Epoch, WorldState.
 """
-import os, pytest
-from unittest.mock import patch, AsyncMock
+import os
+import pytest
 from fastapi.testclient import TestClient
-from sqlmodel import Session, SQLModel, create_engine, select
+from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
 os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")

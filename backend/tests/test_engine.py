@@ -1,11 +1,11 @@
 """
 Tests for backend.engine — sentinel injection, combat, economy, treaties, epoch loop.
 """
-import os, pytest, asyncio
-from unittest.mock import patch, AsyncMock, MagicMock
+import os
+import pytest
+from unittest.mock import patch, AsyncMock
 from sqlmodel import Session, SQLModel, create_engine, select
 from sqlmodel.pool import StaticPool
-from datetime import datetime, timedelta
 
 os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")
 os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")

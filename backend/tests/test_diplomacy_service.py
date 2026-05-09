@@ -1,6 +1,7 @@
 """Tests for backend.services.diplomacy — DiplomacyService chat, treaty, news."""
-import os, pytest
-from unittest.mock import MagicMock, AsyncMock, patch
+import os
+import pytest
+from unittest.mock import MagicMock, patch
 
 os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")
 os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")

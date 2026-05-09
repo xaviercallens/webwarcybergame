@@ -1,7 +1,6 @@
 """Tests for backend.cli — BackendCLI all methods and main()."""
-import os, pytest, json
+import os
 from unittest.mock import patch, MagicMock
-from io import StringIO
 
 os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")
 os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
