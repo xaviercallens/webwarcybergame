@@ -7,7 +7,7 @@ import os
 import pytest
 import jwt
 from datetime import timedelta, datetime
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 from fastapi import HTTPException
 
 os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")

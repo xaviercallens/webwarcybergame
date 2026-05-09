@@ -19,22 +19,19 @@ import argparse
 import csv
 import json
 import logging
-import os
-import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Optional
 
 import gymnasium as gym
 import numpy as np
-from gymnasium import spaces
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.vec_env import DummyVecEnv
 
 from rl.neohack_env import NeoHackEnv
-from rl.train_agents import RuleBasedAttacker, RuleBasedDefender, RandomAgent
+from rl.train_agents import RuleBasedAttacker, RuleBasedDefender
 from rl.scenarios.scenario_loader import get_scenario_for_difficulty
 
 logging.basicConfig(

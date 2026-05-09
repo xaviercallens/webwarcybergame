@@ -6,7 +6,7 @@ and rule-based pretrained agents.
 
 import logging
 import random
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 import numpy as np
 from fastapi import APIRouter, HTTPException
@@ -14,8 +14,6 @@ from pydantic import BaseModel
 
 from rl.neohack_env import NeoHackEnv
 from rl.action_space import (
-    ATTACKER_ACTIONS, DEFENDER_ACTIONS,
-    ACTION_DESCRIPTIONS, BASE_SUCCESS_RATES, STEALTH_COSTS,
     get_attacker_action_name, get_defender_action_name,
 )
 from rl.observation_space import get_attacker_observation, get_defender_observation, observation_to_vector

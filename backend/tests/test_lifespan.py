@@ -3,9 +3,8 @@ Tests for app lifespan and initialization.
 Ensures database initialization and app startup/shutdown.
 """
 
-import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch, MagicMock, AsyncMock
+from unittest.mock import patch
 
 from backend.main import app, lifespan
 
@@ -21,7 +20,6 @@ class TestAppLifespan:
     def test_lifespan_calls_init_db(self):
         """Test that lifespan calls database.init_db()."""
         import asyncio
-        from unittest.mock import patch
         
         async def test_lifespan_init():
             with patch('backend.database.init_db') as mock_init:
@@ -35,7 +33,6 @@ class TestAppLifespan:
     def test_lifespan_yields_control(self):
         """Test that lifespan yields control back."""
         import asyncio
-        from unittest.mock import patch
         
         async def test_lifespan_yield():
             startup_called = False
@@ -160,7 +157,6 @@ class TestDatabaseInitializationInLifespan:
 
     def test_lifespan_continues_after_init_db(self):
         """Test that lifespan continues after init_db."""
-        import asyncio
         
         async def test_continuation():
             init_called = False

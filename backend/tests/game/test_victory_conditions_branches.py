@@ -5,11 +5,9 @@ attacker/defender objective lists, alert-level game end.
 """
 
 import pytest
-import numpy as np
 
 from src.rl.observation_space import GameState
 from src.game.victory_conditions import (
-    VictoryCondition,
     VictoryType,
     ScenarioObjectives,
     GameEndConditions,

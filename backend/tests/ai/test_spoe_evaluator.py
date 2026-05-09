@@ -4,7 +4,6 @@ Tests MM-SA-Bench and PsyR-OM-Bench scoring.
 """
 
 import pytest
-import numpy as np
 
 from src.ai.spoe_evaluator import (
     SPOEEvaluator,

@@ -6,7 +6,7 @@ Tests /ai/decide, /ai/actions, /scenarios, /health, and game session routes.
 import pytest
 from fastapi.testclient import TestClient
 
-from src.rl_agent.main import app, AGENTS, _load_agents
+from src.rl_agent.main import app, _load_agents
 
 
 @pytest.fixture(autouse=True)

@@ -3,12 +3,10 @@ Integration tests for backend API.
 Tests interaction between multiple components.
 """
 
-import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session
 
 from backend.main import app
-from backend.database import get_session
 
 
 class TestAPIIntegration:
@@ -129,7 +127,6 @@ class TestConfigurationIntegration:
 
     def test_config_app_integration(self):
         """Test configuration and app integration."""
-        from backend.main import app
         
         # App should be initialized
         assert app is not None
