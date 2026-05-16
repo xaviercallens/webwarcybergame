@@ -77,6 +77,15 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     inject_sentinel_actions(session, epoch.id)
     actions = session.exec(select(EpochAction).where(EpochAction.epoch_id == epoch.id)).all()
     
+    # Pre-fetch players and nodes to eliminate N+1 queries during combat resolution
+    player_ids = list({a.player_id for a in actions})
+    players = session.exec(select(Player).where(Player.id.in_(player_ids))).all() if player_ids else []
+    player_dict = {p.id: p for p in players}
+
+    target_node_ids = list({a.target_node_id for a in actions})
+    nodes = session.exec(select(Node).where(Node.id.in_(target_node_ids))).all() if target_node_ids else []
+    node_dict = {n.id: n for n in nodes}
+
     # Pre-fetch and parse active Accords for CNSA Buffs
     accords = session.exec(select(Accord).where(Accord.status == "ACTIVE")).all()
     mercenary_allies = set()
@@ -99,14 +108,14 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
 
     # 1. Resolve combat interactions
     for node_id, node_acts in node_actions.items():
-        node = session.get(Node, node_id)
+        node = node_dict.get(node_id)
         if not node: continue
         
         attackers = {}
         defenders = 0
         
         for act in node_acts:
-            player = session.get(Player, act.player_id)
+            player = player_dict.get(act.player_id)
             if not player or not player.faction_id:
                 continue
                 
@@ -176,7 +185,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
 
     # 1c. Award XP to players who submitted actions
     for action in actions:
-        player = session.get(Player, action.player_id)
+        player = player_dict.get(action.player_id)
         if not player:
             continue
         xp_gain = 15 if action.action_type == ActionType.BREACH else 10
@@ -211,21 +220,30 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     # 3. Process Accords (Treaties)
     events_log = []
     
+    # Pre-fetch factions for Accords
+    accord_faction_ids = set()
     for a in accords:
-        fa = session.get(Faction, a.faction_a_id)
-        fb = session.get(Faction, a.faction_b_id)
+        accord_faction_ids.add(a.faction_a_id)
+        accord_faction_ids.add(a.faction_b_id)
+    all_accord_faction_ids = list(accord_faction_ids)
+    accord_factions = session.exec(select(Faction).where(Faction.id.in_(all_accord_faction_ids))).all() if all_accord_faction_ids else []
+    accord_faction_dict = {f.id: f for f in accord_factions}
+
+    for a in accords:
+        fa = accord_faction_dict.get(a.faction_a_id)
+        fb = accord_faction_dict.get(a.faction_b_id)
         if not fa or not fb: continue
         
         # Check for violations (Did A attack B this epoch?)
         # Simple check: were there any BREACH actions by A on B's nodes?
         violation = False
         for node_id, node_acts in node_actions.items():
-            node = session.get(Node, node_id)
+            node = node_dict.get(node_id)
             if not node: continue
             
             for act in node_acts:
                 if act.action_type == ActionType.BREACH:
-                    player = session.get(Player, act.player_id)
+                    player = player_dict.get(act.player_id)
                     if not player: continue
                     # A attacked B
                     if player.faction_id == fa.id and node.faction_id == fb.id:
@@ -281,7 +299,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     # Collect generic combat events for the prompt
     combat_summaries = []
     for node_id, node_acts in node_actions.items():
-        node = session.get(Node, node_id)
+        node = node_dict.get(node_id)
         if node:
             combat_summaries.append(f"Activity at Node {node.name} (Owned by Faction {node.faction_id})")
             
