@@ -3,10 +3,8 @@ Final coverage tests to reach 95%+ code coverage.
 Tests for uncovered code paths in main.py and database.py
 """
 
-import pytest
-import os
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from backend.main import app, WEB_BUILD_DIR
@@ -49,7 +47,6 @@ class TestDatabaseLogging:
     def test_database_warning_when_not_configured(self):
         """Test that database logs warning when not configured."""
         import backend.database as db_module
-        import logging
         
         # Reset engine
         db_module._engine = None

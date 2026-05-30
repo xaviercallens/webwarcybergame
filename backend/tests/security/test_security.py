@@ -11,7 +11,6 @@ from src.middleware.security import (
     RateLimiter,
     GameActionRequest,
     ActionAuthorizer,
-    game_action_limiter,
 )
 from src.rl.action_space import AttackerAction, DefenderAction
 from fastapi import HTTPException

@@ -5,17 +5,15 @@ Self-play training with PPO for attacker and defender agents.
 Blueprint Alignment: Section 3.2-3.3 (RL Integration)
 """
 
-import os
 import json
 import logging
 from typing import Dict, Any, Optional, Tuple
 from pathlib import Path
 
 import numpy as np
-import gymnasium as gym
 
 from .neohack_env import NeoHackEnv
-from .scenarios.scenario_loader import load_scenario, get_scenario_for_difficulty
+from .scenarios.scenario_loader import get_scenario_for_difficulty
 
 logger = logging.getLogger(__name__)
 

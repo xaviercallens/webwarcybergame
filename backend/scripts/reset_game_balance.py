@@ -5,7 +5,6 @@ Resets node defenses, redistributes territory asymmetrically,
 sets varied faction CU reserves, and resets player XP.
 """
 import os
-import sys
 
 # Try to connect to the GCP database via the Cloud SQL Proxy
 DATABASE_URL = os.environ.get("DATABASE_URL")

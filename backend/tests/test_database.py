@@ -5,8 +5,7 @@ Tests database connection, session management, and initialization.
 
 import pytest
 from sqlalchemy import text
-from sqlmodel import Session, SQLModel, create_engine
-from sqlmodel.pool import StaticPool
+from sqlmodel import Session, SQLModel
 
 from backend.database import get_engine, get_session, init_db
 from backend import config

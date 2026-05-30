@@ -4,13 +4,10 @@ Logs all HTTP requests/responses to a timestamped log file for demo recording.
 """
 import time
 import json
-import logging
 from pathlib import Path
 from datetime import datetime
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import Response
-from io import BytesIO
 
 DEMO_LOG_DIR = Path(__file__).parent.parent.parent.parent / "specs" / "demo_logs"
 DEMO_LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -27,7 +24,7 @@ def init_demo_log():
     _log_file = DEMO_LOG_DIR / f"demo_api_log_{ts}.txt"
     with open(_log_file, "w") as f:
         f.write(f"{'='*80}\n")
-        f.write(f"  NEO-HACK: GRIDLOCK v3.2 — DEMO API CALL LOG\n")
+        f.write("  NEO-HACK: GRIDLOCK v3.2 — DEMO API CALL LOG\n")
         f.write(f"  Started: {datetime.now().isoformat()}\n")
         f.write(f"{'='*80}\n\n")
     return _log_file

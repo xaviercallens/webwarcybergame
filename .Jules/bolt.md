@@ -1,0 +1,3 @@
+## 2024-05-30 - O(1) Treaty Violation Checking
+**Learning:** Checking for treaty (accord) violations among factions by iterating through all node actions and looking up players/nodes sequentially (`session.get`) introduces an O(N^3) time complexity and severe N+1 database querying issues inside the transition loop.
+**Action:** Pre-calculate relationship state maps (like a `hostilities` set tracking attacker and victim faction IDs) during earlier O(N) single-pass loops (like combat resolution). Use this set for O(1) membership lookups in subsequent loops to bypass costly nested iterations and redundant DB fetches.

@@ -1,5 +1,5 @@
 """Tests for backend.seed_cnsa — CNSA faction seeding."""
-import os, pytest
+import os
 from unittest.mock import patch
 from sqlmodel import Session, SQLModel, create_engine, select
 from sqlmodel.pool import StaticPool

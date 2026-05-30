@@ -6,7 +6,6 @@ Blueprint Alignment: Section 1 (Core Mechanics)
 
 import pytest
 import random
-import numpy as np
 
 from src.rl.observation_space import GameState
 from src.rl.action_space import AttackerAction, DefenderAction
