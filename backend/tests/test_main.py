@@ -3,7 +3,6 @@ Unit tests for main FastAPI application.
 Tests app initialization, lifespan, and configuration.
 """
 
-import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 

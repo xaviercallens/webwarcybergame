@@ -3,9 +3,7 @@ Tests for static file serving.
 Tests the conditional mounting of static files.
 """
 
-import pytest
 from pathlib import Path
-from unittest.mock import patch, MagicMock
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.testclient import TestClient
@@ -18,7 +16,6 @@ class TestStaticFilesConditionalMounting:
         """Test that static files are mounted when WEB_BUILD_DIR exists."""
         # Create a temporary directory to simulate WEB_BUILD_DIR
         import tempfile
-        import os
         
         with tempfile.TemporaryDirectory() as tmpdir:
             # Create a simple index.html
@@ -125,7 +122,6 @@ class TestMainAppStaticFilesConfiguration:
     def test_web_build_dir_from_environment(self):
         """Test WEB_BUILD_DIR respects environment variable."""
         import os
-        from pathlib import Path
         
         # Check if WEB_BUILD_DIR env var is used
         # This is set in main.py: os.getenv("WEB_BUILD_DIR", ...)
@@ -144,7 +140,7 @@ class TestMainAppStaticFilesConfiguration:
 
     def test_static_files_optional(self):
         """Test that static files are optional."""
-        from backend.main import app, WEB_BUILD_DIR
+        from backend.main import app
         
         # App should work regardless of whether static files exist
         client = TestClient(app)
@@ -168,7 +164,6 @@ class TestStaticFilesErrorHandling:
     def test_404_for_missing_static_files(self):
         """Test 404 for missing static files."""
         import tempfile
-        from pathlib import Path
         
         with tempfile.TemporaryDirectory() as tmpdir:
             test_app = FastAPI()

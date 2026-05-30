@@ -3,7 +3,7 @@ Stealth and alert system for Neo-Hack v3.1.
 Manages detection mechanics and alert level progression.
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any
 import random
 
 

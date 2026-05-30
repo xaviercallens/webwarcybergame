@@ -4,7 +4,7 @@ Defines all attacker and defender actions per blueprint Section 1.
 """
 
 from enum import IntEnum
-from typing import Dict, List
+from typing import Dict
 
 
 class AttackerAction(IntEnum):

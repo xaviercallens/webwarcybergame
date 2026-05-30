@@ -1,6 +1,8 @@
 """Tests for backend.seed — FACTIONS_DATA, generate_nodes_for_faction, seed_database."""
-import os, pytest, random
-from unittest.mock import patch, MagicMock
+import os
+import pytest
+import random
+from unittest.mock import patch
 from sqlmodel import Session, SQLModel, create_engine, select
 from sqlmodel.pool import StaticPool
 

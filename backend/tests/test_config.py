@@ -4,7 +4,6 @@ Tests environment variable loading and settings management.
 """
 
 import os
-import pytest
 from backend.config import Settings, settings
 
 

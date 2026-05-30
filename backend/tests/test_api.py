@@ -3,7 +3,6 @@ Unit tests for FastAPI endpoints.
 Tests all API routes and response formats.
 """
 
-import pytest
 from fastapi.testclient import TestClient
 
 

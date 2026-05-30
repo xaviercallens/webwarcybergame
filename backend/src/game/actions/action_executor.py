@@ -7,7 +7,6 @@ Blueprint Alignment: Section 1 (Core Mechanics) - Probabilistic Action Execution
 
 from typing import Dict, Any, Optional
 
-from src.rl.action_space import AttackerAction, DefenderAction, STEALTH_COSTS
 from src.rl.observation_space import GameState
 from src.game.detection_engine import StealthAlertSystem
 from src.game.resources import ResourceManager, ActionCostCalculator

@@ -3,9 +3,7 @@ Functional tests for backend.
 Tests complete workflows and user scenarios.
 """
 
-import pytest
 from fastapi.testclient import TestClient
-import json
 
 
 class TestHealthCheckWorkflow:

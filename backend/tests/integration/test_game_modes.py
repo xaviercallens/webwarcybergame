@@ -9,7 +9,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.rl_agent.main import app, _load_agents
-from src.rl.train_agents import RuleBasedAttacker, RuleBasedDefender, RandomAgent, play_episode
+from src.rl.train_agents import RuleBasedAttacker, RuleBasedDefender, play_episode
 from src.rl.observation_space import GameState
 from src.game.turn_manager import TurnManager
 from src.game.actions.action_executor import ActionExecutor

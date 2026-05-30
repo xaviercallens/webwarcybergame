@@ -1,7 +1,8 @@
 """
 Endpoint tests Part 2: Actions, Diplomacy, Sentinels, Notifications, WebSocket.
 """
-import os, pytest
+import os
+import pytest
 from unittest.mock import patch, AsyncMock
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine, select
@@ -178,7 +179,6 @@ class TestWebSocket:
     """v3.0: WebSocket now uses First-Frame Auth (JSON payload, not query params)."""
     def test_no_auth_frame(self, client):
         """Connection without sending auth frame should be closed."""
-        import json as _json
         with client.websocket_connect("/ws/game") as ws:
             # Don't send auth — server should close after 3s timeout
             # But TestClient doesn't timeout, so send invalid data

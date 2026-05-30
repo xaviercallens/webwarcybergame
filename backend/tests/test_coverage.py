@@ -3,10 +3,8 @@ Additional tests to improve code coverage.
 Tests edge cases and missing code paths.
 """
 
-import pytest
 from pathlib import Path
 from fastapi.testclient import TestClient
-from sqlmodel import Session
 
 from backend.main import app, WEB_BUILD_DIR
 from backend.database import get_session
