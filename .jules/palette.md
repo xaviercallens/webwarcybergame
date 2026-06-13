@@ -1,0 +1,3 @@
+## 2024-10-24 - [Icon-only Modal Close Buttons]
+**Learning:** In this application, several modal and overlay components (Settings, Diplomacy, Sentinel Lab, and Mission Panel) use raw text characters like '×' or Unicode '\u2715' for close/toggle buttons without textual descriptions. This causes a major accessibility barrier since screen readers will either read out "times"/"multiply" or nothing at all, making the button's action indiscernible to visually impaired users.
+**Action:** When inspecting or adding new modals, overlays, or floating panels, always verify that any icon-only button (especially close toggles) includes an explicit `aria-label` (e.g., `aria-label="Close settings"`) to guarantee screen-reader accessibility.
