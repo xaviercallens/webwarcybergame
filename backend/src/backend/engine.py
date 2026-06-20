@@ -211,28 +211,43 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     # 3. Process Accords (Treaties)
     events_log = []
     
+    # Pre-calculate hostilities to avoid O(N^3) DB queries
+    hostilities = set()
+
+    # Bulk fetch required entities
+    player_ids = set()
+    for acts in node_actions.values():
+        for act in acts:
+            if act.action_type == ActionType.BREACH:
+                player_ids.add(act.player_id)
+    player_ids = list(player_ids)
+    node_ids = list(node_actions.keys())
+
+    if player_ids and node_ids:
+        players = session.exec(select(Player).where(Player.id.in_(player_ids))).all()
+        nodes = session.exec(select(Node).where(Node.id.in_(node_ids))).all()
+
+        player_faction_map = {p.id: p.faction_id for p in players if p.faction_id}
+        node_faction_map = {n.id: n.faction_id for n in nodes if n.faction_id}
+
+        for node_id, acts in node_actions.items():
+            victim_faction = node_faction_map.get(node_id)
+            if not victim_faction:
+                continue
+
+            for act in acts:
+                if act.action_type == ActionType.BREACH:
+                    attacker_faction = player_faction_map.get(act.player_id)
+                    if attacker_faction:
+                        hostilities.add((attacker_faction, victim_faction))
+
     for a in accords:
         fa = session.get(Faction, a.faction_a_id)
         fb = session.get(Faction, a.faction_b_id)
         if not fa or not fb: continue
         
         # Check for violations (Did A attack B this epoch?)
-        # Simple check: were there any BREACH actions by A on B's nodes?
-        violation = False
-        for node_id, node_acts in node_actions.items():
-            node = session.get(Node, node_id)
-            if not node: continue
-            
-            for act in node_acts:
-                if act.action_type == ActionType.BREACH:
-                    player = session.get(Player, act.player_id)
-                    if not player: continue
-                    # A attacked B
-                    if player.faction_id == fa.id and node.faction_id == fb.id:
-                        violation = True
-                    # B attacked A
-                    if player.faction_id == fb.id and node.faction_id == fa.id:
-                        violation = True
+        violation = (fa.id, fb.id) in hostilities or (fb.id, fa.id) in hostilities
                         
         if violation:
             a.status = "BROKEN"
