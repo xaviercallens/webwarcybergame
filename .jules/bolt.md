@@ -1,0 +1,3 @@
+## 2025-03-05 - O(1) Mapping for Nested Interaction Logic
+**Learning:** In the backend `engine.py` combat/accord resolution loops, iterating over interactions (e.g., node actions) inside another loop (e.g., accords) caused an O(N^3) performance bottleneck and redundant database N+1 queries.
+**Action:** Instead of repeating nested database logic, pre-calculate interactions into an O(1) mapped lookup (like a `set` of `(attacker_id, victim_id)`) by iterating through events once before the nested loops. This drastically improves performance for engine resolution algorithms.
