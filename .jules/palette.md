@@ -1,0 +1,3 @@
+## 2024-06-27 - Missing ARIA Labels on Overlay Close Buttons
+**Learning:** Found a recurring accessibility issue where icon-only overlay and modal close buttons (e.g., using '×' or '\u2715' characters) in components like HelpOverlay, MissionPanel, and main views were missing explicit `aria-label` attributes. This makes them unreadable for screen readers.
+**Action:** Added proper `aria-label`s. In the future, actively look for modal/overlay close buttons (which frequently use symbols like 'X' or '×') and ensure they always have an `aria-label` describing their function (e.g., "Close settings").
