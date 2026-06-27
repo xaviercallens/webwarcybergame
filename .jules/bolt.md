@@ -1,0 +1,3 @@
+## 2024-05-19 - [O(1) Map Pre-calculation in Combat Resolution]
+**Learning:** Checking interactions (like Accords/treaties broken by hostilities) by re-iterating over nested node_actions and running lazy DB fetches (session.get()) leads to N+1 query patterns and O(N*A) complexity inside another loop, causing severe slowdowns as the number of nodes and actions grows.
+**Action:** Pre-calculate interactions during a single O(N) pass (e.g. while resolving combat) into a set of tuples (`hostilities.add((attacker, victim))`). This allows subsequent dependency checks to be an O(1) lookup (`(fa, fb) in hostilities`), significantly reducing time complexity and eliminating repeated database reads.
