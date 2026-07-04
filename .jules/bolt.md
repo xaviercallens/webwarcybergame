@@ -1,0 +1,3 @@
+## 2024-05-17 - Eliminate N+1 Database Queries in Diplomacy Engine
+**Learning:** Found an N+1 database querying pattern and nested O(N^2) evaluation loop within the backend's main tick loop (`process_transition_phase_async` in `backend/src/backend/engine.py`). For every interaction and treaty violation check, it lazily called `session.get(Node)` or `session.get(Player)`, scaling poorly with active epoch actions.
+**Action:** Optimized by pre-calculating unique target nodes and players into sets, followed by a single `.in_()` bulk fetch and caching results in a map for O(1) loop-ups. Replaced O(N^2) nested evaluation for accord violations with a pre-calculated `hostilities` set populated during the initial combat resolution phase.
