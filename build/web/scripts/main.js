@@ -236,7 +236,7 @@ const views = {
       <div class="panel settings-panel">
         <div class="panel-header">
           <span>⚙ SYSTEM.CFG</span>
-          <button id="btn-close-settings" style="background:none; border:none; color:var(--color-accent); cursor:pointer; font-size:1.5rem;">×</button>
+          <button id="btn-close-settings" aria-label="Close Settings" style="background:none; border:none; color:var(--color-accent); cursor:pointer; font-size:1.5rem;">×</button>
         </div>
         
         <div class="setting-row">
@@ -301,7 +301,7 @@ const views = {
         
         <div class="panel-header" style="justify-content: space-between; border-bottom: 1px solid var(--color-accent); padding-bottom: 0.5rem;">
           <span style="color: var(--color-accent); text-shadow: 0 0 5px var(--color-accent); font-size: 1.2rem;">[ SECURE DIPLOMATIC CHANNEL ]</span>
-          <button id="btn-close-diplomacy" style="background: none; border: none; color: var(--color-accent); font-size: 1.5rem; cursor: pointer;">×</button>
+          <button id="btn-close-diplomacy" aria-label="Close Diplomacy" style="background: none; border: none; color: var(--color-accent); font-size: 1.5rem; cursor: pointer;">×</button>
         </div>
 
         <div style="display: flex; flex: 1; overflow: hidden; margin-top: 1rem;">
@@ -362,7 +362,7 @@ const views = {
         
         <div class="panel-header" style="justify-content: space-between; border-bottom: 1px solid var(--color-accent); padding-bottom: 0.5rem;">
           <span style="color: var(--color-accent); text-shadow: 0 0 5px var(--color-accent); font-size: 1.2rem;">[ SENTINEL LAB ]</span>
-          <button id="btn-close-sentinel" style="background: none; border: none; color: var(--color-accent); font-size: 1.5rem; cursor: pointer;">×</button>
+          <button id="btn-close-sentinel" aria-label="Close Sentinel" style="background: none; border: none; color: var(--color-accent); font-size: 1.5rem; cursor: pointer;">×</button>
         </div>
 
         <div style="display: flex; flex: 1; overflow: hidden; margin-top: 1rem; padding: 1rem; gap: 2rem;">
