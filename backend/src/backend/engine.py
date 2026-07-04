@@ -13,7 +13,8 @@ def inject_sentinel_actions(session: Session, epoch_id: int):
     
     sentinels = session.exec(select(Sentinel).where(Sentinel.status == SentinelStatus.DEPLOYED)).all()
     all_nodes = session.exec(select(Node)).all()
-    if not all_nodes: return
+    if not all_nodes:
+        return
     
     for s in sentinels:
         player = session.get(Player, s.player_id)
@@ -27,7 +28,8 @@ def inject_sentinel_actions(session: Session, epoch_id: int):
             continue
             
         policy = session.exec(select(SentinelPolicy).where(SentinelPolicy.sentinel_id == s.id)).first()
-        if not policy: continue
+        if not policy:
+            continue
         
         action_type = ActionType.BREACH if random.random() < policy.aggression_weight else ActionType.DEFEND
         
@@ -84,12 +86,24 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     cartel_allies = set()
     
     for a in accords:
-        if a.faction_a_id == 6: mercenary_allies.add(a.faction_b_id)
-        if a.faction_b_id == 6: mercenary_allies.add(a.faction_a_id)
-        if a.faction_a_id == 7: sentinel_allies.add(a.faction_b_id)
-        if a.faction_b_id == 7: sentinel_allies.add(a.faction_a_id)
-        if a.faction_a_id == 8: cartel_allies.add(a.faction_b_id)
-        if a.faction_b_id == 8: cartel_allies.add(a.faction_a_id)
+        if a.faction_a_id == 6:
+            mercenary_allies.add(a.faction_b_id)
+        if a.faction_b_id == 6:
+            mercenary_allies.add(a.faction_a_id)
+        if a.faction_a_id == 7:
+            sentinel_allies.add(a.faction_b_id)
+        if a.faction_b_id == 7:
+            sentinel_allies.add(a.faction_a_id)
+        if a.faction_a_id == 8:
+            cartel_allies.add(a.faction_b_id)
+        if a.faction_b_id == 8:
+            cartel_allies.add(a.faction_a_id)
+
+    target_node_ids = {a.target_node_id for a in actions if a.target_node_id}
+    player_ids = {a.player_id for a in actions if a.player_id}
+
+    nodes_map = {n.id: n for n in session.exec(select(Node).where(Node.id.in_(target_node_ids))).all()} if target_node_ids else {}
+    players_map = {p.id: p for p in session.exec(select(Player).where(Player.id.in_(player_ids))).all()} if player_ids else {}
 
     node_actions = {}
     for action in actions:
@@ -97,21 +111,27 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             node_actions[action.target_node_id] = []
         node_actions[action.target_node_id].append(action)
 
+    hostilities = set()
+
     # 1. Resolve combat interactions
     for node_id, node_acts in node_actions.items():
-        node = session.get(Node, node_id)
-        if not node: continue
+        node = nodes_map.get(node_id)
+        if not node:
+            continue
         
         attackers = {}
         defenders = 0
         
         for act in node_acts:
-            player = session.get(Player, act.player_id)
+            player = players_map.get(act.player_id)
             if not player or not player.faction_id:
                 continue
                 
             if act.action_type == ActionType.BREACH:
                 faction_id = player.faction_id
+                # Record hostility for accord checks (attacker_faction_id, victim_faction_id)
+                if faction_id != node.faction_id:
+                    hostilities.add((faction_id, node.faction_id))
                 cu = act.cu_committed
                 
                 # CNSA Buffs & Debuffs
@@ -176,20 +196,27 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
 
     # 1c. Award XP to players who submitted actions
     for action in actions:
-        player = session.get(Player, action.player_id)
+        player = players_map.get(action.player_id)
         if not player:
             continue
         xp_gain = 15 if action.action_type == ActionType.BREACH else 10
         player.xp += xp_gain
         # Recalculate rank
         xp = player.xp
-        if xp >= 20000: player.rank = "GRID_SOVEREIGN"
-        elif xp >= 12000: player.rank = "SHADOW_ADMIN"
-        elif xp >= 7000: player.rank = "BLACK_HAT"
-        elif xp >= 3500: player.rank = "ZERO_DAY"
-        elif xp >= 1500: player.rank = "ROOT_ACCESS"
-        elif xp >= 500: player.rank = "PACKET_SNIFFER"
-        else: player.rank = "SCRIPT_KIDDIE"
+        if xp >= 20000:
+            player.rank = "GRID_SOVEREIGN"
+        elif xp >= 12000:
+            player.rank = "SHADOW_ADMIN"
+        elif xp >= 7000:
+            player.rank = "BLACK_HAT"
+        elif xp >= 3500:
+            player.rank = "ZERO_DAY"
+        elif xp >= 1500:
+            player.rank = "ROOT_ACCESS"
+        elif xp >= 500:
+            player.rank = "PACKET_SNIFFER"
+        else:
+            player.rank = "SCRIPT_KIDDIE"
         session.add(player)
     session.commit()
 
@@ -214,25 +241,12 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
     for a in accords:
         fa = session.get(Faction, a.faction_a_id)
         fb = session.get(Faction, a.faction_b_id)
-        if not fa or not fb: continue
+        if not fa or not fb:
+            continue
         
         # Check for violations (Did A attack B this epoch?)
-        # Simple check: were there any BREACH actions by A on B's nodes?
-        violation = False
-        for node_id, node_acts in node_actions.items():
-            node = session.get(Node, node_id)
-            if not node: continue
-            
-            for act in node_acts:
-                if act.action_type == ActionType.BREACH:
-                    player = session.get(Player, act.player_id)
-                    if not player: continue
-                    # A attacked B
-                    if player.faction_id == fa.id and node.faction_id == fb.id:
-                        violation = True
-                    # B attacked A
-                    if player.faction_id == fb.id and node.faction_id == fa.id:
-                        violation = True
+        # Simple check: were there any BREACH actions by A on B's nodes or B on A's nodes?
+        violation = (fa.id, fb.id) in hostilities or (fb.id, fa.id) in hostilities
                         
         if violation:
             a.status = "BROKEN"
@@ -243,7 +257,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             # Notify affected players
             affected = session.exec(select(Player).where(Player.faction_id.in_([fa.id, fb.id]))).all()
             for p in affected:
-                notif = Notification(player_id=p.id, message=f"ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
+                notif = Notification(player_id=p.id, message="ACCORD BROKEN: Hostilities detected with an allied faction.", type=NotificationType.DIPLOMACY)
                 session.add(notif)
                 asyncio.create_task(manager.send_personal_message({"type": "NOTIFICATION", "message": notif.message, "severity": "warning"}, p.id))
                 
