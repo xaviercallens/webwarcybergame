@@ -54,7 +54,7 @@ export class HelpOverlay {
             <input type="text" id="help-search" placeholder="Search..." 
                    value="${this._searchQuery}" autocomplete="off" />
           </div>
-          <button class="help-overlay__close" id="btn-help-close">×</button>
+          <button class="help-overlay__close" id="btn-help-close" aria-label="Close help overlay">×</button>
         </div>
         <div class="help-overlay__tabs">
           ${TABS.map(t => `

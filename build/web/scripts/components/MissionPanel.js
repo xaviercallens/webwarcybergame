@@ -30,7 +30,7 @@ export class MissionPanel {
     this.el.innerHTML = `
       <div class="mission-panel__header">
         <span class="mission-panel__title">MISSION OBJECTIVES</span>
-        <button class="mission-panel__toggle" id="btn-mission-toggle">\u2715</button>
+        <button class="mission-panel__toggle" id="btn-mission-toggle" aria-label="Toggle mission objectives">\u2715</button>
       </div>
 
       <div class="mission-panel__section mission-panel__section--attacker">
