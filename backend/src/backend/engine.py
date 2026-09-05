@@ -97,6 +97,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             node_actions[action.target_node_id] = []
         node_actions[action.target_node_id].append(action)
 
+    hostilities = set()
     # 1. Resolve combat interactions
     for node_id, node_acts in node_actions.items():
         node = session.get(Node, node_id)
@@ -113,6 +114,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
             if act.action_type == ActionType.BREACH:
                 faction_id = player.faction_id
                 cu = act.cu_committed
+                hostilities.add((faction_id, node.faction_id))
                 
                 # CNSA Buffs & Debuffs
                 if faction_id in mercenary_allies:
@@ -218,21 +220,7 @@ async def process_transition_phase_async(session: Session, epoch: Epoch):
         
         # Check for violations (Did A attack B this epoch?)
         # Simple check: were there any BREACH actions by A on B's nodes?
-        violation = False
-        for node_id, node_acts in node_actions.items():
-            node = session.get(Node, node_id)
-            if not node: continue
-            
-            for act in node_acts:
-                if act.action_type == ActionType.BREACH:
-                    player = session.get(Player, act.player_id)
-                    if not player: continue
-                    # A attacked B
-                    if player.faction_id == fa.id and node.faction_id == fb.id:
-                        violation = True
-                    # B attacked A
-                    if player.faction_id == fb.id and node.faction_id == fa.id:
-                        violation = True
+        violation = (fa.id, fb.id) in hostilities or (fb.id, fa.id) in hostilities
                         
         if violation:
             a.status = "BROKEN"
